@@ -42,4 +42,8 @@ class music{
 	static searchArtist(term){
 
 	}
+
+	static deleteSong(id){
+		
+	}
 }
