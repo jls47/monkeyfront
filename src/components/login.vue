@@ -1,14 +1,18 @@
 <template>
-<a class="button is-white">
-	<span class="icon is-medium">
-   		<i class="fas fa-search fa-stack-2x"></i>
-	</span>
-</a>
+
+<div>
+	<a class="button is-white">
+		<span class="icon is-medium">
+    		<i class="fas fa-lock-open fa-stack-2x"></i>
+		</span>
+	</a>
+</div>
+
 </template>
 
 <script>
 export default {
-  name: 'search',
+  name: 'login',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
@@ -17,7 +21,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 a{
 	width: 40px;
 }

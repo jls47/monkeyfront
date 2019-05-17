@@ -23,7 +23,7 @@ class music{
 		  })
 	}
 
-	static getSongs(){
+	static getRecentSongs(){
 
 	}
 
@@ -31,7 +31,7 @@ class music{
 
 	}
 
-	static searchSong(term){
+	static searchSongs(term){
 
 	}
 
@@ -43,7 +43,7 @@ class music{
 
 	}
 
-	static deleteSong(id){
+	static deleteSongs(data){
 		
 	}
 }
