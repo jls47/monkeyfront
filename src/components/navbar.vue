@@ -43,5 +43,6 @@ export default {
 <style lang="scss">
 #logo{
 	margin-top: 10px;
+	width: 100px;
 }
 </style>
