@@ -1,32 +1,42 @@
 <template>
-<nav class="navbar is-dark">
+<div>
+  <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img src="http://themonkeypub.com/images/mp-header-logo.png" width="120px">
+    </a>
+    <!--Make this a component!-->
+    <a role="button" class="navbar-burger burger" aria-expanded="false" id = "lock">
+      <span class="mdi mdi-36px mdi-lock"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a href="https://www.jlukes.com/tfind">
-        <img id = "logo" src="../assets/monkey.png"/>
+      <a class="navbar-item">
+        Home
+      </a>
+
+      <a class="navbar-item">
+        Documentation
       </a>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <div v-if="this.loginStatus == true && this.TOstatus == true">
-            <router-link tag="a" to="/create"><button class="button is-danger is-inverted">Create Tournament</button></router-link>
-          </div>
+          <a class="button is-primary">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light">
+            Log in
+          </a>
         </div>
       </div>
-      <div class="navbar-item">
-        <div class="buttons">
-          <div v-if="this.loginStatus == false">
-            <login @log="onLog"></login>
-            <button class="button is-danger is-inverted" @click = "openModal">Sign Up</button>
-          </div>
-          <div v-else>
-            <logout @out="onLog"></logout>
-          </div>
-        </div>
-      </div>
-    </div>  
-  </nav>
+    </div>
+  </div>
+</nav>
+</div>
 </template>
 
 <script>
@@ -36,13 +46,24 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  components: {
   }
 }
+
+
 </script>
 
 <style lang="scss">
 #logo{
 	margin-top: 10px;
-	width: 100px;
+	width: 100%;
+}
+nav{
+	top: 0;
+}
+#lock{
+	margin-top: -21px;
+	margin-right: 10px;
 }
 </style>

@@ -1,15 +1,4 @@
 <template>
-<section>
-	<b-field label="Username">
-		<b-input></b-input>
-	</b-field>
-
-	<b-field label="Password">
-		<b-input></b-input>
-	</b-field>
-
-	<button class="button is-black">Login</button>
-</section>
 </template>
 
 <script>

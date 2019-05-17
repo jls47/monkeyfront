@@ -1,9 +1,5 @@
 <template>
-<a class="button is-white">
-	<span class="icon is-medium">
-   		<i class="fas fa-search fa-stack-2x"></i>
-	</span>
-</a>
+
 </template>
 
 <script>
@@ -17,11 +13,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-a{
-	width: 40px;
-}
-i{
-	text-align: center;
-}
+<style lang="scss" scoped>
+
 </style>
