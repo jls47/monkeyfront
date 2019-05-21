@@ -13,20 +13,20 @@
   </div>
 
   <div id="navbarBasicExample" class="navbar-menu" v-bind:class="{'is-active': toggled}" >
-    <div class="navbar-start admin-tools">
+    <div class="navbar-start admin-tools" v-if="logged">
       <div class="navbar-item">
-      <a class="button is-black">
-        Edit
+      <a class="button is-light">
+        Edit <span class="mdi mdi-12px mdi-border-color"></span>
       </a>
       </div>
       <div class="navbar-item">
-      <a class="button is-black">
-        Delete
+      <a class="button is-light">
+        Delete <span class="mdi mdi-12px mdi-delete"></span>
       </a>
       </div>
       <div class="navbar-item">
-      <a class="button is-black">
-        Create
+      <a class="button is-light">
+        Create <span class="mdi mdi-12px mdi-plus"></span>
       </a>
       </div>
     </div>
@@ -55,6 +55,7 @@ export default {
   name: 'navbar',
   data () {
     return {
+      logged: false,
       toggled: false,
       msg: 'Welcome to Your Vue.js App'
     }

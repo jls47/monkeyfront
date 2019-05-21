@@ -8,11 +8,14 @@
 import search from '@/components/search';
 import loginform from '@/components/loginform';
 import navbar from '@/components/navbar';
+import store from '../main.js';
+import { mapActions } from 'vuex';
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      searching: store.getters.searchStatus
     }
   },
   components: {
