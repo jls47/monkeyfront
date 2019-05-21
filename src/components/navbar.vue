@@ -5,37 +5,48 @@
     <a class="navbar-item" href="https://bulma.io">
       <img src="http://themonkeypub.com/images/mp-header-logo.png" width="120px">
     </a>
-    <!--Make this a component!-->
-    <a role="button" class="navbar-burger burger" aria-expanded="false" id = "lock">
-      <span class="mdi mdi-36px mdi-lock"></span>
+    <a role="button" v-on:click="burgerToggle" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item">
-        Home
+  <div id="navbarBasicExample" class="navbar-menu" v-bind:class="{'is-active': toggled}" >
+    <div class="navbar-start admin-tools">
+      <div class="navbar-item">
+      <a class="button is-black">
+        Edit
       </a>
-
-      <a class="navbar-item">
-        Documentation
+      </div>
+      <div class="navbar-item">
+      <a class="button is-black">
+        Delete
       </a>
+      </div>
+      <div class="navbar-item">
+      <a class="button is-black">
+        Create
+      </a>
+      </div>
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
-        <div class="buttons">
           <a class="button is-primary">
-            <strong>Sign up</strong>
+            <strong>Search <span class="mdi mdi-12px mdi-magnify"></span></strong>
           </a>
-          <a class="button is-light">
-            Log in
-          </a>
+          
         </div>
       </div>
-    </div>
+      <div class="navbar-item">
+        <a class="button is-light">
+            <strong>Log in <span class="mdi mdi-12px mdi-lock"></span></strong>
+          </a>
+      </div>
   </div>
 </nav>
+<!-- span class="mdi mdi-36px mdi-lock"></span> -->
 </div>
 </template>
 
@@ -44,7 +55,17 @@ export default {
   name: 'navbar',
   data () {
     return {
+      toggled: false,
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    burgerToggle: function(){
+      if(this.toggled == false){
+        this.toggled = true;
+      }else{
+        this.toggled = false;
+      }
     }
   },
   components: {

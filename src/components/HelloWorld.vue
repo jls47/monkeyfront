@@ -1,10 +1,6 @@
 <template><div>
 <navbar></navbar>
-
-    <br><login></login>
-    <br><logout></logout><br>
-    <br><search></search>
-    <br><loginform></loginform>
+<search></search>
 </div>
 </template>
 
