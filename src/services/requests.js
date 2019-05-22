@@ -40,10 +40,19 @@ class music{
 	}
 
 	static searchArtist(term){
-
+		return axios.get('http://localhost:3000/api/artists/s/'+term)
+			.then(response => {
+				this.artists = response;
+				return this.artists.data;
+			})
+			.catch(e => {
+				return e;
+			})
 	}
 
 	static deleteSongs(data){
 		
 	}
 }
+
+export default music;

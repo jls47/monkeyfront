@@ -27,17 +27,22 @@
   
 </div>
 <p>Results</p>
-
-<div v-if="this.param == 'artist'" v-for="result in results" class="artistResults">
-  <p>Artist Result</p>
+<div class="results">
+<div v-if="results.length > 0 && param == 'artist'" v-for="result in results" class="artistResults">
+  <p>{{result.name}}</p>
 </div>
-<div v-else v-for="result in results" class="titleResults">
-  <p>Title Result</p>
+<div v-else-if="results.length > 0 && param == 'title'" v-for="result in results" class="titleResults">
+  <p>{{result.title}}</p>
+</div>
+<div v-else class="placeholder">
+  <p>Awaiting Results...</p>
+</div>
 </div>
 </div>
 </template>
 
 <script>
+import music from '@/services/requests';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -57,7 +62,14 @@ export default {
     },
     startSearch(){
       if(this.param == 'artist'){
+
         console.log("Searching by artist")
+        music.searchArtist(this.term)
+          .then(result => {
+            console.log(result);
+            this.results = result.data;
+          });
+
       }else{
         console.log("Searching by title")
       }
