@@ -10,22 +10,30 @@
   <section class="modal-card-body">
 <div class="field">
   <div class="control">
-    <div class="select is-primary">
-      <select>
-        <option>Search artists</option>
-        <option>Search titles</option>
+    <div class="select is-dark">
+      <select v-model="param">
+        <option value="artist">Search artists</option>
+        <option value="title">Search titles</option>
       </select>
     </div>
+    <input class="input" type="text" placeholder="Search" v-model="term">
   </div>
 </div>
   </section>
-  <a class="button is-primary">
+  <a class="button is-primary" v-on:click="startSearch">
     <strong>Search <span class="mdi mdi-12px mdi-magnify"></span></strong>
   </a>
   </div>
   
 </div>
 <p>Results</p>
+
+<div v-if="this.param == 'artist'" v-for="result in results" class="artistResults">
+  <p>Artist Result</p>
+</div>
+<div v-else v-for="result in results" class="titleResults">
+  <p>Title Result</p>
+</div>
 </div>
 </template>
 
@@ -37,12 +45,22 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      show: true
+      show: true,
+      param: 'artist',
+      term: "",
+      results: []
     }
   },
   methods: {
     closeModal(){
       this.closeSModal();
+    },
+    startSearch(){
+      if(this.param == 'artist'){
+        console.log("Searching by artist")
+      }else{
+        console.log("Searching by title")
+      }
     },
     ...mapActions([
       'closeSModal'
