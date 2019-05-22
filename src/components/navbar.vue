@@ -74,10 +74,12 @@ export default {
       console.log('aaa');
       console.log(this.beginSearch);
       this.burgerToggle();
+      this.openSModal();
       this.beginSearch();
     },
     ...mapActions([
-      'beginSearch'
+      'beginSearch',
+      'openSModal'
     ])
   },
   components: {

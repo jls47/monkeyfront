@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import store from '../main.js';
+import { mapActions, mapState } from 'vuex';
 export default {
   name: 'search',
   data () {
@@ -40,7 +42,20 @@ export default {
   },
   methods: {
     closeModal(){
-      this.show = false;
+      this.closeSModal();
+    },
+    ...mapActions([
+      'closeSModal'
+    ])
+  },
+  computed: {
+    search(){
+      this.show = this.$store.getters.searchBar;
+    }
+  },
+  watch: {
+    search(){
+      return this.$store.getters.searchBar;
     }
   }
 }

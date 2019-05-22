@@ -18,6 +18,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		status: "frontpage",
+		searchBar: true,
 		edit: false,
 		delete: false,
 		loggedIn: false,
@@ -27,6 +28,12 @@ const store = new Vuex.Store({
 	mutations: {
 		SET_USE_CONTEXT(state, context){
 			state.status = context;
+		},
+		GET_SEARCH_BAR(state){
+			state.searchBar = true;
+		},
+		LEAVE_SEARCH_BAR(state){
+			state.searchBar = false;
 		},
 		SET_LOGIN_STATUS(state, status){
 			state.loggedIn = status;
@@ -46,6 +53,12 @@ const store = new Vuex.Store({
 		beginSearch(context){
 			context.commit('SET_USE_CONTEXT', 'search')
 		},
+		openSModal(context){
+			context.commit('GET_SEARCH_BAR')
+		},
+		closeSModal(context){
+			context.commit('LEAVE_SEARCH_BAR')
+		},
 		frontPage(context){
 			context.commit('SET_USE_CONTEXT', 'front')
 		},
@@ -60,11 +73,17 @@ const store = new Vuex.Store({
 		},
 		addDelete(context, item){
 			context.commit('ADD_DELETING_ITEM', item)
+		},
+		deleteAll(context){
+			context.commit('REMOVE_ALL_ITEMS')
 		}
 	},
 	getters: {
 		searchStatus(state){
 			return state.status;
+		},
+		searchBar(state){
+			return state.searchBar;
 		},
 		loginStatus(state){
 			return state.loggedIn;
