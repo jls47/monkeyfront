@@ -33,7 +33,7 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
-          <a class="button is-primary">
+          <a class="button is-primary" v-on:click="startSearch">
             <strong>Search <span class="mdi mdi-12px mdi-magnify"></span></strong>
           </a>
           
@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import store from '../main.js';
 export default {
   name: 'navbar',
   data () {
@@ -67,7 +69,16 @@ export default {
       }else{
         this.toggled = false;
       }
-    }
+    },
+    startSearch: function(){
+      console.log('aaa');
+      console.log(this.beginSearch);
+      this.burgerToggle();
+      this.beginSearch();
+    },
+    ...mapActions([
+      'beginSearch'
+    ])
   },
   components: {
   }

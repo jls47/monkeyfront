@@ -7,31 +7,35 @@ import App from './App'
 import router from './router'
 import 'bulma/css/bulma.css'
 
+Vue.config.productionTip = false
+
 Vue.use(Vuetify)
 
 Vue.use(Vuex)
 
-Vue.config.productionTip = false
+
 
 const store = new Vuex.Store({
 	state: {
 		status: "frontpage",
+		edit: false,
+		delete: false,
 		loggedIn: false,
 		editing: [],
 		deleting: []
 	},
 	mutations: {
 		SET_USE_CONTEXT(state, context){
-			state.status = context
+			state.status = context;
 		},
 		SET_LOGIN_STATUS(state, status){
-			state.loggedIn = status
+			state.loggedIn = status;
 		},
 		ADD_EDITING_ITEM(state, item){
-			state.editing.push(item)
+			state.editing.push(item);
 		},
 		ADD_DELETING_ITEM(state, item){
-			state.deleting.push(item)
+			state.deleting.push(item);
 		},
 		REMOVE_ALL_ITEMS(state){
 			state.editing = [];
@@ -39,10 +43,10 @@ const store = new Vuex.Store({
 		}
 	},
 	actions: {
-		search(context){
+		beginSearch(context){
 			context.commit('SET_USE_CONTEXT', 'search')
 		},
-		frontpage(context){
+		frontPage(context){
 			context.commit('SET_USE_CONTEXT', 'front')
 		},
 		login(context){
@@ -63,7 +67,7 @@ const store = new Vuex.Store({
 			return state.status;
 		},
 		loginStatus(state){
-			return state.loginStatus;
+			return state.loggedIn;
 		},
 		editItems(state){
 			return state.editing;
@@ -73,7 +77,7 @@ const store = new Vuex.Store({
 		}
 	}
 
-});
+})
 
 export default store;
 
@@ -82,5 +86,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  store
 })

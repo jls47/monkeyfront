@@ -1,6 +1,11 @@
 <template><div>
 <navbar></navbar>
-<search></search>
+<div v-if="searching == 'search'">
+  <search></search>
+</div>
+<div v-else>
+  <frontpage></frontpage>
+</div>
 </div>
 </template>
 
@@ -8,20 +13,32 @@
 import search from '@/components/search';
 import loginform from '@/components/loginform';
 import navbar from '@/components/navbar';
+import frontpage from '@/components/frontpage';
 import store from '../main.js';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      searching: store.getters.searchStatus
+      searching: ""
     }
   },
   components: {
     search: search,
     loginform: loginform,
-    navbar: navbar
+    navbar: navbar,
+    frontpage: frontpage
+  },
+  computed: {
+    search(){
+      this.searching = this.$store.getters.searchStatus;
+    }
+  },
+  watch: {
+    search(){
+      return this.$store.getters.searchStatus;
+    }
   }
 }
 </script>
