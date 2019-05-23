@@ -3,7 +3,7 @@ import axios from 'axios'
 class music{
 	static createSong(form){
 		console.log(form);
-		return axios.post(`http://monkey-back.herokuapp.com`,form)
+		return axios.post(`https://monkey-back.herokuapp.com`,form)
 		  .then(response => {
 		  	console.log(response);
 		  })
@@ -13,7 +13,7 @@ class music{
 	}
 
 	static getOneSong(id){
-		return axios.get(`http://monkey-back.herokuapp.com`,form)
+		return axios.get(`https://monkey-back.herokuapp.com`,form)
 		  .then(response => {
 		    this.song = response.data['data'];
 		    return this.song;
@@ -24,7 +24,15 @@ class music{
 	}
 
 	static getRecentSongs(){
-
+		//return axios.get(`http://localhost:3000/api/songs/r/`)
+		return axios.get(`https://monkey-back.herokuapp.com/api/songs/r/`)
+			.then(response => {
+				this.songs = response;
+				return this.songs.data;
+			})
+			.catch(e => {
+				return e;
+			})
 	}
 
 	static getSongsByArtist(term){
@@ -32,7 +40,15 @@ class music{
 	}
 
 	static searchSongs(term){
-
+		//return axios.get('http://localhost:3000/api/songs/s/'+term)
+		return axios.get(`https://monkey-back.herokuapp.com/api/songs/s/`+term)
+			.then(response => {
+				this.songs = response;
+				return this.songs.data;
+			})
+			.catch(e => {
+				return e;
+			})
 	}
 
 	static editSong(form){
@@ -40,7 +56,8 @@ class music{
 	}
 
 	static searchArtist(term){
-		return axios.get('http://localhost:3000/api/artists/s/'+term)
+		//return axios.get('http://localhost:3000/api/artists/s/'+term)
+		return axios.get(`https://monkey-back.herokuapp.com/api/artists/s/`+term)
 			.then(response => {
 				this.artists = response;
 				return this.artists.data;

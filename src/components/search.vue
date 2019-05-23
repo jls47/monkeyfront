@@ -71,7 +71,11 @@ export default {
           });
 
       }else{
-        console.log("Searching by title")
+        music.searchSongs(this.term)
+          .then(result => {
+            console.log(result);
+            this.results = result.data;
+          })
       }
     },
     ...mapActions([
@@ -86,6 +90,9 @@ export default {
   watch: {
     search(){
       return this.$store.getters.searchBar;
+    },
+    param: function(){
+      this.results = [];
     }
   }
 }
