@@ -26,10 +26,15 @@
   </div>
   
 </div>
-<p>Results</p>
+<p>Searching {{this.param}}s for "{{this.term}}"</p>
 <div class="results">
 <div v-if="results.length > 0 && param == 'artist'" v-for="result in results" class="artistResults">
-  <p>{{result.name}}</p>
+  <a class="artistLink" v-on:click="getArtistSongs(result.name)"><p>{{result.name}}</p></a>
+  <div class="artistSongs" v-if="subResults.length > 0 && subResults[0].artist == result.name" v-for="sub in subResults">
+    <p>Songs:</p>
+    <p>{{sub.title}}</p>
+    <p v-if="sub.notes">{{sub.notes}}</p>
+  </div>
 </div>
 <div v-else-if="results.length > 0 && param == 'title'" v-for="result in results" class="titleResults">
   <p>{{result.title}}</p>
@@ -53,14 +58,24 @@ export default {
       show: true,
       param: 'artist',
       term: "",
-      results: []
+      results: [],
+      subResults: []
     }
   },
   methods: {
+    getArtistSongs(name){
+      console.log(name);
+      music.getSongsByArtist(name)
+        .then(result => {
+          console.log(result);
+          this.subResults = result.data;
+        })
+    },
     closeModal(){
       this.closeSModal();
     },
     startSearch(){
+      this.closeModal();
       if(this.param == 'artist'){
 
         console.log("Searching by artist")

@@ -12,7 +12,7 @@ class music{
 		  })
 	}
 
-	static getOneSong(id){
+	static getSongsById(id){
 		return axios.get(`https://monkey-back.herokuapp.com`,form)
 		  .then(response => {
 		    this.song = response.data['data'];
@@ -24,8 +24,8 @@ class music{
 	}
 
 	static getRecentSongs(){
-		//return axios.get(`http://localhost:3000/api/songs/r/`)
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/r/`)
+		return axios.get(`http://localhost:3000/api/songs/r/`)
+		//return axios.get(`https://monkey-back.herokuapp.com/api/songs/r/`)
 			.then(response => {
 				this.songs = response;
 				return this.songs.data;
@@ -35,13 +35,21 @@ class music{
 			})
 	}
 
-	static getSongsByArtist(term){
+	static getSongsByArtist(artist){
+		return axios.get(`http://localhost:3000/api/songs/a/`+artist)
+			.then(response => {
+				this.songs = response;
+				return this.songs.data;
+			})
+			.catch(e => {
+				return e;
+			})
 
 	}
 
 	static searchSongs(term){
-		//return axios.get('http://localhost:3000/api/songs/s/'+term)
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/s/`+term)
+		return axios.get('http://localhost:3000/api/songs/s/'+term)
+		//return axios.get(`https://monkey-back.herokuapp.com/api/songs/s/`+term)
 			.then(response => {
 				this.songs = response;
 				return this.songs.data;
@@ -56,8 +64,8 @@ class music{
 	}
 
 	static searchArtist(term){
-		//return axios.get('http://localhost:3000/api/artists/s/'+term)
-		return axios.get(`https://monkey-back.herokuapp.com/api/artists/s/`+term)
+		return axios.get('http://localhost:3000/api/artists/s/'+term)
+		//return axios.get(`https://monkey-back.herokuapp.com/api/artists/s/`+term)
 			.then(response => {
 				this.artists = response;
 				return this.artists.data;
