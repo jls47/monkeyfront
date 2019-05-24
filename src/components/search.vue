@@ -26,10 +26,10 @@
   </div>
   
 </div>
-<p>Searching {{this.sParam}}s for "{{this.term}}"</p><br>
+<h2 class="searchingNote">Searching {{this.sParam}}s for "{{this.sTerm}}"</h2><br>
 <div class="results">
 <div v-if="results.length > 0 && sParam == 'artist'" v-for="result in results" class="artistResults">
-  <a class="artistLink" v-on:click="subResults.length <= 0 ? getArtistSongs(result.name) : clearSubResults()"><h1>{{result.name}} <span v-if="subResults.length > 0 && subResults[0].artist == result.name" class="mdi mdi-24px mdi-arrow-down-drop-circle"></span><span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span></h1></a>
+  <a class="artistLink" v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()"><h1>{{result.name}} <span v-if="subResults.length > 0 && subResults[0].artist == result.name" class="mdi mdi-24px mdi-arrow-down-drop-circle"></span><span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span></h1></a>
 
   <div class="artistSongs" v-if="subResults.length > 0 && subResults[0].artist == result.name" v-for="sub in subResults">
     <h2><span class = "mdi mdi-12px mdi-microphone-variant"></span>{{sub.title}}</h2>
@@ -58,7 +58,9 @@ export default {
       show: true,
       param: 'artist',
       sParam: 'artist',
+      selected: '',
       term: "",
+      sTerm: "",
       results: [],
       subResults: [],
       showingSub : false,
@@ -67,11 +69,16 @@ export default {
   },
   methods: {
     getArtistSongs(name){
-      console.log(name);
-      music.getSongsByArtist(name)
-        .then(result => {
-          this.subResults = result.data;
-        })
+      console.log('searching');
+      if(this.selected != name){
+        this.selected = name;
+        music.getSongsByArtist(name)
+          .then(result => {
+            this.subResults = result.data;
+          })
+      }else{
+        this.clearSubResults();
+      }
     },
     closeModal(){
       this.closeSModal();
@@ -80,13 +87,13 @@ export default {
       this.subResults = [];
     },
     clearInfo(){
-
       this.results = [];
       this.subResults = [];
     },
     startSearch(){
       this.closeModal();
       this.sParam = this.param;
+      this.sTerm = this.term;
       if(this.param == 'artist'){
         this.searched = true;
         music.searchArtist(this.term)
@@ -127,6 +134,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .searchingNote::before{
+
+  }
+  .searchingNote{
+    text-align: left;
+  }
   .results{
     text-align: left;
     a{
