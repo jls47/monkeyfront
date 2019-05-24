@@ -26,21 +26,21 @@
   </div>
   
 </div>
-<p>Searching {{this.param}}s for "{{this.term}}"</p>
+<p>Searching {{this.sParam}}s for "{{this.term}}"</p><br>
 <div class="results">
-<div v-if="results.length > 0 && param == 'artist'" v-for="result in results" class="artistResults">
-  <a class="artistLink" v-on:click="getArtistSongs(result.name)"><p>{{result.name}} <span v-if="subResults.length > 0 && subResults[0].artist == result.name" class="mdi mdi-24px mdi-arrow-down-drop-circle"></span><span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span></p></a>
+<div v-if="results.length > 0 && sParam == 'artist'" v-for="result in results" class="artistResults">
+  <a class="artistLink" v-on:click="subResults.length <= 0 ? getArtistSongs(result.name) : clearSubResults()"><h1>{{result.name}} <span v-if="subResults.length > 0 && subResults[0].artist == result.name" class="mdi mdi-24px mdi-arrow-down-drop-circle"></span><span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span></h1></a>
 
   <div class="artistSongs" v-if="subResults.length > 0 && subResults[0].artist == result.name" v-for="sub in subResults">
-    <p>{{sub.title}}</p>
+    <h2><span class = "mdi mdi-12px mdi-microphone-variant"></span>{{sub.title}}</h2>
     <p v-if="sub.notes">{{sub.notes}}</p>
-  </div>
+  </div><br>
 </div>
-<div v-else-if="results.length > 0 && param == 'title'" v-for="result in results" class="titleResults">
-  <p>{{result.title}}</p>
+<div v-if="results.length > 0 && sParam == 'title'" v-for="result in results" class="titleResults">
+  <h2>{{result.title}} - {{result.artist}}</h2><br>
 </div>
-<div v-else class="placeholder">
-  <p>Awaiting Results...</p>
+<div class="placeholder" v-if="results.length == 0 && this.searched == true">
+  <h1>Couldn't find any {{param}}s with the search term "{{term}}".</h1>
 </div>
 </div>
 </div>
@@ -57,9 +57,12 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       show: true,
       param: 'artist',
+      sParam: 'artist',
       term: "",
       results: [],
-      subResults: []
+      subResults: [],
+      showingSub : false,
+      searched: false
     }
   },
   methods: {
@@ -67,22 +70,25 @@ export default {
       console.log(name);
       music.getSongsByArtist(name)
         .then(result => {
-          console.log(result);
           this.subResults = result.data;
         })
     },
     closeModal(){
       this.closeSModal();
     },
+    clearSubResults(){
+      this.subResults = [];
+    },
     clearInfo(){
+
       this.results = [];
       this.subResults = [];
     },
     startSearch(){
       this.closeModal();
+      this.sParam = this.param;
       if(this.param == 'artist'){
-
-        console.log("Searching by artist")
+        this.searched = true;
         music.searchArtist(this.term)
           .then(result => {
             console.log(result);
@@ -90,9 +96,9 @@ export default {
           });
 
       }else{
+        this.searched = true;
         music.searchSongs(this.term)
           .then(result => {
-            console.log(result);
             this.results = result.data;
           })
       }
@@ -111,17 +117,30 @@ export default {
       return this.$store.getters.searchBar;
     },
     param: function(){
-      this.results = [];
+      //this.results = [];
+    },
+    show: function(){
+      this.searched = false;
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  a{
-    text-decoration: none;
-    color: black;
+  .results{
+    text-align: left;
+    a{
+      text-decoration: none;
+      color: black;
+    }
+    h1{
+      font-size: 30px;
+    }
+    h2{
+      font-size: 20px;
+    }
   }
+  
   .search{
     width: 80vw;
     margin-left: 10vw;
