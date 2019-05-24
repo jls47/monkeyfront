@@ -1,4 +1,4 @@
-<template><div>
+<template><div class="container">
 <navbar></navbar>
 <div v-if="searching == 'search'">
   <search></search>
@@ -44,10 +44,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.hello{
+<style lang="scss">
 
-}
 h1, h2 {
   font-weight: normal;
 }

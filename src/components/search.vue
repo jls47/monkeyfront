@@ -29,10 +29,10 @@
 <p>Searching {{this.param}}s for "{{this.term}}"</p>
 <div class="results">
 <div v-if="results.length > 0 && param == 'artist'" v-for="result in results" class="artistResults">
-  <a class="artistLink" v-on:click="getArtistSongs(result.name)"><p>{{result.name}}</p></a>
+  <a class="artistLink" v-on:click="getArtistSongs(result.name)"><p>{{result.name}} <span v-if="subResults.length > 0 && subResults[0].artist == result.name" class="mdi mdi-24px mdi-arrow-down-drop-circle"></span><span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span></p></a>
 
   <div class="artistSongs" v-if="subResults.length > 0 && subResults[0].artist == result.name" v-for="sub in subResults">
-    <p>> {{sub.title}}</p>
+    <p>{{sub.title}}</p>
     <p v-if="sub.notes">{{sub.notes}}</p>
   </div>
 </div>
@@ -118,6 +118,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  a{
+    text-decoration: none;
+    color: black;
+  }
+  .search{
+    width: 80vw;
+    margin-left: 10vw;
+  }
   .artistSongs{
     margin-left: 20px;
   }
