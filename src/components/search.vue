@@ -30,9 +30,9 @@
 <div class="results">
 <div v-if="results.length > 0 && param == 'artist'" v-for="result in results" class="artistResults">
   <a class="artistLink" v-on:click="getArtistSongs(result.name)"><p>{{result.name}}</p></a>
+
   <div class="artistSongs" v-if="subResults.length > 0 && subResults[0].artist == result.name" v-for="sub in subResults">
-    <p>Songs:</p>
-    <p>{{sub.title}}</p>
+    <p>> {{sub.title}}</p>
     <p v-if="sub.notes">{{sub.notes}}</p>
   </div>
 </div>
@@ -74,6 +74,10 @@ export default {
     closeModal(){
       this.closeSModal();
     },
+    clearInfo(){
+      this.results = [];
+      this.subResults = [];
+    },
     startSearch(){
       this.closeModal();
       if(this.param == 'artist'){
@@ -114,5 +118,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .artistSongs{
+    margin-left: 20px;
+  }
 </style>
