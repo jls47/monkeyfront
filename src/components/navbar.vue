@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="navbar-item">
-        <a class="button is-light" href="/#/login">
+        <a class="button is-light" href="./#/login">
             <strong>Log in <span class="mdi mdi-12px mdi-lock"></span></strong>
           </a>
       </div>

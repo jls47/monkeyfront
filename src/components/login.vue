@@ -42,7 +42,7 @@ export default {
   					console.log('nope');
   				}else{
   					this.login();
-  					this.$router.push(this.$route.query.redirect || '/');
+  					this.$router.push(this.$route.query.redirect || './');
   				}
   			})
   	},
