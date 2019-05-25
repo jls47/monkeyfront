@@ -1,12 +1,12 @@
 <template>
 <div>
-Editing
+Deleting
 </div>
 </template>
 
 <script>
 export default {
-  name: 'editform',
+  name: 'deleteform',
   data () {
     return {
     }

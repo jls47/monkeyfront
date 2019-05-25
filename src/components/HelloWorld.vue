@@ -6,6 +6,9 @@
 <div v-else>
   <frontpage></frontpage>
 </div>
+<div v-if="loggedIn == true">
+  <adminbar></adminbar>
+</div>
 </div>
 </template>
 
@@ -13,6 +16,7 @@
 import search from '@/components/search';
 import navbar from '@/components/navbar';
 import frontpage from '@/components/frontpage';
+import adminbar from '@/components/adminbar';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -20,22 +24,30 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      searching: ""
+      searching: "",
+      loggedIn: false
     }
   },
   components: {
     search: search,
     navbar: navbar,
-    frontpage: frontpage
+    frontpage: frontpage,
+    adminbar: adminbar
   },
   computed: {
     search(){
       this.searching = this.$store.getters.searchStatus;
+    },
+    login(){
+      this.loggedIn = this.$store.getters.loginStatus;
     }
   },
   watch: {
     search(){
       return this.$store.getters.searchStatus;
+    },
+    login(){
+      return this.$store.getters.loginStatus;
     }
   }
 }
@@ -43,7 +55,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-
 h1, h2 {
   font-weight: normal;
 }

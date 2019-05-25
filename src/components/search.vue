@@ -28,11 +28,31 @@
 </div>
 <h2 class="searchingNote">Searching {{this.sParam}}s for "{{this.sTerm}}"</h2><br>
 <div class="results">
-<div v-if="results.length > 0 && sParam == 'artist'" v-for="result in results" class="artistResults">
-  <a class="artistLink" v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()"><h1>{{result.name}} <span v-if="subResults.length > 0 && subResults[0].artist == result.name" class="mdi mdi-24px mdi-arrow-down-drop-circle"></span><span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span></h1></a>
+<div v-if="results.length > 0 && sParam == 'artist'" 
+     v-for="result in results" class="artistResults">
+  <a class="artistLink" 
+      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()">
+    <h1>{{result.name}} 
+      <span v-if="subResults.length > 0 && subResults[0].artist == result.name" 
+            class="mdi mdi-24px mdi-arrow-down-drop-circle"></span>
+      <span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span>
+    </h1>
+  </a>
 
-  <div class="artistSongs" v-if="subResults.length > 0 && subResults[0].artist == result.name" v-for="sub in subResults">
-    <h2><span class = "mdi mdi-12px mdi-microphone-variant"></span>{{sub.title}} <sub v-if="sub.notes">({{sub.notes}})</sub></h2>
+  <div class="artistSongs" 
+       v-if="subResults.length > 0 && subResults[0].artist == result.name" 
+       v-for="sub in subResults">
+    <h2>
+      <a class="addbutton" 
+         v-if="adding == true">
+        <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+      </a>
+      <a v-else>
+        <span class = "mdi mdi-12px mdi-microphone-variant"></span>
+      </a>
+      {{sub.title}} 
+      <sub v-if="sub.notes">({{sub.notes}})</sub>
+    </h2>
     
   </div><br>
 </div>
@@ -64,7 +84,9 @@ export default {
       results: [],
       subResults: [],
       showingSub : false,
-      searched: false
+      searched: false,
+      loggedIn: false,
+      adding: false
     }
   },
   methods: {
@@ -118,6 +140,9 @@ export default {
   computed: {
     search(){
       this.show = this.$store.getters.searchBar;
+    },
+    checkLogin(){
+      this.loggedIn = this.$store.getters.loginStatus;
     }
   },
   watch: {
@@ -129,6 +154,9 @@ export default {
     },
     show: function(){
       this.searched = false;
+    },
+    checkLogin(){
+      this.loggedIn = this.$store.getters.loginStatus;
     }
   }
 }

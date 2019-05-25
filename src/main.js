@@ -13,17 +13,13 @@ Vue.use(Vuetify)
 
 Vue.use(Vuex)
 
-
-
 const store = new Vuex.Store({
 	state: {
 		status: "frontpage",
 		searchBar: true,
-		edit: false,
-		delete: false,
+		selecting: false,
 		loggedIn: false,
-		editing: [],
-		deleting: []
+		items: []
 	},
 	mutations: {
 		SET_USE_CONTEXT(state, context){
@@ -38,15 +34,14 @@ const store = new Vuex.Store({
 		SET_LOGIN_STATUS(state, status){
 			state.loggedIn = status;
 		},
-		ADD_EDITING_ITEM(state, item){
-			state.editing.push(item);
+		ADD_ITEM(state, item){
+			state.items.push(item);
 		},
-		ADD_DELETING_ITEM(state, item){
-			state.deleting.push(item);
+		SELECT_ITEMS(state, isSelect){
+			state.selecting = isSelect;
 		},
 		REMOVE_ALL_ITEMS(state){
-			state.editing = [];
-			state.deleting = [];
+			state.items = [];
 		}
 	},
 	actions: {
@@ -68,11 +63,14 @@ const store = new Vuex.Store({
 		logout(context){
 			context.commit('SET_LOGIN_STATUS', false)
 		},
-		addEdit(context, item){
-			context.commit('ADD_EDITING_ITEM', item)
+		startSelect(context){
+			context.commit('SELECT_ITEMS', true)
 		},
-		addDelete(context, item){
-			context.commit('ADD_DELETING_ITEM', item)
+		stopSelect(context){
+			context.commit('SELECT_ITEMS', false)
+		},
+		addItem(context, item){
+			context.commit('ADD_ITEM', item)
 		},
 		deleteAll(context){
 			context.commit('REMOVE_ALL_ITEMS')
@@ -88,14 +86,13 @@ const store = new Vuex.Store({
 		loginStatus(state){
 			return state.loggedIn;
 		},
-		editItems(state){
-			return state.editing;
+		getItems(state){
+			return state.items;
 		},
-		deletingItems(state){
-			return state.deleting;
+		isSelect(state){
+			return state.selecting;
 		}
 	}
-
 })
 
 export default store;
