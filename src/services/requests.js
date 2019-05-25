@@ -3,7 +3,8 @@ import axios from 'axios'
 class music{
 	static createSong(form){
 		console.log(form);
-		return axios.post(`https://monkey-back.herokuapp.com`,form)
+		//return axios.post(`http://localhost:3000/api/songs`,form)
+		return axios.post(`https://monkey-back.herokuapp.com/api/songs`,form)
 		  .then(response => {
 		  	console.log(response);
 		  })
@@ -77,13 +78,30 @@ class music{
 	}
 
 	static deleteSongs(data){
-		return axios.delete('http://localhost:3000/api/songs/',data)
+		//return axios.delete('http://localhost:3000/api/songs/',data)
+		return axios.get(`https://monkey-back.herokuapp.com/api/songs/`, data)
 			.then(response => {
 				return response;
 			})
 			.catch(e => {
 				return e;
 			})
+	}
+
+	static adminLog(data){
+		//return axios.get('http://localhost:3000/api/user/', {
+		return axios.get(`https://monkey-back.herokuapp.com/api/user`, {
+			params: {
+				name: data.username,
+				password: data.password
+			}
+		})
+		.then(response => {
+			return response;
+		})
+		.catch(e => {
+			return e;
+		})
 	}
 }
 

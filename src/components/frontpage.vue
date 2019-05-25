@@ -1,6 +1,6 @@
 <template>
 <div class="frontpage">
-	<p>Recently added: </p><br>
+	<h2>Recently added: </h2><br>
 	<div  v-for="song in recentSongs">
 		<h1>{{song.title}} - {{song.artist}}</h1><br>
 	</div>
@@ -39,10 +39,16 @@ export default {
     h1{
       font-size: 28px;
     }
+    h2{
+      font-size: 20px;
+    }
   }
   @media only screen and (min-width: 768px){
     h1{
       font-size: 40px;
+    }
+    h2{
+    font-size: 30px;
     }
   }
 }

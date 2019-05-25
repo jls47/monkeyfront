@@ -11,7 +11,6 @@
 
 <script>
 import search from '@/components/search';
-import loginform from '@/components/loginform';
 import navbar from '@/components/navbar';
 import frontpage from '@/components/frontpage';
 import store from '../main.js';
@@ -26,7 +25,6 @@ export default {
   },
   components: {
     search: search,
-    loginform: loginform,
     navbar: navbar,
     frontpage: frontpage
   },
