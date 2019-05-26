@@ -1,6 +1,6 @@
 <template>
 <div>
-Deleting
+Adding
 </div>
 </template>
 
@@ -9,22 +9,14 @@ import music from '@/services/requests';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
-  name: 'deleteform',
+  name: 'addingform',
   data () {
     return {
-      items: [],
+      items: []
     }
   },
   methods: {
-  	sendDeletions(){
-
-  	},
-  	...mapActions([
-  		'deleteAll'
-  	])
-  },
-  mounted: function() {
-  	this.items = this.$store.getters.getItems;
+  
   }
 }
 
