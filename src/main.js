@@ -37,6 +37,9 @@ const store = new Vuex.Store({
 		ADD_ITEM(state, item){
 			state.items.push(item);
 		},
+		REMOVE_ITEM(state, item){
+			state.items.splice(state.items.indexOf(item), 1);
+		},
 		SELECT_ITEMS(state, isSelect){
 			state.selecting = isSelect;
 		},
@@ -71,6 +74,9 @@ const store = new Vuex.Store({
 		},
 		addItem(context, item){
 			context.commit('ADD_ITEM', item)
+		},
+		removeItem(context, item){
+			context.commit('REMOVE_ITEM', item)
 		},
 		deleteAll(context){
 			context.commit('REMOVE_ALL_ITEMS')

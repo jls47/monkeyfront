@@ -47,7 +47,8 @@ export default {
   			})
   	},
   	...mapActions([
-  		'login'
+  		'login',
+      'logout'
   	])
   }
   

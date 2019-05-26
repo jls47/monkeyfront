@@ -13,24 +13,7 @@
   </div>
 
   <div id="navbarBasicExample" class="navbar-menu" v-bind:class="{'is-active': toggled}" >
-    <div class="navbar-start admin-tools" v-if="logged">
-      <div class="navbar-item">
-      <a class="button is-light">
-        Edit <span class="mdi mdi-12px mdi-border-color"></span>
-      </a>
-      </div>
-      <div class="navbar-item">
-      <a class="button is-light">
-        Delete <span class="mdi mdi-12px mdi-delete"></span>
-      </a>
-      </div>
-      <div class="navbar-item">
-      <a class="button is-light">
-        Create <span class="mdi mdi-12px mdi-plus"></span>
-      </a>
-      </div>
-    </div>
-
+   
     <div class="navbar-end">
       <div class="navbar-item">
           <a class="button is-primary" v-on:click="startSearch">
@@ -40,9 +23,16 @@
         </div>
       </div>
       <div class="navbar-item">
-        <a class="button is-light" href="./#/login">
-            <strong>Log in <span class="mdi mdi-12px mdi-lock"></span></strong>
-          </a>
+        <a class="button is-light" 
+           href="./#/login"
+           v-if="logged == false">
+          <strong>Log in <span class="mdi mdi-12px mdi-lock-open"></span></strong>
+        </a>
+        <a class="button is-light"
+           v-on:click="logout"
+           v-else>
+          <strong>Log out <span class="mdi mdi-12px mdi-lock"></span></strong>
+        </a>
       </div>
   </div>
 </nav>
@@ -77,13 +67,27 @@ export default {
       this.openSModal();
       this.beginSearch();
     },
+    logout: function(){
+      this.logout();
+    },
     ...mapActions([
       'beginSearch',
-      'openSModal'
+      'openSModal',
+      'logout'
     ])
   },
   components: {
   },
+  computed: {
+    checkStatus(){
+      this.logged = this.$store.getters.loginStatus;
+    },
+  },
+  watch: {
+    checkLogin(){
+      this.logged = this.$store.getters.loginStatus;
+    },
+  }
 
 }
 

@@ -45,9 +45,14 @@
        v-for="sub in subResults">
     <h2>
       <a class="addbutton" 
-         v-if="adding == true"
+         v-if="adding == true && !added.includes(sub)"
          v-on:click="addSong(sub)">
         <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+      </a>
+      <a class="removebutton"
+         v-else-if="adding == true && added.includes(sub)"
+         v-on:click="removeSong(sub)">
+        <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
       </a>
       <a v-else>
         <span class = "mdi mdi-12px mdi-microphone-variant"></span>
@@ -60,11 +65,16 @@
 </div>
 <div v-if="results.length > 0 && sParam == 'title'" v-for="result in results" class="titleResults">
   <h2>
-   <a class="addbutton" 
-      v-if="adding == true"
-      v-on:click="addSong(result)">
-     <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
-   </a>
+    <a class="addbutton" 
+       v-if="adding == true && !added.includes(sub)"
+       v-on:click="addSong(result)">
+      <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+    </a>
+    <a class="removebutton"
+       v-else-if="adding == true && added.includes(sub)"
+       v-on:click="removeSong(sub)">
+      <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
+    </a>
   {{result.title}} - {{result.artist}}
   </h2><br>
 </div>
@@ -95,7 +105,8 @@ export default {
       showingSub : false,
       searched: false,
       loggedIn: false,
-      adding: false
+      adding: false,
+      added: []
     }
   },
   methods: {
@@ -146,10 +157,14 @@ export default {
       console.log(item);
       this.addItem(item);
     },
+    removeSong(item){
+      this.removeItem(item);
+    },
     ...mapActions([
       'closeSModal',
       'addItem',
-      'isSelect'
+      'isSelect',
+      'removeItem'
     ])
   },
   computed: {
@@ -161,6 +176,9 @@ export default {
     },
     select(){
       this.adding = this.$store.getters.isSelect;
+    },
+    getAdded(){
+      this.added = this.$store.getters.items;
     }
   },
   watch: {
@@ -178,6 +196,9 @@ export default {
     },
     select(){
       this.adding = this.$store.getters.isSelect;
+    },
+    getAdded(){
+      this.added = this.$stores.getters.items;
     }
   }
 }

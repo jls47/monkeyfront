@@ -79,6 +79,8 @@
 </template>
 
 <script>
+
+//NEED TO ADD CREATE BUTTON?
 import music from '@/services/requests';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
@@ -158,7 +160,7 @@ export default {
 	bottom: 10px;
 	text-align: right;
 	.iconButton{
-		font-size: 25px;
+		font-size: 18px;
 	}
 }
 </style>
