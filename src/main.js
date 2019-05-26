@@ -89,6 +89,9 @@ const store = new Vuex.Store({
 		getItems(state){
 			return state.items;
 		},
+		itemNumber(state){
+			return state.items.length;
+		},
 		isSelect(state){
 			return state.selecting;
 		}

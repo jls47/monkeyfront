@@ -59,7 +59,7 @@ export default {
     return {
       logged: false,
       toggled: false,
-      msg: 'Welcome to Your Vue.js App'
+      items: 0
     }
   },
   methods: {
@@ -83,7 +83,8 @@ export default {
     ])
   },
   components: {
-  }
+  },
+
 }
 
 

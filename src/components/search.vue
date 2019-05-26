@@ -32,7 +32,8 @@
      v-for="result in results" class="artistResults">
   <a class="artistLink" 
       v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()">
-    <h1>{{result.name}} 
+    <h1>
+      {{result.name}} 
       <span v-if="subResults.length > 0 && subResults[0].artist == result.name" 
             class="mdi mdi-24px mdi-arrow-down-drop-circle"></span>
       <span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span>
@@ -44,7 +45,8 @@
        v-for="sub in subResults">
     <h2>
       <a class="addbutton" 
-         v-if="adding == true">
+         v-if="adding == true"
+         v-on:click="addSong(sub)">
         <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
       </a>
       <a v-else>
@@ -57,7 +59,14 @@
   </div><br>
 </div>
 <div v-if="results.length > 0 && sParam == 'title'" v-for="result in results" class="titleResults">
-  <h2>{{result.title}} - {{result.artist}}</h2><br>
+  <h2>
+   <a class="addbutton" 
+      v-if="adding == true"
+      v-on:click="addSong(result)">
+     <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+   </a>
+  {{result.title}} - {{result.artist}}
+  </h2><br>
 </div>
 <div class="placeholder" v-if="results.length == 0 && this.searched == true">
   <h1>Couldn't find any {{param}}s with the search term "{{term}}".</h1>
@@ -133,8 +142,14 @@ export default {
           })
       }
     },
+    addSong(item){
+      console.log(item);
+      this.addItem(item);
+    },
     ...mapActions([
-      'closeSModal'
+      'closeSModal',
+      'addItem',
+      'isSelect'
     ])
   },
   computed: {
@@ -143,6 +158,9 @@ export default {
     },
     checkLogin(){
       this.loggedIn = this.$store.getters.loginStatus;
+    },
+    select(){
+      this.adding = this.$store.getters.isSelect;
     }
   },
   watch: {
@@ -157,6 +175,9 @@ export default {
     },
     checkLogin(){
       this.loggedIn = this.$store.getters.loginStatus;
+    },
+    select(){
+      this.adding = this.$store.getters.isSelect;
     }
   }
 }
