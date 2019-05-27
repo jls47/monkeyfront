@@ -28,11 +28,6 @@ export default {
       loggedIn: false
     }
   },
-  methods: {
-    ...mapActions([
-      'login'
-    ])
-  },
   components: {
     search: search,
     navbar: navbar,
@@ -43,7 +38,7 @@ export default {
     search(){
       this.searching = this.$store.getters.searchStatus;
     },
-    log(){
+    login(){
       this.loggedIn = this.$store.getters.loginStatus;
     }
   },
@@ -51,17 +46,12 @@ export default {
     search(){
       return this.$store.getters.searchStatus;
     },
-    log(){
+    login(){
       return this.$store.getters.loginStatus;
     }
   },
   mounted: function(){
     this.loggedIn = this.$store.getters.loginStatus;
-  },
-  created: function(){
-    if(localStorage.getItem("loggedIn") == true){
-      this.login()
-    }
   }
 }
 </script>
