@@ -14,6 +14,14 @@
 	  <div class="level-item has-text-centered">
 	    <div>
 	      <a class="button is-primary iconButton"
+	         v-on:click="goAdd">
+	        <span class="mdi mdi-36px mdi-plus"></span>
+	      </a>
+	    </div>
+	  </div>
+	  <div class="level-item has-text-centered">
+	    <div>
+	      <a class="button is-primary iconButton"
 	         v-on:click="toggleEditing">
 	        <span class="mdi mdi-36px mdi-circle-edit-outline"></span>
 	      </a>
@@ -133,6 +141,9 @@ export default {
   	    this.stopSelect();
   	  }
   	},
+  	goAdd(){
+  	  router.push('add');
+  	},
   	...mapActions([
   	  'startSelect',
   	  'stopSelect',
@@ -156,7 +167,7 @@ export default {
 <style lang="scss">
 .adminFooter{
 	position: fixed;
-	right: 20px;
+	right: 10px;
 	bottom: 10px;
 	text-align: right;
 	.iconButton{

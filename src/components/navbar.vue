@@ -22,15 +22,16 @@
           
         </div>
       </div>
-      <div class="navbar-item">
-        <a class="button is-light" 
-           href="./#/login"
+      <div class="navbar-item"
            v-if="logged == false">
+        <a class="button is-light" href="./#/login">
           <strong>Log in <span class="mdi mdi-12px mdi-lock-open"></span></strong>
         </a>
+      </div>
+      <div class="navbar-item"
+           v-if="logged == true">
         <a class="button is-light"
-           v-on:click="logout"
-           v-else>
+           v-on:click="logout">
           <strong>Log out <span class="mdi mdi-12px mdi-lock"></span></strong>
         </a>
       </div>
@@ -43,6 +44,7 @@
 <script>
 import { mapActions } from 'vuex';
 import store from '../main.js';
+import router from '../router/index.js';
 export default {
   name: 'navbar',
   data () {
@@ -68,7 +70,12 @@ export default {
       this.beginSearch();
     },
     logout: function(){
+      localStorage.setItem("loggedIn", false);
       this.logout();
+    },
+    login: function(){
+      console.log('Why')
+      router.push("login");
     },
     ...mapActions([
       'beginSearch',
@@ -87,6 +94,9 @@ export default {
     checkLogin(){
       this.logged = this.$store.getters.loginStatus;
     },
+  },
+  mounted: function(){
+    this.logged = this.$store.getters.loginStatus;
   }
 
 }

@@ -41,6 +41,8 @@ export default {
   				if(res.data.status == 'failure'){
   					console.log('nope');
   				}else{
+            localStorage.setItem("loggedIn", true);
+            console.log('aaa');
   					this.login();
   					this.$router.push(this.$route.query.redirect || './');
   				}

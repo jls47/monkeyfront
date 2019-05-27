@@ -45,7 +45,7 @@
        v-for="sub in subResults">
     <h2>
       <a class="addbutton" 
-         v-if="adding == true && !added.includes(sub)"
+         v-if="adding == true && !(added.includes(sub))"
          v-on:click="addSong(sub)">
         <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
       </a>
@@ -66,7 +66,7 @@
 <div v-if="results.length > 0 && sParam == 'title'" v-for="result in results" class="titleResults">
   <h2>
     <a class="addbutton" 
-       v-if="adding == true && !added.includes(sub)"
+       v-if="adding == true && !(added.includes(sub))"
        v-on:click="addSong(result)">
       <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
     </a>
@@ -178,7 +178,7 @@ export default {
       this.adding = this.$store.getters.isSelect;
     },
     getAdded(){
-      this.added = this.$store.getters.items;
+      this.added = this.$store.getters.getItems;
     }
   },
   watch: {
@@ -198,7 +198,7 @@ export default {
       this.adding = this.$store.getters.isSelect;
     },
     getAdded(){
-      this.added = this.$stores.getters.items;
+      this.added = this.$stores.getters.getItems;
     }
   }
 }

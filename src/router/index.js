@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import login from '@/components/login'
 import deleteform from '@/components/deleteform'
 import editform from '@/components/editform'
+import addingform from '@/components/addingform'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/edit',
       name: 'edit',
       component: editform
+    },
+    {
+      path: '/add',
+      name: 'add',
+      component: addingform
     }
   ]
 })
