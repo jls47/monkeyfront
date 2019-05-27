@@ -61,8 +61,16 @@ class music{
 			})
 	}
 
-	static editSong(form){
-
+	static editSongs(form){
+		//return axios.put(`http://localhost:3000/api/songs/`, form)
+		return axios.put(`https://monkey-back.herokuapp.com/api/songs/`, form)
+			.then(response => {
+				this.res = response;
+				return this.res;
+			})
+			.catch(e => {
+				return e;
+			})
 	}
 
 	static searchArtist(term){

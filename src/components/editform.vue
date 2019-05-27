@@ -9,7 +9,8 @@
 		</div><br>
 	</div>
   </div>
-  <a class="button is-primary">
+  <a class="button is-primary"
+     v-on:click="sendEdits(items)">
   	Submit changes on {{items.length}} songs
   </a>
 </div>
@@ -27,11 +28,24 @@ export default {
     }
   },
   methods: {
-  	sendEdits(){
-
+  	sendEdits(data){
+      let dataString = JSON.stringify(data);
+      console.log(dataString);
+      music.editSongs(data)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          if(res.data.status == 'success'){
+            console.log('success!');
+            this.deleteAll();
+            this.frontPage();
+            this.$router.push('./');
+          }
+        })
   	},
   	...mapActions([
-  		'deleteAll'
+  		'deleteAll',
+      'frontPage'
   	])
   },
   mounted: function() {

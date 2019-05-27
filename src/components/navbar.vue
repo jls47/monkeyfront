@@ -2,8 +2,8 @@
 <div>
   <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="http://themonkeypub.com/images/mp-header-logo.png" width="120px">
+    <a class="navbar-item" href="http://www.themonkeypub.com/">
+      <img src="https://abload.de/img/mp-header-logo1kjt7.png" width="120px">
     </a>
     <a role="button" v-on:click="burgerToggle" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -98,7 +98,8 @@ export default {
       this.logged = this.$store.getters.loginStatus;
     },
   },
-  mounted: function(){
+  //this could be updated to work on desktop too, I'm sure.
+  updated: function(){
     this.logged = this.$store.getters.loginStatus;
   }
 
