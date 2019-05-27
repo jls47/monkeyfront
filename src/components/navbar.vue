@@ -24,14 +24,15 @@
       </div>
       <div class="navbar-item"
            v-if="logged == false">
-        <a class="button is-light" href="./#/login">
+        <a class="button is-light" 
+           v-on:click="login">
           <strong>Log in <span class="mdi mdi-12px mdi-lock-open"></span></strong>
         </a>
       </div>
       <div class="navbar-item"
-           v-if="logged == true">
+           v-else>
         <a class="button is-light"
-           v-on:click="logout">
+           v-on:click="logoutOnClick">
           <strong>Log out <span class="mdi mdi-12px mdi-lock"></span></strong>
         </a>
       </div>
@@ -69,8 +70,10 @@ export default {
       this.openSModal();
       this.beginSearch();
     },
-    logout: function(){
-      localStorage.setItem("loggedIn", false);
+    logoutOnClick: function(){
+      console.log('logging out');
+      localStorage.setItem("loginDetails", "");
+      this.logged = false;
       this.logout();
     },
     login: function(){

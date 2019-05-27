@@ -12,6 +12,10 @@
 			<input class="input" v-model="data.password" type="password" placeholder="">
 		</div>
 	</div>
+  <label class="checkbox">
+    <input type="checkbox" v-model="checked">
+    Remember me
+  </label><br>
 	<a class="button is-primary" v-on:click="log(data)"><b>Login</b></a>
 </div>
 </template>
@@ -30,7 +34,10 @@ export default {
       data: {
       	username: '',
       	password: ''
-      }
+        
+      },
+      checked: false,
+      error: false
     }
   },
   methods: {
@@ -39,9 +46,12 @@ export default {
   			.then(res => {
   				console.log(res);
   				if(res.data.status == 'failure'){
+            //needs more informative error message
   					console.log('nope');
   				}else{
-            localStorage.setItem("loggedIn", true);
+            if(this.checked == true){
+              localStorage.setItem("loginDetails", JSON.stringify(this.data));
+            };
             console.log('aaa');
   					this.login();
   					this.$router.push(this.$route.query.redirect || './');
