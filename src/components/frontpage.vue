@@ -45,7 +45,8 @@ export default {
     },
     ...mapActions([
       'addItem',
-      'removeItem'
+      'removeItem',
+      'deleteAll'
     ])
   },
   mounted: function(){
@@ -81,6 +82,9 @@ export default {
   text-align: left;
   p::before{
     margin-left: 20px;
+  }
+  a{
+    color: black;
   }
   @media only screen and (max-width: 768px){
     h1{
