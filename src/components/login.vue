@@ -32,7 +32,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       data: {
-      	username: '',
+      	name: '',
       	password: ''
         
       },
@@ -53,8 +53,11 @@ export default {
               localStorage.setItem("loginDetails", JSON.stringify(this.data));
             };
             console.log('aaa');
-  					this.login();
-  					this.$router.push(this.$route.query.redirect || './');
+  					this.login()
+                .then(() => {
+                  this.$router.push(this.$route.query.redirect || './');
+                })
+  					
   				}
   			})
   	},

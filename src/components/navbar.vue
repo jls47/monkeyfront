@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-on:mouseover="checkLogged">
   <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="http://www.themonkeypub.com/">
@@ -34,6 +34,12 @@
         <a class="button is-light"
            v-on:click="logoutOnClick">
           <strong>Log out <span class="mdi mdi-12px mdi-lock"></span></strong>
+        </a>
+      </div>
+      <div class="navbar-item"
+           v-if="">
+        <a class="button is-light" href="./">
+          <strong>Home <span class="mdi mdi-12px mdi-home-outline"></span></strong>
         </a>
       </div>
   </div>
@@ -80,6 +86,14 @@ export default {
       console.log('Why')
       router.push("login");
     },
+    checkLogged: function(){
+      if(this.logged == false && localStorage.getItem("loginDetails")){
+        if(localStorage.getItem("loginDetails") != 'undefined'){
+          this.logged = true;
+        }
+        
+      }
+    },
     ...mapActions([
       'beginSearch',
       'openSModal',
@@ -99,6 +113,9 @@ export default {
     },
   },
   //this could be updated to work on desktop too, I'm sure.
+  mounted: function(){
+    this.checkLogged();
+  },
   updated: function(){
     this.logged = this.$store.getters.loginStatus;
   }

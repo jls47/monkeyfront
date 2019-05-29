@@ -58,6 +58,8 @@ export default {
 <style lang="scss" scoped>
 	.edit{
 		margin-top: -80px;
+    margin-left: 10vw;
+    width: 80vw;
 		h1{
 			font-size: 25px;
 		}

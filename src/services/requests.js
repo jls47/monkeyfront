@@ -1,23 +1,12 @@
 import axios from 'axios'
 
 class music{
-	static createSong(form){
+	static createSongs(form){
 		console.log(form);
-		//return axios.post(`http://localhost:3000/api/songs`,form)
-		return axios.post(`https://monkey-back.herokuapp.com/api/songs`,form)
+		//return axios.post(`http://localhost:3000/api/songs/`, {data: form})
+		return axios.post(`https://monkey-back.herokuapp.com/api/songs/`,{data: form})
 		  .then(response => {
 		  	console.log(response);
-		  })
-		  .catch(e => {
-		  	console.log(e);
-		  })
-	}
-
-	static getSongsById(id){
-		return axios.get(`https://monkey-back.herokuapp.com`,form)
-		  .then(response => {
-		    this.song = response.data['data'];
-		    return this.song;
 		  })
 		  .catch(e => {
 		  	console.log(e);
@@ -86,8 +75,8 @@ class music{
 	}
 
 	static deleteSongs(data){
-		//return axios.delete('http://localhost:3000/api/songs/',data)
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/`, data)
+		//return axios.delete('http://localhost:3000/api/songs/' + data)
+		return axios.delete(`https://monkey-back.herokuapp.com/api/songs/` + data)
 			.then(response => {
 				return response;
 			})

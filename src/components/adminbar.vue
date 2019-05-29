@@ -119,6 +119,9 @@ export default {
   		console.log('test');
   		router.push("edit");
   	},
+  	deleteDirect(){
+  		router.push("delete");
+  	},
   	toggleEditing(){
   	  if(this.editing == false){
   	    this.editing = true;
@@ -142,7 +145,7 @@ export default {
   	  }
   	},
   	goAdd(){
-  	  router.push('add');
+  	  router.push('add'); 
   	},
   	...mapActions([
   	  'startSelect',

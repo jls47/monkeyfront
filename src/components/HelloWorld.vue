@@ -1,5 +1,7 @@
 <template><div class="container">
-<navbar></navbar>
+<div>
+  <navbar></navbar>
+</div>
 <div v-if="searching == 'search'">
   <search></search>
 </div>
@@ -25,8 +27,10 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       searching: "",
-      loggedIn: false
+      loggedIn: "",
+      dataLoaded: false
     }
+    
   },
   components: {
     search: search,
