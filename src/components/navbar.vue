@@ -25,7 +25,7 @@
       <div class="navbar-item"
            v-if="logged == false">
         <a class="button is-light" 
-           v-on:click="login">
+           v-on:click="loginClick">
           <strong>Log in <span class="mdi mdi-12px mdi-lock-open"></span></strong>
         </a>
       </div>
@@ -51,12 +51,13 @@
 <script>
 import { mapActions } from 'vuex';
 import store from '../main.js';
+import music from '../services/requests.js'
 import router from '../router/index.js';
 export default {
   name: 'navbar',
   data () {
     return {
-      logged: false,
+      logged: "",
       toggled: false,
       items: 0
     }
@@ -79,25 +80,28 @@ export default {
     logoutOnClick: function(){
       console.log('logging out');
       localStorage.setItem("loginDetails", "");
+      localStorage.setItem("loginStatus", 'false');
       this.logged = false;
       this.logout();
     },
-    login: function(){
+    loginClick: function(){
       console.log('Why')
       router.push("login");
     },
     checkLogged: function(){
       if(this.logged == false && localStorage.getItem("loginDetails")){
-        if(localStorage.getItem("loginDetails") != 'undefined'){
+        if(localStorage.getItem("loginStatus") != 'false'){
           this.logged = true;
         }
-        
+      }else if(this.logged == false && this.$store.getters.loginStatus == true){
+        this.logged = true;
       }
     },
     ...mapActions([
       'beginSearch',
       'openSModal',
-      'logout'
+      'logout',
+      'login'
     ])
   },
   components: {
@@ -115,6 +119,13 @@ export default {
   //this could be updated to work on desktop too, I'm sure.
   mounted: function(){
     this.checkLogged();
+    console.log(localStorage.getItem("loginDetails"));
+    if(localStorage.getItem("loginStatus") && localStorage.getItem("loginStatus") == 'true'){
+      console.log(localStorage.getItem("loginDetails"));
+      this.login();
+      this.logged = true;
+    }
+    
   },
   updated: function(){
     this.logged = this.$store.getters.loginStatus;

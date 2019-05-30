@@ -1,8 +1,8 @@
 <template>
 <div class="addingForm">
   <div class="inputs" v-for="item in data">
-  	<input class="input" type="text" placeholder="Song" v-model="item.title">
-  	<input class="input" type="text" placeholder="Artist" v-model="item.artist"><br><br>
+    <input class="input" type="text" placeholder="Artist" v-model="item.artist">
+  	<input class="input" type="text" placeholder="Song" v-model="item.title"><br><br>
   </div><br>
   <a class="button is-primary" v-on:click="addData"><strong><span class="mdi mdi-12px mdi-plus"></span></strong></a><br><br>
   <a class="button is-primary" v-on:click="submitData"><strong>Submit</strong></a>
