@@ -19,7 +19,9 @@ const store = new Vuex.Store({
 		searchBar: true,
 		selecting: false,
 		loggedIn: false,
-		items: []
+		items: [],
+		searchingFor: '',
+		searchParam: ''
 	},
 	mutations: {
 		SET_USE_CONTEXT(state, context){
@@ -45,6 +47,12 @@ const store = new Vuex.Store({
 		},
 		REMOVE_ALL_ITEMS(state){
 			state.items = [];
+		},
+		SET_SEARCH_TERM(state, term){
+			state.searchingFor = term;
+		},
+		SET_SEARCH_PARAM(state, param){
+			state.searchParam = param;
 		}
 	},
 	actions: {
@@ -80,6 +88,12 @@ const store = new Vuex.Store({
 		},
 		deleteAll(context){
 			context.commit('REMOVE_ALL_ITEMS')
+		},
+		setTerm(context, term){
+			context.commit('SET_SEARCH_TERM', term)
+		},
+		setParam(context, param){
+			context.commit('SET_SEARCH_PARAM', param)
 		}
 	},
 	getters: {
@@ -100,6 +114,12 @@ const store = new Vuex.Store({
 		},
 		isSelect(state){
 			return state.selecting;
+		},
+		searchTerm(state){
+			return state.searchingFor;
+		},
+		searchParam(state){
+			return state.searchParam;
 		}
 	}
 })

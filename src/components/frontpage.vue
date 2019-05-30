@@ -16,7 +16,7 @@
     <a v-else>
       <span class = "mdi mdi-12px mdi-microphone-variant"></span>
     </a>
-		{{song.title}} - {{song.artist}}</h1><br>
+		{{song.title}} - {{song.artist}} <sub v-if="song.notes">({{song.notes}})</sub></h1><br>
 	</div>
 </div>
 </template>
@@ -50,6 +50,9 @@ export default {
     ])
   },
   mounted: function(){
+    if(performance.navigation.type == 2){
+      this.adding = false;
+    }
   	music.getRecentSongs()
   		.then(data => {
   			this.recentSongs = data.data;
@@ -86,6 +89,9 @@ export default {
   a{
     color: black;
   }
+  sub{
+      font-size: 10px;
+    }
   @media only screen and (max-width: 768px){
     h1{
       font-size: 28px;

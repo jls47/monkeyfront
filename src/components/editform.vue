@@ -5,13 +5,19 @@
   	<div class="field">
 		<label class="label">Song ID: {{item.id}}</label>
 		<div class="control">
-			<input class="input" v-model="item.artist" type="text" placeholder=""><input class="input" v-model="item.title" type="text" placeholder="">
+			<input class="input" v-model="item.artist" type="text" placeholder="">
+      <input class="input" v-model="item.title" type="text" placeholder="">
+      <input class="input" v-model="item.notes" type="text" placeholder="Add notes?">
 		</div><br>
 	</div>
   </div>
   <a class="button is-primary"
      v-on:click="sendEdits(items)">
   	Submit changes on {{items.length}} songs
+  </a>
+  <a class="button is-primary"
+     v-on:click="cancelEdits">
+     Cancel
   </a>
 </div>
 </template>
@@ -43,6 +49,9 @@ export default {
           }
         })
   	},
+    cancelEdits(){
+      this.$router.push('./');
+    },
   	...mapActions([
   		'deleteAll',
       'frontPage'

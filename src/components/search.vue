@@ -27,7 +27,7 @@
   
 </div>
 <h2 class="searchingNote">Searching {{this.sParam}}s for "{{this.sTerm}}"</h2><br>
-<div class="results">
+<div class="results" v-if="results">
 <div v-if="results.length > 0 && sParam == 'artist'" 
      v-for="result in results" class="artistResults">
   <a class="artistLink" 
@@ -139,6 +139,8 @@ export default {
       this.sTerm = this.term;
       if(this.param == 'artist'){
         this.searched = true;
+        this.setTerm(this.term);
+        this.setParam(this.param);
         music.searchArtist(this.term)
           .then(result => {
             console.log(result);
@@ -164,8 +166,26 @@ export default {
       'closeSModal',
       'addItem',
       'isSelect',
-      'removeItem'
+      'removeItem',
+      'setTerm',
+      'setParam'
     ])
+  },
+  mounted: function(){
+    if(this.$store.getters.searchTerm && this.$store.getters.searchParam){
+      this.sTerm = this.$store.getters.searchTerm;
+      if(this.$store.getters.searchParam == 'artist'){
+        music.searchArtist(this.$store.getters.searchTerm)
+          .then(result => {
+            this.results = result.data;
+          })
+      }else if(this.$store.getters.searchParam == 'title'){
+        music.searchSongs(this.$store.getters.searchTerm)
+          .then(result => {
+            this.results = result.data;
+          })
+      }
+    }
   },
   computed: {
     search(){

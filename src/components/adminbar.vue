@@ -154,6 +154,11 @@ export default {
   	  'deleteAll'
   	])
   },
+  mounted: function(){
+  	if((performance.navigation.type == 1 || performance.navigation.type == 2) && this.$store.getters.itemNumber > 0){
+  		this.opened = true;
+  	}
+  },
   computed: {
   	getNumItems(){
   	  this.itemCount = this.$store.getters.itemNumber;
