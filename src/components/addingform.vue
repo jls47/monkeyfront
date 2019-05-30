@@ -7,6 +7,10 @@
   </div><br>
   <a class="button is-primary" v-on:click="addData"><strong><span class="mdi mdi-12px mdi-plus"></span></strong></a><br><br>
   <a class="button is-primary" v-on:click="submitData"><strong>Submit</strong></a>
+   <a class="button is-primary"
+     v-on:click="cancelAdding">
+     Cancel
+  </a>
 </div>
 </template>
 
@@ -38,6 +42,9 @@ export default {
       	  console.log(e);
 
       	})
+    },
+    cancelAdding(){
+      this.$router.push('./');
     },
     ...mapActions([
       'frontPage'

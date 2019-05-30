@@ -1,5 +1,9 @@
 <template>
 <div class="adminFooter">
+<div class="adminFooterL1" v-if="itemCount >= 1 && (this.opened == true && (this.deleting == false && this.editing == false))">
+	<span class="tag is-primary">{{itemCount}} item(s) in inventory</span>
+</div>
+<div class="adminFooterL2">
 	<nav class="level is-mobile is-fixed-bottom" 
 	  v-if="this.opened == false && this.editing == false && this.deleting == false">
 	  <div class="level-item has-text-centered adminButton">
@@ -82,7 +86,7 @@
 	  </div>
 	</nav>
 </div>
-
+</div>
 
 </template>
 
@@ -155,7 +159,7 @@ export default {
   	])
   },
   mounted: function(){
-  	if((performance.navigation.type == 1 || performance.navigation.type == 2) && this.$store.getters.itemNumber > 0){
+  	if(this.$store.getters.itemNumber > 0){
   		this.opened = true;
   	}
   },
@@ -173,7 +177,7 @@ export default {
 </script>
 
 <style lang="scss">
-.adminFooter{
+.adminFooterL2{
 	position: fixed;
 	right: 10px;
 	bottom: 10px;
@@ -181,5 +185,10 @@ export default {
 	.iconButton{
 		font-size: 18px;
 	}
+}
+.adminFooterL1{
+	position: fixed;
+	right: 10px;
+	bottom: 60px;
 }
 </style>
