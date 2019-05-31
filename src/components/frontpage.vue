@@ -1,5 +1,8 @@
 <template>
 <div class="frontpage">
+  <div v-if="editingInv == true">
+    <inventoryModal></inventoryModal>
+  </div>
 	<h2>Recently added: </h2><br>
 	<div  v-for="song in recentSongs">
     <h1>
@@ -22,6 +25,7 @@
 </template>
 
 <script>
+import inventoryModal from '@/components/inventoryModal';
 import music from '@/services/requests';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
@@ -32,8 +36,12 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       recentSongs: [],
       adding: false,
-      added: []
+      added: [],
+      editingInv: false
     }
+  },
+  components: {
+    inventoryModal: inventoryModal
   },
   methods: {
     addSong(item){
@@ -64,6 +72,9 @@ export default {
     },
     getAdded(){
       this.added = this.$store.getters.getItems;
+    },
+    editInv(){
+      this.editingInv = this.$store.getters.isEditing;
     }
   },
   watch: {
@@ -72,6 +83,9 @@ export default {
     },
     getAdded(){
       this.added = this.$stores.getters.getItems;
+    },
+    editInv(){
+      this.editingInv = this.$store.getters.isEditing;
     }
   }
 }

@@ -19,6 +19,7 @@ import search from '@/components/search';
 import navbar from '@/components/navbar';
 import frontpage from '@/components/frontpage';
 import adminbar from '@/components/adminbar';
+import inventoryModal from '@/components/inventoryModal';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -28,15 +29,16 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       searching: "",
       loggedIn: "",
-      dataLoaded: false
+      dataLoaded: false,
+      editingInv: false
     }
-    
   },
   components: {
     search: search,
     navbar: navbar,
     frontpage: frontpage,
-    adminbar: adminbar
+    adminbar: adminbar,
+    inventoryModal: inventoryModal
   },
   computed: {
     search(){
@@ -44,6 +46,9 @@ export default {
     },
     login(){
       this.loggedIn = this.$store.getters.loginStatus;
+    },
+    editInv(){
+      this.editingInv = this.$store.getters.isEditing;
     }
   },
   watch: {
@@ -52,6 +57,9 @@ export default {
     },
     login(){
       return this.$store.getters.loginStatus;
+    },
+    editInv(){
+      return this.$store.getters.isEditing;
     }
   },
   mounted: function(){

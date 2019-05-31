@@ -1,7 +1,9 @@
 <template>
 <div class="adminFooter">
 <div class="adminFooterL1" v-if="itemCount >= 1 && (this.opened == true && (this.deleting == false && this.editing == false))">
+  <a class="changeItems" v-on:click="editSelectedItems">
 	<span class="tag is-primary">{{itemCount}} item(s) in inventory</span>
+  </a>
 </div>
 <div class="adminFooterL2">
 	<nav class="level is-mobile is-fixed-bottom" 
@@ -151,11 +153,17 @@ export default {
   	goAdd(){
   	  router.push('add'); 
   	},
+  	editSelectedItems(){
+  	  console.log('aaa');
+  	  this.toggleInvEdit(true);
+  	},
   	...mapActions([
   	  'startSelect',
   	  'stopSelect',
   	  'itemNumber',
-  	  'deleteAll'
+  	  'deleteAll',
+  	  'toggleInvEdit',
+  	  'beginSearch'
   	])
   },
   mounted: function(){
@@ -190,5 +198,8 @@ export default {
 	position: fixed;
 	right: 10px;
 	bottom: 60px;
+	span{
+		font-size:16px;
+	}
 }
 </style>

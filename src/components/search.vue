@@ -1,6 +1,9 @@
 <template>
 <div class="search">
-<div v-if="show == true" class="modal is-active">
+<div v-if="editingInv == true">
+  <inventoryModal></inventoryModal>
+</div>
+<div v-if="show == true && editing == false" class="modal is-active">
   <div class="modal-background"></div>
   <div class="modal-card">
   <header class="modal-card-head">
@@ -26,7 +29,7 @@
   </div>
   
 </div>
-<h2 class="searchingNote">Searching {{this.sParam}}s for "{{this.sTerm}}"</h2><br>
+<h2 class="searchingNote" v-if="editing == false">Searching {{this.sParam}}s for "{{this.sTerm}}"</h2><br>
 <div class="results" v-if="results">
 <div v-if="results.length > 0 && sParam == 'artist'" 
      v-for="result in results" class="artistResults">
@@ -83,9 +86,12 @@
 </div>
 </div>
 </div>
+</div>
+</div>
 </template>
 
 <script>
+import inventoryModal from '@/components/inventoryModal';
 import music from '@/services/requests';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
@@ -106,8 +112,12 @@ export default {
       searched: false,
       loggedIn: false,
       adding: false,
-      added: []
+      added: [],
+      editingInv: false
     }
+  },
+  components: {
+    inventoryModal: inventoryModal
   },
   methods: {
     getArtistSongs(name){
@@ -168,7 +178,8 @@ export default {
       'isSelect',
       'removeItem',
       'setTerm',
-      'setParam'
+      'setParam',
+      'getItems'
     ])
   },
   mounted: function(){
@@ -199,6 +210,12 @@ export default {
     },
     getAdded(){
       this.added = this.$store.getters.getItems;
+    },
+    checkEditing(){
+      this.editing = this.$store.getters.isEditing;
+    },
+    editInv(){
+      this.editingInv = this.$store.getters.isEditing;
     }
   },
   watch: {
@@ -219,6 +236,12 @@ export default {
     },
     getAdded(){
       this.added = this.$stores.getters.getItems;
+    },
+    checkEditing(){
+      this.editing = this.$store.getters.isEditing;
+    },
+    editInv(){
+      this.editingInv = this.$store.getters.isEditing;
     }
   }
 }
@@ -228,15 +251,16 @@ export default {
   .searchingNote::before{
 
   }
+  a{
+    text-decoration: none;
+    color: black;
+  }
   .searchingNote{
     text-align: left;
   }
   .results{
     text-align: left;
-    a{
-      text-decoration: none;
-      color: black;
-    }
+    
     h1{
       font-size: 30px;
     }

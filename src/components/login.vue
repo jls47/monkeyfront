@@ -51,7 +51,7 @@ export default {
   				}else{
             if(this.checked == true){
               localStorage.setItem("loginDetails", JSON.stringify(this.data));
-              localStorage.setItem("loginStatus", true);
+              localStorage.setItem("loginStatus", 'true');
             };
             console.log('aaa');
   					this.login()

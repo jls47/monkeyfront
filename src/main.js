@@ -21,7 +21,8 @@ const store = new Vuex.Store({
 		loggedIn: false,
 		items: [],
 		searchingFor: '',
-		searchParam: ''
+		searchParam: '',
+		editingItems: false
 	},
 	mutations: {
 		SET_USE_CONTEXT(state, context){
@@ -53,6 +54,9 @@ const store = new Vuex.Store({
 		},
 		SET_SEARCH_PARAM(state, param){
 			state.searchParam = param;
+		},
+		SET_ITEM_EDITING(state, bool){
+			state.editingItems = bool;
 		}
 	},
 	actions: {
@@ -94,6 +98,9 @@ const store = new Vuex.Store({
 		},
 		setParam(context, param){
 			context.commit('SET_SEARCH_PARAM', param)
+		},
+		toggleInvEdit(context, bool){
+			context.commit('SET_ITEM_EDITING', bool)
 		}
 	},
 	getters: {
@@ -120,6 +127,9 @@ const store = new Vuex.Store({
 		},
 		searchParam(state){
 			return state.searchParam;
+		},
+		isEditing(state){
+			return state.editingItems;
 		}
 	}
 })
