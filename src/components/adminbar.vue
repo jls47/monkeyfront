@@ -6,17 +6,7 @@
   </a>
 </div>
 <div class="adminFooterL2">
-	<nav class="level is-mobile is-fixed-bottom" 
-	  v-if="this.opened == false && this.editing == false && this.deleting == false">
-	  <div class="level-item has-text-centered adminButton">
-	  	<a class="button is-primary iconButton"
-	       v-on:click = "toggleTools">
-	  	  <span class="mdi mdi-36px mdi-settings"></span>
-	  	</a>
-	  </div>
-	</nav>
-	<nav class="level is-mobile"
-		v-if="this.opened == true">
+	<nav class="level is-mobile" v-if="this.editing == false && this.deleting == false">
 	  <div class="level-item has-text-centered">
 	    <div>
 	      <a class="button is-primary iconButton"
@@ -38,14 +28,6 @@
 	      <a class="button is-primary iconButton"
 	         v-on:click="toggleDeleting">
 	      <span class="mdi mdi-36px mdi-delete"></span>
-	      </a>
-	    </div>
-	  </div>
-	  <div class="level-item has-text-centered">
-	    <div>
-	      <a class="button is-primary iconButton"
-	         v-on:click="toggleTools">
-	      	<span class="mdi mdi-36px mdi-close"></span>
 	      </a>
 	    </div>
 	  </div>
@@ -103,24 +85,12 @@ export default {
   name: 'adminbar',
   data () {
     return {
-      opened: false,
       editing: false,
       deleting: false,
       itemCount: 0
     }
   },
   methods: {
-  	toggleTools(){
-  	  if(this.opened == false){
-  	    this.opened = true;
-  	  }else{
-  	  	this.opened = false;
-  	  	this.editing = false;
-  	  	this.deleting = false;
-  	  	this.stopSelect();
-  	  	this.deleteAll();
-  	  }
-  	},
   	editDirect(){
   		console.log('test');
   		router.push("edit");

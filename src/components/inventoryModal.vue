@@ -20,6 +20,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-primary" v-on:click="finishEditing"><strong>Save</strong></button>
+      <button class="button is-light" v-on:click="clearInventory">Clear All</button>
     </footer>
   </div>
 </div>
@@ -42,15 +43,18 @@ export default {
       this.removeItem(item);
     },
     finishEditing(){
-      console.log('asd');
       this.toggleInvEdit();
-      this.$router.push('./');
+    },
+    clearInventory(){
+      this.deleteAll();
+      this.toggleInvEdit();
     },
     ...mapActions([
       'isSelect',
       'removeItem',
       'getItems',
-      'toggleInvEdit'
+      'toggleInvEdit',
+      'deleteAll'
     ])
   },
   computed: {

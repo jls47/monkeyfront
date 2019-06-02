@@ -33,15 +33,23 @@
 <div class="results" v-if="results">
 <div v-if="results.length > 0 && sParam == 'artist'" 
      v-for="result in results" class="artistResults">
-  <a class="artistLink" 
-      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()">
+  
     <h1>
+    <a class="artistLink" 
+      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()">
       {{result.name}} 
       <span v-if="subResults.length > 0 && subResults[0].artist == result.name" 
             class="mdi mdi-24px mdi-arrow-down-drop-circle"></span>
       <span v-else class="mdi mdi-24px mdi-arrow-right-drop-circle"></span>
+      </a>
+      <a class="selectAllByArtist"
+         v-on:click="addAllArtistSongs(result.name)"
+         v-if="(subResults.length != 0 && selected == subResults[0].artist) && adding == true">
+        <span class="mdi mdi-24px mdi-playlist-plus"></span>
+      </a>
     </h1>
-  </a>
+  
+  
 
   <div class="artistSongs" 
        v-if="subResults.length > 0 && subResults[0].artist == result.name" 
@@ -113,7 +121,8 @@ export default {
       loggedIn: false,
       adding: false,
       added: [],
-      editingInv: false
+      editingInv: false,
+      editing: false
     }
   },
   components: {
@@ -130,6 +139,12 @@ export default {
           })
       }else{
         this.clearSubResults();
+      }
+    },
+    addAllArtistSongs(artist){
+      console.log(artist);
+      for(let result of this.subResults){
+        this.addItem(result);
       }
     },
     closeModal(){
@@ -183,6 +198,7 @@ export default {
     ])
   },
   mounted: function(){
+    this.editing = false;
     if(this.$store.getters.searchTerm && this.$store.getters.searchParam){
       this.sTerm = this.$store.getters.searchTerm;
       if(this.$store.getters.searchParam == 'artist'){

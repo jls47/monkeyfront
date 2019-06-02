@@ -46,6 +46,7 @@ export default {
       console.log(ids);
       music.deleteSongs(ids.substring(0, ids.length - 1))
         .then(res => {
+          this.deleteAll();
           this.frontPage();
           console.log(res);
           this.$router.push("./");
@@ -55,7 +56,6 @@ export default {
         })
   	},
     cancelDeletions(items){
-      this.deleteAll(items);
       this.frontPage();
       this.$router.push("./");
 
