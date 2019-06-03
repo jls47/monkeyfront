@@ -1,5 +1,6 @@
 <template>
 <div class="login">
+  <h1>Admin Login</h1>
 	<div class="field">
 		<label class="label">Username</label>
 		<div class="control">
@@ -71,5 +72,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+h1{
+  font-size: 30px;
+}
 </style>
