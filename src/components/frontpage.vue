@@ -1,6 +1,6 @@
 <template>
 <div class="frontpage">
-  <div class="columns">
+  <div class="columns searchHint">
     <div class="column is-three-fifths">
     </div>
     <div class="column">
@@ -112,6 +112,9 @@ export default {
   text-align: left;
   p::before{
     margin-left: 20px;
+  }
+  .searchHint{
+    margin-top: -60px;
   }
   a{
     color: black;
