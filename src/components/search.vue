@@ -7,23 +7,29 @@
   <div class="modal-background"></div>
   <div class="modal-card">
   <header class="modal-card-head">
-    <p class="modal-card-title">Search</p>
+    <p class="modal-card-title">Find Songs</p>
     <button class="delete" aria-label="close" v-on:click="closeModal"></button>
   </header>
   <section class="modal-card-body">
 <div class="field">
   <div class="control">
-    <div class="select is-dark">
-      <select v-model="param">
-        <option value="artist">Search artists</option>
-        <option value="title">Search titles</option>
-      </select>
+    <div class="columns">
+      <div class="column">
+        <div class="select is-dark">
+          <select v-model="param">
+            <option value="song">By song title</option>
+            <option value="artist">By artist name</option>
+          </select>
+        </div>
+      </div>
+      <div class="column is-two-thirds">
+        <input class="input" type="text" :placeholder = "this.param[0].toUpperCase() + this.param.slice(1, this.param.length) +  ' name'" v-model="term">
+      </div>
     </div>
-    <input class="input" type="text" placeholder="Search" v-model="term">
   </div>
 </div>
   </section>
-  <a class="button is-primary" v-on:click="startSearch">
+  <a class="button is-primary searchButton" v-on:click="startSearch">
     <strong>Search <span class="mdi mdi-12px mdi-magnify"></span></strong>
   </a>
   </div>
@@ -286,6 +292,11 @@ export default {
     sub{
       font-size: 10px;
     }
+  }
+
+  .searchButton{
+    height: 50px;
+    font-size: 20px;
   }
   
   .search{

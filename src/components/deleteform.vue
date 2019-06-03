@@ -9,13 +9,13 @@
       <div class="level-item has-text-centered">
         <a class="button is-primary yesNoButton"
            v-on:click = "sendDeletions(items)">
-          Yes
+          Delete
         </a>
       </div>
       <div class="level-item has-text-centered">
         <a class="button is-primary yesNoButton"
            v-on:click = "cancelDeletions(items)">
-          No
+          Cancel
         </a>
       </div>
     </nav>

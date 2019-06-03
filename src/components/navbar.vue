@@ -36,8 +36,7 @@
           <strong>Log out <span class="mdi mdi-12px mdi-lock"></span></strong>
         </a>
       </div>
-      <div class="navbar-item"
-           v-if="">
+      <div class="navbar-item">
         <a class="button is-light" href="./">
           <strong>Home <span class="mdi mdi-12px mdi-home-outline"></span></strong>
         </a>

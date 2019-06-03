@@ -1,15 +1,37 @@
 <template>
 <div class="addingForm">
+  <h1>Add Songs</h1><br>
   <div class="inputs" v-for="item in data">
-    <input class="input" type="text" placeholder="Artist" v-model="item.artist">
-  	<input class="input" type="text" placeholder="Song" v-model="item.title">
-    <input class="input" type="text" placeholder="Notes (optional)" v-model="item.notes">
-    <a class="addByArtist" v-on:click="addByArtist(item.artist)">
-      <span class="tag is-primary">Add another song by this artist</span>
-    </a>
+    <div class="columns inputItem">
+      <div class="column inputItem">
+        <input class="input" type="text" placeholder="Artist" v-model="item.artist">
+      </div>
+      <div class="column inputItem">
+        <input class="input" type="text" placeholder="Song" v-model="item.title">
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-half inputItem">
+        <input class="input" type="text" placeholder="Notes (optional)" v-model="item.notes">
+      </div>
+      <div class="column inputItem">
+        <a class="addByArtist button is-primary" v-on:click="addByArtist(item.artist)">
+          Add another song by this artist
+        </a>
+      </div>
+      <div class="column">
+        <a class="removeSong button is-warning" 
+           v-on:click="removeSong(item)"
+           v-if="data.indexOf(item) > 0">
+          Remove Song
+        </a>
+
+      </div>
+    </div>
+
     <br><br>
   </div>
-  <a class="button is-primary" v-on:click="addData"><strong><span class="mdi mdi-12px mdi-plus"></span></strong></a><br><br><br>
+  <a class="button is-primary" v-on:click="addData"><strong>Add another Song</strong></a><br><br>
   <a class="button is-primary" v-on:click="submitData"><strong>Submit</strong></a>
    <a class="button is-primary"
      v-on:click="cancelAdding">
@@ -31,8 +53,7 @@ export default {
   data () {
     return {
       data: [{artist: "",
-      		 title: "", notes: null}],
-      artists: []
+      		 title: "", notes: null, new: true}]
     }
   },
   methods: {
@@ -41,6 +62,9 @@ export default {
     },
     addByArtist(name){
       this.data.push({artist: name, title: "", notes: null});
+    },
+    removeSong(item){
+      this.data.splice(this.data.indexOf(item), 1);
     },
     submitData(){
       music.createSongs(JSON.stringify(this.data))
@@ -66,5 +90,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+h1{
+  font-size: 30px;
+  margin-top: -50px;
+}
+.inputs{
+  width: 80vw;
+  margin-left: 10vw;
+  margin-bottom: -20px;
+}
+.inputItem{
+  @media only screen and (max-width: 768px){
+    margin-bottom: -20px;
+  }
+}
 </style>
