@@ -1,6 +1,6 @@
 <template>
 <div class="adminFooter">
-<div class="adminFooterL1" v-if="itemCount >= 1 && (this.opened == true && (this.deleting == false && this.editing == false))">
+<div class="adminFooterL1" v-if="itemCount >= 1 && (this.deleting == false && this.editing == false)">
   <a class="changeItems" v-on:click="editSelectedItems">
 	<span class="tag is-primary">{{itemCount}} item(s) in inventory</span>
   </a>
