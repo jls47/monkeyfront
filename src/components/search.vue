@@ -56,31 +56,33 @@
     </h1>
   
   
-
-  <div class="artistSongs" 
-       v-if="subResults.length > 0 && subResults[0].artist == result.name" 
-       v-for="sub in subResults">
-    <h2>
-      <a class="addbutton" 
-         v-if="adding == true && !(added.includes(sub))"
-         v-on:click="addSong(sub)">
-        <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
-      </a>
-      <a class="removebutton"
-         v-else-if="adding == true && added.includes(sub)"
-         v-on:click="removeSong(sub)">
-        <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
-      </a>
-      <a v-else>
-        <span class = "mdi mdi-12px mdi-microphone-variant"></span>
-      </a>
-      {{sub.title}} 
-      <sub v-if="sub.notes">({{sub.notes}})</sub>
-    </h2>
-    
-  </div><br>
+  <transition-group name="slide-fade" tag="p">
+    <div class="artistSongs" 
+         v-if="subResults.length > 0 && subResults[0].artist == result.name" 
+         v-for="subRes in subResults"
+         v-bind:key="subRes.title">
+      <h2>
+        <a class="addbutton" 
+           v-if="adding == true && !(added.includes(subRes))"
+           v-on:click="addSong(subRes)">
+          <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+        </a>
+        <a class="removebutton"
+           v-else-if="adding == true && added.includes(subRes)"
+           v-on:click="removeSong(subRes)">
+          <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
+        </a>
+        <a v-else>
+          <span class = "mdi mdi-12px mdi-microphone-variant"></span>
+        </a>
+        {{subRes.title}} 
+        <sub v-if="subRes.notes">({{subRes.notes}})</sub>
+      </h2>
+      
+    </div>
+  </transition-group><br>
 </div>
-<div v-if="results.length > 0 && sParam == 'title'" v-for="result in results" class="titleResults">
+<div v-if="results.length > 0 && sParam == 'song'" v-for="result in results" class="titleResults">
   <h2>
     <a class="addbutton" 
        v-if="adding == true && !(added.includes(sub))"
@@ -180,6 +182,7 @@ export default {
 
       }else{
         this.searched = true;
+        console.log(this.term);
         music.searchSongs(this.term)
           .then(result => {
             this.results = result.data;
@@ -212,7 +215,7 @@ export default {
           .then(result => {
             this.results = result.data;
           })
-      }else if(this.$store.getters.searchParam == 'title'){
+      }else if(this.$store.getters.searchParam == 'song'){
         music.searchSongs(this.$store.getters.searchTerm)
           .then(result => {
             this.results = result.data;
@@ -305,5 +308,16 @@ export default {
   }
   .artistSongs{
     margin-left: 20px;
+  }
+  .slide-fade-enter-active {
+    transition: all .3s ease-in-out;
+  }
+  .slide-fade-leave-active {
+    transition: all .3s cubic-bezier(0, 1, 0.5, 1);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateY(-10px);
+    opacity: 0;
   }
 </style>
