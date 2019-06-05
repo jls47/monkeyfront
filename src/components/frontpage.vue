@@ -1,18 +1,5 @@
 <template>
 <div class="frontpage">
-  <div class="columns searchHint">
-    <div class="column is-three-fifths">
-    </div>
-    <div class="column">
-      <span class="tag indicator is-primary">
-
-          <h3>Search for songs here<i class="mdi mdi-24px mdi-chevron-up"></i></h3>
-
-      </span>
-    </div>
-    <div class="column">
-    </div>
-  </div>
   <div v-if="editingInv == true">
     <inventoryModal></inventoryModal>
   </div>
@@ -113,9 +100,7 @@ export default {
   p::before{
     margin-left: 20px;
   }
-  .searchHint{
-    margin-top: -60px;
-  }
+  
   a{
     color: black;
   }

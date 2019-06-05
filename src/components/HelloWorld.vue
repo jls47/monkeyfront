@@ -6,6 +6,31 @@
   <search></search>
 </div>
 <div v-else>
+  <div class="columns searchHint">
+    <div class="column is-three-fifths">
+    </div>
+    <div class="column">
+      <span class="tag indicator is-primary">
+
+          <h3>Search for songs here<i class="mdi mdi-24px mdi-chevron-up"></i></h3>
+
+      </span>
+    </div>
+    <div class="column">
+    </div>
+  </div>
+  <section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Welcome to the Monkey Pub
+      </h1>
+      <h2 class="subtitle">
+        Check out the recently added songs or go hunting for your favorites!  Search by artist or song title.
+      </h2>
+    </div>
+  </div>
+</section><br>
   <frontpage></frontpage>
 </div>
 <div v-if="loggedIn == true">
@@ -84,4 +109,17 @@ li {
 a {
   color: #42b983;
 }
+.searchHint{
+    margin-top: -60px;
+  }
+.hero{
+  background-image: url("../../static/tesla.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  
+}
+.subtitle{
+    color: red;
+  }
 </style>
