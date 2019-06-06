@@ -10,18 +10,15 @@
     <div class="column is-three-fifths">
     </div>
     <div class="column">
-      <span class="tag indicator is-primary">
-
-          <h3>Search for songs here<i class="mdi mdi-24px mdi-chevron-up"></i></h3>
-
-      </span>
-    </div>
-    <div class="column">
+      <div class="notification is-primary" v-if="notifier == true">
+        <button class="delete" v-on:click="closeNotifier"></button>
+        <h3>Search for songs here <i class="mdi mdi-24px mdi-chevron-up"></i></h3>
+      </div>
     </div>
   </div>
   <section class="hero is-primary">
   <div class="hero-body">
-    <div class="container">
+    <div class="container pubInfo">
       <h1 class="title">
         Welcome to the Monkey Pub
       </h1>
@@ -55,7 +52,8 @@ export default {
       searching: "",
       loggedIn: "",
       dataLoaded: false,
-      editingInv: false
+      editingInv: false,
+      notifier: true
     }
   },
   components: {
@@ -64,6 +62,11 @@ export default {
     frontpage: frontpage,
     adminbar: adminbar,
     inventoryModal: inventoryModal
+  },
+  methods: {
+    closeNotifier(){
+      this.notifier = false;
+    }
   },
   computed: {
     search(){
@@ -113,13 +116,25 @@ a {
     margin-top: -60px;
   }
 .hero{
-  background-image: url("../../static/tesla.jpg");
+  background-image: url("https://abload.de/img/teslaszkrt.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   
 }
-.subtitle{
-    color: red;
+.indicator{
+  height: 40px;
+  h3{
+    font-size: 20px;
   }
+  @media only screen and (max-width: 768px){
+
+  }
+}
+.subtitle{
+  color: red;
+}
+.pubInfo{
+  background-color: rgba(56, 57, 58, 0.4);
+}
 </style>
