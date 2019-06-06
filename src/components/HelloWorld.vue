@@ -1,4 +1,4 @@
-<template><div class="container">
+<template><div class="container main-container">
 <div>
   <navbar></navbar>
 </div>
@@ -112,11 +112,13 @@ li {
 a {
   color: #42b983;
 }
-.searchHint{
-  margin-top: -60px;
+.notification.is-primary{
+  margin-top: -30px;
   @media only screen and(max-width: 768px){
-    margin-top: -150px;
+    margin-top: -80px;
+    margin-bottom: -20px;
   }
+
 }
 .hero{
   background-image: url("https://abload.de/img/teslaszkrt.jpg");
