@@ -113,8 +113,11 @@ a {
   color: #42b983;
 }
 .searchHint{
-    margin-top: -60px;
+  margin-top: -60px;
+  @media only screen and(max-width: 768px){
+    margin-top: -100px;
   }
+}
 .hero{
   background-image: url("https://abload.de/img/teslaszkrt.jpg");
   background-repeat: no-repeat;
