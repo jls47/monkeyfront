@@ -142,7 +142,6 @@ export default {
 }
 nav{
 	top: 0;
-  background: black;
 }
 #lock{
 	margin-top: -21px;
