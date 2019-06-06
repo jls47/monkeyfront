@@ -20,7 +20,7 @@
         </a>
       </div>
       <div class="column">
-        <a class="removeSong button is-warning" 
+        <a class="removeSong button is-danger" 
            v-on:click="removeSong(item)"
            v-if="data.indexOf(item) > 0">
           Remove Song
