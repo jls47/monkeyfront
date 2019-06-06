@@ -278,22 +278,27 @@ export default {
   }
   a{
     text-decoration: none;
-    color: black;
+    color: rgba(224, 225, 226, 1);
   }
   .searchingNote{
     text-align: left;
+  }
+  h2{
+    color: rgba(224, 225, 226, 1);
   }
   .results{
     text-align: left;
     
     h1{
       font-size: 30px;
+      color: rgba(224, 225, 226, 1);
     }
     h2{
       font-size: 20px;
     }
     sub{
       font-size: 10px;
+      color: rgba(224, 225, 226, 1);
     }
   }
 

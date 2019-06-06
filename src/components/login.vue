@@ -75,5 +75,9 @@ export default {
 <style lang="scss" scoped>
 h1{
   font-size: 30px;
+  color: rgba(224, 225, 226, 1);
+}
+label{
+  color: rgba(224, 225, 226, 1);
 }
 </style>

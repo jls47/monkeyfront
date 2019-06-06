@@ -71,6 +71,10 @@ export default {
     width: 80vw;
 		h1{
 			font-size: 25px;
+      color: rgba(224, 225, 226, 1);
 		}
+    label{
+      color: rgba(224, 225, 226, 1);
+    }
 	}
 </style>

@@ -78,6 +78,12 @@ export default {
 .deleting{
   width: 80vw;
   margin-left: 10vw;
+  h1{
+    color: rgba(224, 225, 226, 1);
+  }
+  h2{
+    color: rgba(224, 225, 226, 1);
+  }
 }
 .yesNo{
   position: fixed;

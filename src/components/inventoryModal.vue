@@ -73,5 +73,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+p{
+  color: rgba(24, 25, 25, 1);
+}
+h2{
+  color: rgba(24, 25, 25, 1);
+}
+span{
+  color: rgba(24, 25, 25, 1);
+}
 </style>
