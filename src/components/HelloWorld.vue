@@ -115,7 +115,7 @@ a {
 .searchHint{
   margin-top: -60px;
   @media only screen and(max-width: 768px){
-    margin-top: -100px;
+    margin-top: -150px;
   }
 }
 .hero{
