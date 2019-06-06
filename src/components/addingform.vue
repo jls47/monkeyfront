@@ -93,6 +93,7 @@ export default {
 h1{
   font-size: 30px;
   margin-top: -50px;
+  color: rgba(224, 225, 226, 1);
 }
 .inputs{
   width: 80vw;
@@ -102,6 +103,13 @@ h1{
 .inputItem{
   @media only screen and (max-width: 768px){
     margin-bottom: -20px;
+  }
+}
+.addingForm{
+  margin-top: -115px;
+  margin-bottom: 290px;
+  @media only screen and (min-width: 768px){
+    margin-bottom: 650px;
   }
 }
 </style>

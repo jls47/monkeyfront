@@ -110,24 +110,32 @@ export default {
 
   h3{
     font-size: 20px;
+    color: rgba(224, 225, 226, 1);
   }
   .indicator{
     height: 35px;
   }
+  span{
+    color: rgba(224, 225, 226, 1);
+  }
   @media only screen and (max-width: 768px){
     h1{
       font-size: 28px;
+      color: rgba(224, 225, 226, 1);
     }
     h2{
       font-size: 20px;
+      color: rgba(224, 225, 226, 1);
     }
   }
   @media only screen and (min-width: 768px){
     h1{
       font-size: 40px;
+      color: rgba(224, 225, 226, 1);
     }
     h2{
     font-size: 30px;
+    color: rgba(224, 225, 226, 1);
     }
   }
 }
