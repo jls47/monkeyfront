@@ -37,7 +37,7 @@
         </a>
       </div>
       <div class="navbar-item">
-        <a class="button is-light" href="./">
+        <a class="button is-light" v-on:click="goFrontPage">
           <strong>Home <span class="mdi mdi-12px mdi-home-outline"></span></strong>
         </a>
       </div>
@@ -87,6 +87,10 @@ export default {
       console.log('Why')
       router.push("login");
     },
+    goFrontPage: function(){
+      this.burgerToggle();
+      this.frontPage();
+    },
     checkLogged: function(){
       if(this.logged == false && localStorage.getItem("loginDetails")){
         if(localStorage.getItem("loginStatus") != 'false'){
@@ -100,7 +104,8 @@ export default {
       'beginSearch',
       'openSModal',
       'logout',
-      'login'
+      'login',
+      'frontPage'
     ])
   },
   components: {

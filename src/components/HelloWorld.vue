@@ -65,8 +65,12 @@ export default {
   },
   methods: {
     closeNotifier(){
+      this.closeHint();
       this.notifier = false;
-    }
+    },
+    ...mapActions([
+      'closeHint'
+    ])
   },
   computed: {
     search(){
@@ -77,6 +81,9 @@ export default {
     },
     editInv(){
       this.editingInv = this.$store.getters.isEditing;
+    },
+    hintClosed(){
+      this.notifier = this.$store.getters.isHintClosed;
     }
   },
   watch: {
@@ -88,10 +95,14 @@ export default {
     },
     editInv(){
       return this.$store.getters.isEditing;
+    },
+    hintClosed(){
+      return this.$store.getters.isHintClosed;
     }
   },
   mounted: function(){
     this.loggedIn = this.$store.getters.loginStatus;
+    this.notifier = this.$store.getters.isHintClosed;
   }
 }
 </script>

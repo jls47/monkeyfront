@@ -50,7 +50,7 @@
       </a>
       <a class="selectAllByArtist"
          v-on:click="addAllArtistSongs(result.name)"
-         v-if="(subResults.length != 0 && selected == subResults[0].artist) && adding == true">
+         v-if="selected == result.name && adding == true">
         <span class="mdi mdi-24px mdi-playlist-plus"></span>
       </a>
     </h1>
@@ -97,7 +97,10 @@
   {{result.title}} - {{result.artist}}
   </h2><br>
 </div>
-<div class="placeholder" v-if="results.length == 0 && this.searched == true">
+<div class="placeholder1" v-if="results.length == 0 && this.searching == true">
+  <progress class="progress is-large is-primary" max="100">60%</progress>
+</div>
+<div class="placeholder2" v-if="results.length == 0 && this.didSearch == true">
   <h1>Couldn't find any {{param}}s with the search term "{{term}}".</h1>
 </div>
 </div>
@@ -125,12 +128,13 @@ export default {
       results: [],
       subResults: [],
       showingSub : false,
-      searched: false,
+      didSearch: "",
       loggedIn: false,
       adding: false,
       added: [],
       editingInv: false,
-      editing: false
+      editing: false,
+      searching: false
     }
   },
   components: {
@@ -167,24 +171,27 @@ export default {
       this.subResults = [];
     },
     startSearch(){
+      this.searching = true;
       this.closeModal();
       this.sParam = this.param;
       this.sTerm = this.term;
       if(this.param == 'artist'){
-        this.searched = true;
         this.setTerm(this.term);
         this.setParam(this.param);
         music.searchArtist(this.term)
           .then(result => {
+            this.searching = false;
+            this.didSearch = true;
             console.log(result);
             this.results = result.data;
           });
 
       }else{
-        this.searched = true;
         console.log(this.term);
         music.searchSongs(this.term)
           .then(result => {
+            this.searching = false;
+            this.didSearch = true;
             this.results = result.data;
           })
       }
@@ -249,9 +256,6 @@ export default {
     },
     param: function(){
       //this.results = [];
-    },
-    show: function(){
-      this.searched = false;
     },
     checkLogin(){
       this.loggedIn = this.$store.getters.loginStatus;

@@ -22,7 +22,8 @@ const store = new Vuex.Store({
 		items: [],
 		searchingFor: '',
 		searchParam: '',
-		editingItems: false
+		editingItems: false,
+		hint: true,
 	},
 	mutations: {
 		SET_USE_CONTEXT(state, context){
@@ -57,6 +58,9 @@ const store = new Vuex.Store({
 		},
 		SET_ITEM_EDITING(state, bool){
 			state.editingItems = bool;
+		},
+		SET_HINT_CLOSED(state){
+			state.hint = false;
 		}
 	},
 	actions: {
@@ -101,6 +105,9 @@ const store = new Vuex.Store({
 		},
 		toggleInvEdit(context, bool){
 			context.commit('SET_ITEM_EDITING', bool)
+		},
+		closeHint(context){
+			context.commit('SET_HINT_CLOSED')
 		}
 	},
 	getters: {
@@ -130,6 +137,9 @@ const store = new Vuex.Store({
 		},
 		isEditing(state){
 			return state.editingItems;
+		},
+		isHintClosed(state){
+			return state.hint;
 		}
 	}
 })
