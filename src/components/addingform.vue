@@ -22,7 +22,7 @@
       <div class="column">
         <a class="removeSong button is-danger" 
            v-on:click="removeSong(item)"
-           v-if="data.indexOf(item) > 0">
+           v-if="data.length > 1">
           Remove Song
         </a>
 

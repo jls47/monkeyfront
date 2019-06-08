@@ -121,7 +121,7 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  text-decoration: none;
 }
 .notification.is-primary{
   margin-top: -30px;
@@ -132,7 +132,7 @@ a {
 
 }
 .hero{
-  background-image: url("https://abload.de/img/teslaszkrt.jpg");
+  background-image: url("https://abload.de/img/nikolagalaxynnk77.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -147,6 +147,23 @@ a {
 
   }
 }
+
+.modal-card-head{
+  background-color: rgba(65, 65, 65, 1);
+}
+
+.modal-card-title{
+  color: rgba(224, 225, 226, 1);
+}
+
+.modal-card-body{
+  background-color: rgba(45, 45, 45, 1);
+}
+
+.modal-background{
+  background-color: rgba(45, 45, 45, 0.5);
+}
+
 .subtitle{
   color: red;
 }
