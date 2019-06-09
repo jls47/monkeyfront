@@ -16,7 +16,6 @@ export default {
     ])
   },
   mounted: function(){
-    console.log('aa');
   }
 }
 </script>

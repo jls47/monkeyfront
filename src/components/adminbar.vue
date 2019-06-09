@@ -37,7 +37,7 @@
 	  <div class="level-item has-text-centered">
 	    <div>
 	      <a class="button is-primary"
-	      v-on:click="editDirect">
+	      v-on:click="goEdit">
 	      Edit {{itemCount}} items
 	      </a>
 	    </div>
@@ -55,7 +55,8 @@
 		v-if="this.deleting == true">
 	  <div class="level-item has-text-centered">
 	    <div>
-	      <a class="button is-primary" href="./#/delete">
+	      <a class="button is-primary" 
+	         v-on:click="goDelete">
 	      Delete {{itemCount}} items
 	      </a>
 	    </div>
@@ -91,13 +92,6 @@ export default {
     }
   },
   methods: {
-  	editDirect(){
-  		console.log('test');
-  		router.push("edit");
-  	},
-  	deleteDirect(){
-  		router.push("delete");
-  	},
   	toggleEditing(){
   	  if(this.editing == false){
   	    this.editing = true;
@@ -121,10 +115,18 @@ export default {
   	  }
   	},
   	goAdd(){
+  	  this.stopSelect();
   	  router.push('add'); 
   	},
+  	goEdit(){
+  	  this.stopSelect();
+  	  router.push('edit');
+  	},
+  	goDelete(){
+      this.stopSelect();
+      router.push('delete');
+  	},
   	editSelectedItems(){
-  	  console.log('aaa');
   	  this.toggleInvEdit(true);
   	},
   	...mapActions([

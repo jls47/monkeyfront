@@ -2,14 +2,13 @@ import axios from 'axios'
 
 class music{
 	static createSongs(form){
-		console.log(form);
 		//return axios.post(`http://localhost:3000/api/songs/`, {data: form})
 		return axios.post(`https://monkey-back.herokuapp.com/api/songs/`,{data: form})
 		  .then(response => {
-		  	console.log(response);
+		  	return response;
 		  })
 		  .catch(e => {
-		  	console.log(e);
+		  	return e;
 		  })
 	}
 

@@ -70,21 +70,19 @@ export default {
       }
     },
     startSearch: function(){
-      console.log('aaa');
-      console.log(this.beginSearch);
       this.burgerToggle();
       this.openSModal();
       this.beginSearch();
     },
     logoutOnClick: function(){
-      console.log('logging out');
       localStorage.setItem("loginDetails", "");
       localStorage.setItem("loginStatus", 'false');
+      this.stopSelect();
+      this.deleteAll();
       this.logged = false;
       this.logout();
     },
     loginClick: function(){
-      console.log('Why')
       router.push("login");
     },
     goFrontPage: function(){
@@ -105,7 +103,9 @@ export default {
       'openSModal',
       'logout',
       'login',
-      'frontPage'
+      'frontPage',
+      'stopSelect',
+      'deleteAll'
     ])
   },
   components: {
@@ -123,9 +123,7 @@ export default {
   //this could be updated to work on desktop too, I'm sure.
   mounted: function(){
     this.checkLogged();
-    console.log(localStorage.getItem("loginDetails"));
     if(localStorage.getItem("loginStatus") && localStorage.getItem("loginStatus") == 'true'){
-      console.log(localStorage.getItem("loginDetails"));
       this.login();
       this.logged = true;
     }

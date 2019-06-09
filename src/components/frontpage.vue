@@ -9,12 +9,12 @@
     <a class="addbutton" 
        v-if="adding == true && !(added.includes(song))"
        v-on:click="addSong(song)">
-      <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+      <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
     </a>
     <a class="removebutton"
        v-else-if="adding == true && added.includes(song)"
        v-on:click="removeSong(song)">
-      <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
+      <span class="mdi mdi-24px mdi-close-circle-outline"></span>
     </a>
     <a v-else>
       <span class = "mdi mdi-12px mdi-microphone-variant"></span>
@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     addSong(item){
-      console.log(item);
       this.addItem(item);
     },
     removeSong(item){

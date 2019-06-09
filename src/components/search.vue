@@ -62,15 +62,15 @@
          v-for="subRes in subResults"
          v-bind:key="subRes.title">
       <h2>
-        <a class="addbutton" 
-           v-if="adding == true && !(added.includes(subRes))"
-           v-on:click="addSong(subRes)">
-          <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
-        </a>
         <a class="removebutton"
-           v-else-if="adding == true && added.includes(subRes)"
+           v-if="adding == true && addedContains(subRes)"
            v-on:click="removeSong(subRes)">
-          <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
+          <span class="mdi mdi-24px mdi-close-circle-outline"></span>
+        </a>
+        <a class="addbutton" 
+           v-else-if="adding == true && !(addedContains(subRes))"
+           v-on:click="addSong(subRes)">
+          <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
         </a>
         <a v-else>
           <span class = "mdi mdi-12px mdi-microphone-variant"></span>
@@ -85,14 +85,17 @@
 <div v-if="results.length > 0 && sParam == 'song'" v-for="result in results" class="titleResults">
   <h2>
     <a class="addbutton" 
-       v-if="adding == true && !(added.includes(sub))"
+       v-if="adding == true && !(added.includes(result))"
        v-on:click="addSong(result)">
-      <span class="mdi mdi-24px mdi-plus-circle-outline"></span>
+      <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
     </a>
     <a class="removebutton"
-       v-else-if="adding == true && added.includes(sub)"
-       v-on:click="removeSong(sub)">
-      <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
+       v-else-if="adding == true && added.includes(result)"
+       v-on:click="removeSong(result)">
+      <span class="mdi mdi-24px mdi-close-circle-outline"></span>
+    </a>
+    <a v-else>
+      <span class = "mdi mdi-12px mdi-microphone-variant"></span>
     </a>
   {{result.title}} - {{result.artist}}
   </h2><br>
@@ -141,8 +144,10 @@ export default {
     inventoryModal: inventoryModal
   },
   methods: {
+    addedContains(res){
+      return this.added.includes(res);
+    },
     getArtistSongs(name){
-      console.log('searching');
       if(this.selected != name){
         this.selected = name;
         music.getSongsByArtist(name)
@@ -154,7 +159,6 @@ export default {
       }
     },
     addAllArtistSongs(artist){
-      console.log(artist);
       for(let result of this.subResults){
         this.addItem(result);
       }
@@ -182,12 +186,10 @@ export default {
           .then(result => {
             this.searching = false;
             this.didSearch = true;
-            console.log(result);
             this.results = result.data;
           });
 
       }else{
-        console.log(this.term);
         music.searchSongs(this.term)
           .then(result => {
             this.searching = false;
@@ -197,7 +199,6 @@ export default {
       }
     },
     addSong(item){
-      console.log(item);
       this.addItem(item);
     },
     removeSong(item){
@@ -215,6 +216,7 @@ export default {
   },
   mounted: function(){
     this.editing = false;
+    this.added = this.$store.getters.getItems;
     if(this.$store.getters.searchTerm && this.$store.getters.searchParam){
       this.sTerm = this.$store.getters.searchTerm;
       if(this.$store.getters.searchParam == 'artist'){

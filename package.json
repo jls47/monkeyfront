@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@mdi/font": "^3.6.95",
     "axios": "^0.18.1",
     "buefy": "^0.7.7",
     "bulma": "^0.7.5",
