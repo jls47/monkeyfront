@@ -63,19 +63,19 @@
          v-bind:key="subRes.title">
       <h2>
         <a class="removebutton"
-           v-if="adding == true && addedContains(subRes)"
+           v-if="adding == true && (subRes.added || added.includes(subRes))"
            v-on:click="removeSong(subRes)">
           <span class="mdi mdi-24px mdi-close-circle-outline"></span>
         </a>
         <a class="addbutton" 
-           v-else-if="adding == true && !(addedContains(subRes))"
+           v-else-if="adding == true && !(subRes.added)"
            v-on:click="addSong(subRes)">
           <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
         </a>
         <a v-else>
           <span class = "mdi mdi-12px mdi-microphone-variant"></span>
         </a>
-        {{subRes.title}} 
+        {{subRes.title}}
         <sub v-if="subRes.notes">({{subRes.notes}})</sub>
       </h2>
       
@@ -84,15 +84,15 @@
 </div>
 <div v-if="results.length > 0 && sParam == 'song'" v-for="result in results" class="titleResults">
   <h2>
-    <a class="addbutton" 
-       v-if="adding == true && !(added.includes(result))"
-       v-on:click="addSong(result)">
-      <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
-    </a>
     <a class="removebutton"
-       v-else-if="adding == true && added.includes(result)"
+       v-if="adding == true && (result.added || added.includes(result))"
        v-on:click="removeSong(result)">
       <span class="mdi mdi-24px mdi-close-circle-outline"></span>
+    </a>
+    <a class="addbutton" 
+       v-else-if="adding == true && !(result.added)"
+       v-on:click="addSong(result)">
+      <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
     </a>
     <a v-else>
       <span class = "mdi mdi-12px mdi-microphone-variant"></span>
@@ -145,8 +145,21 @@ export default {
   },
   methods: {
     addedContains(res){
-      return this.added.includes(res);
+      for(let addedItem of this.added){ 
+        let aKeys = Object.keys(addedItem);
+        let bKeys = Object.keys(res);
+        if(aKeys.length != bKeys.length){
+          return false;
+        }
+        for(let key of aKeys){
+          if(addedItem[key] != res[key]){
+            return false;
+          }
+        }
+        return true;
+      }
     },
+    //modify this so subresults don't go away?  the big problems seems to be that upon loading new data it doesn't parse for some reason.
     getArtistSongs(name){
       if(this.selected != name){
         this.selected = name;
@@ -202,6 +215,7 @@ export default {
       this.addItem(item);
     },
     removeSong(item){
+      item.added = false;
       this.removeItem(item);
     },
     ...mapActions([
@@ -251,6 +265,7 @@ export default {
     editInv(){
       this.editingInv = this.$store.getters.isEditing;
     }
+
   },
   watch: {
     search(){
@@ -273,14 +288,28 @@ export default {
     },
     editInv(){
       this.editingInv = this.$store.getters.isEditing;
+    },
+    subResults: function(){
+      for(let result of this.subResults){
+        if(this.addedContains(result)){
+          console.log(true);
+          result.added = true;
+        }
+      }
+    },
+    results: function(){
+      for(let result of this.results){
+        if(this.addedContains(result)){
+          console.log(true);
+          result.added = true;
+        }
+      }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-
-  
+<style lang="scss" scoped>  
   .searchingNote::before{
 
   }

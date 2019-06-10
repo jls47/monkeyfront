@@ -6,16 +6,17 @@
 	<h2>Recently added: </h2><br>
 	<div  v-for="song in recentSongs">
     <h1>
-    <a class="addbutton" 
-       v-if="adding == true && !(added.includes(song))"
-       v-on:click="addSong(song)">
-      <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
-    </a>
     <a class="removebutton"
-       v-else-if="adding == true && added.includes(song)"
+       v-if="adding == true && (song.added || added.includes(song))"
        v-on:click="removeSong(song)">
       <span class="mdi mdi-24px mdi-close-circle-outline"></span>
     </a>
+    <a class="addbutton" 
+       v-else-if="adding == true && (!song.added)"
+       v-on:click="addSong(song)">
+      <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
+    </a>
+    
     <a v-else>
       <span class = "mdi mdi-12px mdi-microphone-variant"></span>
     </a>
@@ -44,6 +45,21 @@ export default {
     inventoryModal: inventoryModal
   },
   methods: {
+    addedContains(res){
+      for(let addedItem of this.added){ 
+        let aKeys = Object.keys(addedItem);
+        let bKeys = Object.keys(res);
+        if(aKeys.length != bKeys.length){
+          return false;
+        }
+        for(let key of aKeys){
+          if(addedItem[key] != res[key]){
+            return false;
+          }
+        }
+        return true;
+      }
+    },
     addSong(item){
       this.addItem(item);
     },
@@ -85,6 +101,14 @@ export default {
     },
     editInv(){
       this.editingInv = this.$store.getters.isEditing;
+    },
+    recentSongs: function(){
+      for(let result of this.recentSongs){
+        if(this.addedContains(result)){
+          console.log(true);
+          result.added = true;
+        }
+      }
     }
   }
 }
