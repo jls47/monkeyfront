@@ -1,6 +1,10 @@
 <template>
 <div class="login">
   <h1>Admin Login</h1>
+  <div class="notification is-danger" v-if="error == true">
+    <button class="delete" v-on:click="error = false"></button>
+    Looks like there's a problem with that username or password.
+  </div>
 	<div class="field">
 		<label class="label">Username</label>
 		<div class="control">
@@ -17,7 +21,9 @@
     <input type="checkbox" v-model="checked">
     Remember me
   </label><br>
-	<a class="button is-primary" v-on:click="log(data)"><b>Login</b></a>
+	<a class="button is-primary" v-on:click="log(data)"><b>Login</b></a><br><br>
+  <a class="button is-light" v-on:click="window.history.go(-1)">Cancel</a>
+  
 </div>
 </template>
 
@@ -34,8 +40,8 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       data: {
       	name: '',
-      	password: ''
-        
+      	password: '',
+        error: false
       },
       checked: false,
       error: false
@@ -48,10 +54,10 @@ export default {
   				console.log(res);
   				if(res.data.status == 'failure'){
             //needs more informative error message
+            this.error = true;
   					console.log('nope');
   				}else{
             if(this.checked == true){
-              localStorage.setItem("loginDetails", JSON.stringify(this.data));
               localStorage.setItem("loginStatus", 'true');
             };
             console.log('aaa');
@@ -62,6 +68,9 @@ export default {
   					
   				}
   			})
+        .catch(e => {
+          this.error = true;
+        })
   	},
   	...mapActions([
   		'login',
@@ -79,5 +88,9 @@ h1{
 }
 label{
   color: rgba(224, 225, 226, 1);
+}
+.login{
+  width: 80vw;
+  margin-left: 10vw;
 }
 </style>

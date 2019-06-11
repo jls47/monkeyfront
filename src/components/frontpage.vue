@@ -4,6 +4,10 @@
     <inventoryModal></inventoryModal>
   </div>
 	<h2>Recently added: </h2><br>
+  <div class="notification is-danger" v-if="error == true">
+    <button class="delete" v-on:click="error = false"></button>
+    Something went wrong.  Try again?
+  </div>
 	<div  v-for="song in recentSongs">
     <h1>
     <a class="removebutton"
@@ -38,7 +42,8 @@ export default {
       recentSongs: [],
       adding: false,
       added: [],
-      editingInv: false
+      editingInv: false,
+      error: false
     }
   },
   components: {
@@ -85,6 +90,9 @@ export default {
   		.then(data => {
   			this.recentSongs = data.data;
   		})
+      .catch(e => {
+        this.error = true;
+      })
   },
   computed: {
     select(){

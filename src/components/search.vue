@@ -36,6 +36,10 @@
   
 </div>
 <h2 class="searchingNote" v-if="editing == false">Searching {{this.sParam}}s for "{{this.sTerm}}"</h2><br>
+<div class="notification is-danger" v-if="error == true">
+  <button class="delete" v-on:click="error = false"></button>
+  Something went wrong.  Try again?
+</div>
 <div class="results" v-if="results">
 <div v-if="results.length > 0 && sParam == 'artist'" 
      v-for="result in results" class="artistResults">
@@ -147,9 +151,7 @@ export default {
     addedContains(res){
       for(let addedItem of this.added){ 
         let aKeys = Object.keys(addedItem);
-        console.log(aKeys);
         let bKeys = Object.keys(res);
-        console.log(bKeys);
         let errors = [];
         if(aKeys.length != bKeys.length){
           errors.push('a')
@@ -210,7 +212,10 @@ export default {
             this.searching = false;
             this.didSearch = true;
             this.results = result.data;
-          });
+          })
+          .catch(e => {
+            this.error = true;
+          })
 
       }else{
         music.searchSongs(this.term)
@@ -218,6 +223,9 @@ export default {
             this.searching = false;
             this.didSearch = true;
             this.results = result.data;
+          })
+          .catch(e => {
+            this.error = true;
           })
       }
     },
@@ -247,10 +255,16 @@ export default {
           .then(result => {
             this.results = result.data;
           })
+          .catch(e => {
+            this.error = true;
+          })
       }else if(this.$store.getters.searchParam == 'song'){
         music.searchSongs(this.$store.getters.searchTerm)
           .then(result => {
             this.results = result.data;
+          })
+          .catch(e => {
+            this.error = true;
           })
       }
     }
