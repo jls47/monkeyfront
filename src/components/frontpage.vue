@@ -49,15 +49,20 @@ export default {
       for(let addedItem of this.added){ 
         let aKeys = Object.keys(addedItem);
         let bKeys = Object.keys(res);
+        let errors = [];
         if(aKeys.length != bKeys.length){
-          return false;
+          errors.push('a');
         }
         for(let key of aKeys){
           if(addedItem[key] != res[key]){
-            return false;
+            errors.push('b');
           }
         }
-        return true;
+        if(errors.length == 0){
+          return true;
+        }else{
+          continue;
+        }
       }
     },
     addSong(item){

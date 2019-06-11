@@ -63,12 +63,12 @@
          v-bind:key="subRes.title">
       <h2>
         <a class="removebutton"
-           v-if="adding == true && (subRes.added || added.includes(subRes))"
+           v-if="adding == true && addedContains(subRes) == true"
            v-on:click="removeSong(subRes)">
           <span class="mdi mdi-24px mdi-close-circle-outline"></span>
         </a>
         <a class="addbutton" 
-           v-else-if="adding == true && !(subRes.added)"
+           v-else-if="adding == true && addedContains(subRes) != true"
            v-on:click="addSong(subRes)">
           <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
         </a>
@@ -85,12 +85,12 @@
 <div v-if="results.length > 0 && sParam == 'song'" v-for="result in results" class="titleResults">
   <h2>
     <a class="removebutton"
-       v-if="adding == true && (result.added || added.includes(result))"
+       v-if="adding == true && addedContains(result)"
        v-on:click="removeSong(result)">
       <span class="mdi mdi-24px mdi-close-circle-outline"></span>
     </a>
     <a class="addbutton" 
-       v-else-if="adding == true && !(result.added)"
+       v-else-if="adding == true && !(addedContains(result))"
        v-on:click="addSong(result)">
       <span class="mdi mdi-24px mdi-checkbox-blank-circle-outline"></span>
     </a>
@@ -147,19 +147,28 @@ export default {
     addedContains(res){
       for(let addedItem of this.added){ 
         let aKeys = Object.keys(addedItem);
+        console.log(aKeys);
         let bKeys = Object.keys(res);
+        console.log(bKeys);
+        let errors = [];
         if(aKeys.length != bKeys.length){
-          return false;
+          errors.push('a')
         }
         for(let key of aKeys){
           if(addedItem[key] != res[key]){
-            return false;
+            errors.push('b')
           }
         }
-        return true;
+        console.log(errors);
+        if(errors.length == 0){
+          console.log("true");
+          return true;
+        }else{
+          continue;
+        }
+        
       }
     },
-    //modify this so subresults don't go away?  the big problems seems to be that upon loading new data it doesn't parse for some reason.
     getArtistSongs(name){
       if(this.selected != name){
         this.selected = name;
@@ -171,9 +180,10 @@ export default {
         this.clearSubResults();
       }
     },
+    //now figure out how to get x's to disappear easily - get a state function to do something?
     addAllArtistSongs(artist){
       for(let result of this.subResults){
-        this.addItem(result);
+        this.addSong(result);
       }
     },
     closeModal(){
@@ -215,7 +225,6 @@ export default {
       this.addItem(item);
     },
     removeSong(item){
-      item.added = false;
       this.removeItem(item);
     },
     ...mapActions([
@@ -293,7 +302,7 @@ export default {
       for(let result of this.subResults){
         if(this.addedContains(result)){
           console.log(true);
-          result.added = true;
+        
         }
       }
     },
@@ -301,7 +310,6 @@ export default {
       for(let result of this.results){
         if(this.addedContains(result)){
           console.log(true);
-          result.added = true;
         }
       }
     }
