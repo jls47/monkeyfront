@@ -4,14 +4,14 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Inventory</p>
-      <button class="delete" aria-label="close" v-on:click="finishEditing"></button>
+      <button class="delete" aria-label="close" v-on:click="closeEditing"></button>
     </header>
     <section class="modal-card-body">
       <div class="editingInventory"
            v-for="item in items">
         <h2>
           <a class="removebutton"
-             v-on:click="removeSong(item)">
+             v-on:click="targetForRemoval(item)">
             <span class="mdi mdi-24px mdi-minus-circle-outline"></span>
           </a>
           {{item.title}} - {{item.artist}} <sub v-if="item.notes">({{item.notes}})</sub>
@@ -35,14 +35,22 @@ export default {
   name: 'inventoryModal',
   data () {
     return {
-      items: []
+      items: [],
+      toBeRemoved: []
     }
   },
   methods: {
-    removeSong(item){
+    targetForRemoval(item){
+      this.toBeRemoved.push(item);
       this.removeItem(item);
     },
     finishEditing(){
+      this.toggleInvEdit();
+    },
+    closeEditing(){
+      for(let item of this.toBeRemoved){
+        this.addItem(item);
+      };
       this.toggleInvEdit();
     },
     clearInventory(){
@@ -54,7 +62,8 @@ export default {
       'removeItem',
       'getItems',
       'toggleInvEdit',
-      'deleteAll'
+      'deleteAll',
+      'addItem'
     ])
   },
   computed: {
