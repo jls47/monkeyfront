@@ -6,7 +6,7 @@
 	<h2>Recently added: </h2><br>
   <div class="notification is-danger" v-if="error == true">
     <button class="delete" v-on:click="error = false"></button>
-    Something went wrong.  Try again?
+    The server's not responding.
   </div>
 	<div  v-for="song in recentSongs">
     <h1>
@@ -118,7 +118,6 @@ export default {
     recentSongs: function(){
       for(let result of this.recentSongs){
         if(this.addedContains(result)){
-          console.log(true);
           result.added = true;
         }
       }

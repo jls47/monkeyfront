@@ -141,7 +141,8 @@ export default {
       added: [],
       editingInv: false,
       editing: false,
-      searching: false
+      searching: false,
+      error: false
     }
   },
   components: {
@@ -161,9 +162,7 @@ export default {
             errors.push('b')
           }
         }
-        console.log(errors);
         if(errors.length == 0){
-          console.log("true");
           return true;
         }else{
           continue;

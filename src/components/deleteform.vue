@@ -1,6 +1,10 @@
 <template>
 <div class="deleting">
   <h1>Are you sure you wish to delete all of these?</h1><br>
+  <div class="notification is-danger" v-if="error == true">
+    <button class="delete" v-on:click="error = false"></button>
+    There was a problem deleting the songs.  Try again?
+  </div>
   <div v-for="item in items">
     <h2>{{item.artist}} - {{item.title}}</h2>
   </div><br><br>
@@ -13,8 +17,8 @@
         </a>
       </div>
       <div class="level-item has-text-centered">
-        <a class="button is-primary yesNoButton"
-           v-on:click = "cancelDeletions(items)">
+        <a class="button is-light yesNoButton"
+           v-on:click = "History.go(-1)">
           Cancel
         </a>
       </div>
@@ -40,26 +44,18 @@ export default {
   	sendDeletions(items){
       let ids = "";
       for(let song of this.items){
-        console.log(song.id);
         ids += song.id + ",";
       }
-      console.log(ids);
       music.deleteSongs(ids.substring(0, ids.length - 1))
         .then(res => {
           this.deleteAll();
           this.frontPage();
-          console.log(res);
           this.$router.push("./");
         })
         .catch(e => {
-          console.log(e);
+          this.error = true;
         })
   	},
-    cancelDeletions(items){
-      this.frontPage();
-      this.$router.push("./");
-
-    },
   	...mapActions([
   		'deleteAll',
       'frontPage'

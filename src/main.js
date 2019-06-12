@@ -13,6 +13,8 @@ Vue.use(Vuetify)
 
 Vue.use(Vuex)
 
+Vue.prototype.History = window.history;
+
 const store = new Vuex.Store({
 	state: {
 		status: "frontpage",

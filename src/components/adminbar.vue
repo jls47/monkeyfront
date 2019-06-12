@@ -37,8 +37,14 @@
 	  <div class="level-item has-text-centered">
 	    <div>
 	      <a class="button is-primary"
-	      v-on:click="goEdit">
-	      Edit {{itemCount}} items
+             v-if="itemCount == 0">
+            Pick songs to edit!
+          </a>
+	      <a v-else
+	      	 class="button is-primary"
+	         v-on:click="goEdit"
+	         >
+	        Edit {{itemCount}} items
 	      </a>
 	    </div>
 	  </div>
@@ -55,9 +61,14 @@
 		v-if="this.deleting == true">
 	  <div class="level-item has-text-centered">
 	    <div>
+	      <a class="button is-primary"
+             v-if="itemCount == 0">
+            Pick songs to delete!
+          </a>
 	      <a class="button is-primary" 
-	         v-on:click="goDelete">
-	      Delete {{itemCount}} items
+	         v-on:click="goDelete"
+	         v-else>
+	        Delete {{itemCount}} items
 	      </a>
 	    </div>
 	  </div>
@@ -115,7 +126,7 @@ export default {
   	  }
   	},
   	goAdd(){
-  	  this.stopSelect();
+      this.stopSelect();
   	  router.push('add'); 
   	},
   	goEdit(){

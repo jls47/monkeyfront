@@ -1,6 +1,10 @@
 <template>
 <div class="edit">
   <h1>Editing Artists/Titles</h1><br>
+  <div class="notification is-danger" v-if="error == true">
+    <button class="delete" v-on:click="error = false"></button>
+    There was a problem editing the songs.  Try again?
+  </div>
   <div v-for = "item in items">
   	<div class="field">
 		<label class="label">Song ID: {{item.id}}</label>
@@ -14,9 +18,9 @@
   <a class="button is-primary"
      v-on:click="sendEdits(items)">
   	Submit changes on {{items.length}} songs
-  </a>
-  <a class="button is-primary"
-     v-on:click="cancelEdits">
+  </a><br><br>
+  <a class="button is-light"
+     v-on:click="History.go(-1)">
      Cancel
   </a>
 </div>
@@ -31,27 +35,24 @@ export default {
   data () {
     return {
       items: [],
+      error: false
     }
   },
   methods: {
   	sendEdits(data){
       let dataString = JSON.stringify(data);
-      console.log(dataString);
       music.editSongs(data)
         .then(res => {
-          console.log(res);
-          console.log(res.data);
           if(res.data.status == 'success'){
-            console.log('success!');
             this.deleteAll();
             this.frontPage();
             this.$router.push('./');
           }
         })
+        .catch(e => {
+          this.error = true;
+        })
   	},
-    cancelEdits(){
-      this.$router.push('./');
-    },
   	...mapActions([
   		'deleteAll',
       'frontPage'

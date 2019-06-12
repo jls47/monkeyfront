@@ -22,7 +22,7 @@
     Remember me
   </label><br>
 	<a class="button is-primary" v-on:click="log(data)"><b>Login</b></a><br><br>
-  <a class="button is-light" v-on:click="window.history.go(-1)">Cancel</a>
+  <a class="button is-light" v-on:click="History.go(-1)">Cancel</a>
   
 </div>
 </template>
@@ -51,20 +51,16 @@ export default {
   	log(data){
   		music.adminLog(data)
   			.then(res => {
-  				console.log(res);
   				if(res.data.status == 'failure'){
-            //needs more informative error message
             this.error = true;
-  					console.log('nope');
   				}else{
             if(this.checked == true){
               localStorage.setItem("loginStatus", 'true');
             };
-            console.log('aaa');
   					this.login()
-                .then(() => {
-                  this.$router.push(this.$route.query.redirect || './');
-                })
+              .then(() => {
+                this.$router.push(this.$route.query.redirect || './');
+              })
   					
   				}
   			})

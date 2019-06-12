@@ -1,6 +1,10 @@
 <template>
 <div class="addingForm">
   <h1>Add Songs</h1><br>
+  <div class="notification is-danger" v-if="error == true">
+    <button class="delete" v-on:click="error = false"></button>
+    There was a problem submitting the songs.  Try again?
+  </div>
   <div class="inputs" v-for="item in data">
     <div class="columns inputItem">
       <div class="column inputItem">
@@ -33,8 +37,8 @@
   </div>
   <a class="button is-primary" v-on:click="addData"><strong>Add another Song</strong></a><br><br>
   <a class="button is-primary" v-on:click="submitData"><strong>Submit</strong></a>
-   <a class="button is-primary"
-     v-on:click="cancelAdding">
+   <a class="button is-light"
+     v-on:click="History.go(-1)">
      Cancel
   </a>
 </div>
@@ -53,7 +57,8 @@ export default {
   data () {
     return {
       data: [{artist: "",
-      		 title: "", notes: null, new: true}]
+      		 title: "", notes: null, new: true}],
+      error: false
     }
   },
   methods: {
@@ -70,16 +75,11 @@ export default {
       music.createSongs(JSON.stringify(this.data))
       	.then(res => {
       	  this.frontPage();
-          console.log(res);
           this.$router.push("./");
       	})
       	.catch(e => {
-      	  console.log(e);
-
+          this.error = true;
       	})
-    },
-    cancelAdding(){
-      this.$router.push('./');
     },
     ...mapActions([
       'frontPage'
