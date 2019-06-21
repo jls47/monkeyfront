@@ -8,7 +8,8 @@
     <button class="delete" v-on:click="error = false"></button>
     The server's not responding.
   </div>
-	<div  v-for="song in recentSongs">
+	<div v-if="recentSongs.length == 15"
+  v-for="song in recentSongs">
     <h1>
     <a class="removebutton"
        v-if="adding == true && (song.added || added.includes(song))"
@@ -26,12 +27,20 @@
     </a>
 		{{song.title}} - {{song.artist}} <sub v-if="song.notes">({{song.notes}})</sub></h1><br>
 	</div>
+  <div v-else>
+    <progress class="progress is-large is-primary" max="100">60%</progress>
+  </div>
 </div>
 </template>
 
 <script>
 import inventoryModal from '@/components/inventoryModal';
 import music from '@/services/requests';
+import music2 from '@/services/requests2';
+import music3 from '@/services/requests3';
+import music4 from '@/services/requests4';
+import music5 from '@/services/requests5';
+import music6 from '@/services/requests6';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -89,6 +98,41 @@ export default {
   	music.getRecentSongs()
   		.then(data => {
   			this.recentSongs = data.data;
+        music2.getRecentSongs()
+          .then(data => {
+            this.recentSongs = this.recentSongs.concat(data.data);
+            music3.getRecentSongs()
+              .then(data => {
+                this.recentSongs = this.recentSongs.concat(data.data);
+                music4.getRecentSongs()
+                  .then(data => {
+                    this.recentSongs = this.recentSongs.concat(data.data);
+                    music5.getRecentSongs()
+                      .then(data => {
+                        this.recentSongs = this.recentSongs.concat(data.data);
+                        music6.getRecentSongs()
+                          .then(data => {
+                            this.recentSongs = this.recentSongs.concat(data.data);
+                          })
+                          .catch(e => {
+                            this.error = true;
+                          })
+                      })
+                      .catch(e => {
+                        this.error = true;
+                      })
+                  })
+                  .catch(e => {
+                    this.error = true;
+                  })
+              })
+              .catch(e => {
+                this.error = true;
+              })
+          })
+          .catch(e => {
+            this.error = true;
+          })
   		})
       .catch(e => {
         this.error = true;

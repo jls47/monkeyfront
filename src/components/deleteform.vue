@@ -12,7 +12,7 @@
     <nav class="level is-mobile is-fixed-bottom">
       <div class="level-item has-text-centered">
         <a class="button is-primary yesNoButton"
-           v-on:click = "sendDeletions(items)">
+           v-on:click = "sendDeletions()">
           Delete
         </a>
       </div>
@@ -29,6 +29,11 @@
 
 <script>
 import music from '@/services/requests';
+import music2 from '@/services/requests2';
+import music3 from '@/services/requests3';
+import music4 from '@/services/requests4';
+import music5 from '@/services/requests5';
+import music6 from '@/services/requests6';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 //more informative errors and success messages
@@ -37,24 +42,81 @@ export default {
   name: 'deleteform',
   data () {
     return {
-      items: []
+      items: [],
+      diffServers: 0,
+      successes: 0,
+      error: false,
+      id1: "",
+      id2: "",
+      id3: "",
+      id4: "",
+      id5: "",
+      id6: ""
     }
   },
   methods: {
-  	sendDeletions(items){
-      let ids = "";
-      for(let song of this.items){
-        ids += song.id + ",";
+  	sendDeletions(){
+      if(this.id1.length > 0){
+        music.deleteSongs(id1.substring(0, id1.length - 1))
+          .then(res => {
+            this.id1 = "";
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.error = true;
+          })
       }
-      music.deleteSongs(ids.substring(0, ids.length - 1))
-        .then(res => {
-          this.deleteAll();
-          this.frontPage();
-          this.$router.push("./");
-        })
-        .catch(e => {
-          this.error = true;
-        })
+      if(this.id2.length > 0){
+        music2.deleteSongs(id2.substring(0, id2.length - 1))
+          .then(res => {
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.error = true;
+          })
+      }
+      if(this.id3.length > 0){
+        music3.deleteSongs(id3.substring(0, id3.length - 1))
+          .then(res => {
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.error = true;
+          })
+      }
+      if(this.id4.length > 0){
+        music4.deleteSongs(id4.substring(0, id4.length - 1))
+          .then(res => {
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.error = true;
+          })
+      }
+      if(this.id5.length > 0){
+        music5.deleteSongs(id5.substring(0, id5.length - 1))
+          .then(res => {
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.error = true;
+          })
+      }
+      if(this.id6.length > 0){
+        music6.deleteSongs(id6.substring(0, id6.length - 1))
+          .then(res => {
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.error = true;
+          })
+      }
   	},
   	...mapActions([
   		'deleteAll',
@@ -64,7 +126,39 @@ export default {
   mounted: function() {
     this.items = this.$store.getters.getItems;
     let songs = this.$store.getters.getItems;
+
+    for(let song of this.items){
+      if(song.sid == 1){
+        this.id1 += song.id + ",";
+      }else if(song.sid == 2){
+        this.id2 += song.id + ",";
+      }else if(song.sid == 3){
+        this.id3 += song.id + ",";
+      }else if(song.sid == 4){
+        this.id4 += song.id + ",";
+      }else if(song.sid == 5){
+        this.id5 += song.id + ",";
+      }else{
+        this.id6 += song.id + ",";
+      }
+    }
+
+    for(let server of [this.id1, this.id2, this.id3, this.id4, this.id5, this.id6]){
+      if(server > 0){
+        this.diffServers += 1;
+      }
+    }
   	
+  },
+  //get this stuff working
+  watch: {
+    ratio: function(){
+      if(this.successes == this.diffServers){
+        this.deleteAll();
+        this.frontPage();
+        this.$router.push("./");
+      }
+    }
   }
 }
 

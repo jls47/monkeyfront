@@ -46,7 +46,7 @@
   
     <h1>
     <a class="artistLink" 
-      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()">
+      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name, result.sid) : clearSubResults()">
       {{result.name}} 
       <span v-if="subResults.length > 0 && subResults[0].artist == result.name" 
             class="mdi mdi-24px mdi-arrow-down-drop-circle"></span>
@@ -107,7 +107,7 @@
 <div class="placeholder1" v-if="results.length == 0 && this.searching == true">
   <progress class="progress is-large is-primary" max="100">60%</progress>
 </div>
-<div class="placeholder2" v-if="results.length == 0 && this.didSearch == true">
+<div class="placeholder2" v-if="results.length == 0 && (this.didSearch == true && this.searching == false)">
   <h1>Couldn't find any {{param}}s with the search term "{{term}}".</h1>
 </div>
 </div>
@@ -119,6 +119,11 @@
 <script>
 import inventoryModal from '@/components/inventoryModal';
 import music from '@/services/requests';
+import music2 from '@/services/requests2';
+import music3 from '@/services/requests3';
+import music4 from '@/services/requests4';
+import music5 from '@/services/requests5';
+import music6 from '@/services/requests6';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -170,13 +175,60 @@ export default {
         
       }
     },
-    getArtistSongs(name){
+    getArtistSongs(name, SID){
+      //Target by SID
       if(this.selected != name){
         this.selected = name;
-        music.getSongsByArtist(name)
-          .then(result => {
-            this.subResults = result.data;
-          })
+        if(SID == 1){
+          music.getSongsByArtist(name)
+            .then(result => {
+              this.subResults = result.data;
+            })
+            .catch(e => {
+              this.error = true;
+            })
+        }else if(SID == 2){
+          music2.getSongsByArtist(name)
+            .then(result => {
+              this.subResults = result.data;
+            })
+            .catch(e => {
+              this.error = true;
+            })
+        }else if(SID == 3){
+          music3.getSongsByArtist(name)
+            .then(result => {
+              this.subResults = result.data;
+            })
+            .catch(e => {
+              this.error = true;
+            })
+        }else if(SID == 4){
+          music4.getSongsByArtist(name)
+            .then(result => {
+              this.subResults = result.data;
+            })
+            .catch(e => {
+              this.error = true;
+            })
+        }else if(SID == 5){
+          music5.getSongsByArtist(name)
+            .then(result => {
+              this.subResults = result.data;
+            })
+            .catch(e => {
+              this.error = true;
+            })
+        }else{
+          music6.getSongsByArtist(name)
+            .then(result => {
+              this.subResults = result.data;
+            })
+            .catch(e => {
+              this.error = true;
+            })
+        }
+        
       }else{
         this.clearSubResults();
       }
@@ -203,14 +255,57 @@ export default {
       this.closeModal();
       this.sParam = this.param;
       this.sTerm = this.term;
+      //Search all six servers
       if(this.param == 'artist'){
         this.setTerm(this.term);
         this.setParam(this.param);
+        console.log('Search once');
         music.searchArtist(this.term)
           .then(result => {
-            this.searching = false;
-            this.didSearch = true;
             this.results = result.data;
+            console.log('Now search again');
+            music2.searchArtist(this.term)
+              .then(result2 => {
+                console.log(result2.data);
+                this.results = this.results.concat(result2.data);
+                music3.searchArtist(this.term)
+                  .then(result3 => {
+                    console.log(result3.data);
+                    this.results = this.results.concat(result3.data);
+                    music4.searchArtist(this.term)
+                      .then(result4 => {
+                        console.log(result4.data);
+                        this.results = this.results.concat(result4.data);
+                        music5.searchArtist(this.term)
+                          .then(result5 => {
+                            console.log(result5.data);
+                            this.results = this.results.concat(result5.data);
+                            music6.searchArtist(this.term)
+                              .then(result6 => {
+                                console.log(result6.data);
+                                this.results = this.results.concat(result6.data);
+                                this.searching = false;
+                                this.didSearch = true;
+                              })
+                              .catch(e => {
+                                this.error = true;
+                              })
+                          })
+                          .catch(e => {
+                            this.error = true;
+                          })
+                      })
+                      .catch(e => {
+                        this.error = true;
+                      })
+                  })
+                  .catch(e => {
+                    this.error = true;
+                  })
+              })
+              .catch(e => {
+                this.error = true;
+              })
           })
           .catch(e => {
             this.error = true;
@@ -219,9 +314,44 @@ export default {
       }else{
         music.searchSongs(this.term)
           .then(result => {
-            this.searching = false;
-            this.didSearch = true;
             this.results = result.data;
+            music2.searchSongs(this.term)
+              .then(result2 => {
+                this.results = this.results.concat(result2.data);
+                music3.searchSongs(this.term)
+                  .then(result3 => {
+                    this.results = this.results.concat(result3.data);
+                    music4.searchSongs(this.term)
+                      .then(result4 => {
+                        this.results = this.results.concat(result4.data);
+                        music5.searchSongs(this.term)
+                          .then(result5 => {
+                            this.results = this.results.concat(result5.data);
+                            music6.searchSongs(this.term)
+                              .then(result6 => {
+                                this.results = this.results.concat(result6.data);
+                                this.searching = false;
+                                this.didSearch = true;
+                              })
+                              .catch(e => {
+                                this.error = true;
+                              })
+                          })
+                          .catch(e => {
+                            this.error = true;
+                          })
+                      })
+                      .catch(e => {
+                        this.error = true;
+                      })
+                  })
+                  .catch(e => {
+                    this.error = true;
+                  })
+              })
+              .catch(e => {
+                this.error = true;
+              })
           })
           .catch(e => {
             this.error = true;
@@ -247,26 +377,7 @@ export default {
   mounted: function(){
     this.editing = false;
     this.added = this.$store.getters.getItems;
-    if(this.$store.getters.searchTerm && this.$store.getters.searchParam){
-      this.sTerm = this.$store.getters.searchTerm;
-      if(this.$store.getters.searchParam == 'artist'){
-        music.searchArtist(this.$store.getters.searchTerm)
-          .then(result => {
-            this.results = result.data;
-          })
-          .catch(e => {
-            this.error = true;
-          })
-      }else if(this.$store.getters.searchParam == 'song'){
-        music.searchSongs(this.$store.getters.searchTerm)
-          .then(result => {
-            this.results = result.data;
-          })
-          .catch(e => {
-            this.error = true;
-          })
-      }
-    }
+    
   },
   computed: {
     search(){
