@@ -144,7 +144,8 @@ export default {
     }
 
     for(let server of [this.id1, this.id2, this.id3, this.id4, this.id5, this.id6]){
-      if(server > 0){
+      console.log(server);
+      if(server.length > 0){
         this.diffServers += 1;
       }
     }
@@ -152,14 +153,15 @@ export default {
   },
   //get this stuff working
   watch: {
-    ratio: function(){
-      if(this.successes == this.diffServers){
-        this.deleteAll();
-        this.frontPage();
-        this.$router.push("./");
+      successes: function(){
+        if(this.successes == this.diffServers){
+          console.log('success!');
+          this.deleteAll();
+          this.frontPage();
+          this.$router.push("./");
+        }
       }
     }
-  }
 }
 
 </script>

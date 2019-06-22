@@ -316,14 +316,15 @@ export default {
     this.oldItems = JSON.parse(JSON.stringify(this.items));
   },
   watch: {
-    successes: function(){
-      if(this.successes == this.itemsToSend){
-        this.deleteAll();
-        this.frontPage();
-        this.$router.push("./");
+      successes: function(){
+        if(this.successes == this.itemsToSend){
+          console.log('success!');
+          this.deleteAll();
+          this.frontPage();
+          this.$router.push("./");
+        }
       }
     }
-  }
 }
 
 </script>
