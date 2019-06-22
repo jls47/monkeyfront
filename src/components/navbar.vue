@@ -2,7 +2,7 @@
 <div v-on:mouseover="checkLogged">
   <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="http://www.themonkeypub.com/">
+    <a class="navbar-item" v-on:click="goFrontPage">
       <img src="https://abload.de/img/mp-header-logo1kjt7.png" width="120px">
     </a>
     <a role="button" v-on:click="burgerToggle" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -37,8 +37,9 @@
         </a>
       </div>
       <div class="navbar-item">
-        <a class="button is-light" v-on:click="goFrontPage">
-          <strong>Home <span class="mdi mdi-12px mdi-home-outline"></span></strong>
+        <a class="button is-light" 
+           href="http://www.themonkeypub.com/">
+          <strong>Back to the Pub <span class="mdi mdi-12px mdi-home-outline"></span></strong>
         </a>
       </div>
   </div>
