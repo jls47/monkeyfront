@@ -16,9 +16,15 @@
 	</div>
   </div>
   <a class="button is-primary"
-     v-on:click="startProcess">
+     v-on:click="startProcess"
+     v-if="sending == false">
   	Submit changes on {{items.length}} songs
-  </a><br><br>
+  </a>
+  <a class="button is-primary is-loading"
+     v-else>Loading
+  </a>
+
+  <br><br>
   <a class="button is-light"
      v-on:click="History.go(-1)">
      Cancel
@@ -47,7 +53,10 @@ export default {
       editError: false,
       deleteError: false,
       addError: false,
-      mistakes: []
+      mistakes: [],
+      itemsToSend: 0,
+      successes: 0,
+      sending: false
     }
   },
   methods: {
@@ -253,7 +262,6 @@ export default {
     changeSID(){
       for(let i = 0; i < this.items.length; i++){
         let item = this.items[i];
-        console.log(item);
         let propercaps = item.artist.charAt(0).toUpperCase() + item.artist.slice(1);
         let oldItem = this.oldItems[i];
         if(propercaps < "Cliff Richard"){
@@ -273,19 +281,26 @@ export default {
       }
     },
     sortItem(n){//Set the bloody adds and deletions to arrays!
-      console.log('sorting');
-      console.log(this.items[n]);
-      console.log('old');
-      console.log(this.oldItems[n]);
       if(this.items[n].sid != this.oldItems[n].sid){
+        if(this.adds[this.items[n].sid - 1].length == 0){
+          this.itemsToSend += 1;
+        }
         this.adds[this.items[n].sid - 1].push(this.items[n]);
+
+        if(!this.deletes[this.oldItems[n].sid - 1]){
+          this.itemsToSend += 1;
+        }
         this.deletes[this.oldItems[n].sid - 1] += this.oldItems[n].id + ",";
+
       }else{
+        if(this.edits[this.items[n].sid - 1].length == 0){
+          this.itemsToSend += 1;
+        }
         this.edits[this.items[n].sid - 1].push(this.items[n]);
       }
     },
     startProcess(){
-
+      this.sending = true;
       this.changeSID();
       this.sendEdits();
       this.sendAdds();
@@ -299,6 +314,15 @@ export default {
   mounted: function() {
   	this.items = this.$store.getters.getItems;
     this.oldItems = JSON.parse(JSON.stringify(this.items));
+  },
+  watch: {
+    successes: function(){
+      if(this.successes == this.itemsToSend){
+        this.deleteAll();
+        this.frontPage();
+        this.$router.push("./");
+      }
+    }
   }
 }
 
