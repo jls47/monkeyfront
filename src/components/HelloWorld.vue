@@ -103,7 +103,7 @@ export default {
   mounted: function(){
     this.loggedIn = this.$store.getters.loginStatus;
     this.notifier = this.$store.getters.isHintClosed;
-  }//https://abload.de/img/nikolagalaxynnk77.png
+  }//
 }
 </script>
 
@@ -132,7 +132,7 @@ a {
 
 }
 .hero{
-  background-image: url("../assets/nikolagalaxy.png");
+  background-image: url("https://abload.de/img/nikolagalaxynnk77.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
