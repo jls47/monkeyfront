@@ -61,11 +61,22 @@ export default {
   },
   methods: {
   	sendEdits(){
-      if(this.edits[1].length > 0){
-        music.editSongs(this.edit1)
+      if(this.edits[0].length > 0){
+        music.editSongs(this.edits[0])
           .then(res => {
             if(res.data.status == 'success'){
-              //Do something
+              this.successes += 1;
+            }
+          })
+          .catch(e => {
+            this.editError = true;
+          })
+      }
+      if(this.edits[1].length > 0){
+        music2.editSongs(this.edits[1])
+          .then(res => {
+            if(res.data.status == 'success'){
+              this.successes += 1;
             }
           })
           .catch(e => {
@@ -73,10 +84,10 @@ export default {
           })
       }
       if(this.edits[2].length > 0){
-        music2.editSongs(this.edit1)
+        music3.editSongs(this.edits[2])
           .then(res => {
             if(res.data.status == 'success'){
-              //Do something
+              this.successes += 1;
             }
           })
           .catch(e => {
@@ -84,10 +95,10 @@ export default {
           })
       }
       if(this.edits[3].length > 0){
-        music3.editSongs(this.edit1)
+        music4.editSongs(this.edits[3])
           .then(res => {
             if(res.data.status == 'success'){
-              //Do something
+              this.successes += 1;
             }
           })
           .catch(e => {
@@ -95,10 +106,10 @@ export default {
           })
       }
       if(this.edits[4].length > 0){
-        music4.editSongs(this.edit1)
+        music4.editSongs(this.edits[4])
           .then(res => {
             if(res.data.status == 'success'){
-              //Do something
+              this.successes += 1;
             }
           })
           .catch(e => {
@@ -106,21 +117,10 @@ export default {
           })
       }
       if(this.edits[5].length > 0){
-        music5.editSongs(this.edit1)
+        music5.editSongs(this.edits[5])
           .then(res => {
             if(res.data.status == 'success'){
-              //Do something
-            }
-          })
-          .catch(e => {
-            this.editError = true;
-          })
-      }
-      if(this.edits[6].length > 0){
-        music6.editSongs(this.edit1)
-          .then(res => {
-            if(res.data.status == 'success'){
-              //Do something
+              this.successes += 1;
             }
           })
           .catch(e => {
@@ -129,44 +129,54 @@ export default {
       }
   	},
     sendAdds(){
-      if(this.adds[1].length > 0){
-        music.createSongs(JSON.stringify(this.adds[1]))
+      if(this.adds[0].length > 0){
+        music.createSongs(JSON.stringify(this.adds[0]))
           .then(res => {
             this.successes += 1;
           })
           .catch(e => {
             this.addError = true;
-            this.mistakes = this.mistakes.concat(this.data1);
+            this.mistakes = this.mistakes.concat(this.adds[0]);
+          })
+      }
+      if(this.adds[1].length > 0){
+        music2.createSongs(JSON.stringify(this.adds[1]))
+          .then(res => {
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.addError = true;
+            this.mistakes = this.mistakes.concat(this.adds[1]);
           })
       }
       if(this.adds[2].length > 0){
-        music2.createSongs(JSON.stringify(this.adds[2]))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.addError = true;
-            this.mistakes = this.mistakes.concat(this.data2);
-          })
-      }
-      if(this.adds[3].length > 0){
         music3.createSongs(JSON.stringify(this.adds[3]))
           .then(res => {
             this.successes += 1;
           })
           .catch(e => {
             this.addError = true;
-            this.mistakes = this.mistakes.concat(this.data3);
+            this.mistakes = this.mistakes.concat(this.adds[2]);
           })
       }
-      if(this.adds[4].length > 0){
+      if(this.adds[3].length > 0){
         music4.createSongs(JSON.stringify(this.adds[4]))
           .then(res => {
             this.successes += 1;
           })
           .catch(e => {
             this.addError = true;
-            this.mistakes = this.mistakes.concat(this.data4);
+            this.mistakes = this.mistakes.concat(this.adds[3]);
+          })
+      }
+      if(this.adds[4].length > 0){
+        music.createSongs(JSON.stringify(this.adds[5]))
+          .then(res => {
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.addError = true;
+            this.mistakes = this.mistakes.concat(this.adds[4]);
           })
       }
       if(this.adds[5].length > 0){
@@ -176,23 +186,24 @@ export default {
           })
           .catch(e => {
             this.addError = true;
-            this.mistakes = this.mistakes.concat(this.data5);
-          })
-      }
-      if(this.adds[6].length > 0){
-        music.createSongs(JSON.stringify(this.adds[6]))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.addError = true;
-            this.mistakes = this.mistakes.concat(this.data6);
+            this.mistakes = this.mistakes.concat(this.adds[5]);
           })
       }
     },
     sendDeletions(){
+      if(this.deletes[0].length > 0){
+        music.deleteSongs(this.deletes[0].substring(0, this.deletes[0].length - 1))
+          .then(res => {
+            this.deletes[0] = "";
+            console.log(res);
+            this.successes += 1;
+          })
+          .catch(e => {
+            this.deleteError = true;
+          })
+      }
       if(this.deletes[1].length > 0){
-        music.deleteSongs(deletes[1].substring(0, deletes[1].length - 1))
+        music.deleteSongs(this.deletes[1].substring(0, this.deletes[1].length - 1))
           .then(res => {
             this.deletes[1] = "";
             console.log(res);
@@ -203,7 +214,7 @@ export default {
           })
       }
       if(this.deletes[2].length > 0){
-        music.deleteSongs(deletes[2].substring(0, deletes[2].length - 1))
+        music.deleteSongs(this.deletes[2].substring(0, this.deletes[2].length - 1))
           .then(res => {
             this.deletes[2] = "";
             console.log(res);
@@ -214,7 +225,7 @@ export default {
           })
       }
       if(this.deletes[3].length > 0){
-        music.deleteSongs(deletes[3].substring(0, deletes[3].length - 1))
+        music.deleteSongs(this.deletes[3].substring(0, this.deletes[3].length - 1))
           .then(res => {
             this.deletes[3] = "";
             console.log(res);
@@ -225,7 +236,7 @@ export default {
           })
       }
       if(this.deletes[4].length > 0){
-        music.deleteSongs(deletes[4].substring(0, deletes[4].length - 1))
+        music.deleteSongs(this.deletes[4].substring(0, this.deletes[4].length - 1))
           .then(res => {
             this.deletes[4] = "";
             console.log(res);
@@ -236,20 +247,9 @@ export default {
           })
       }
       if(this.deletes[5].length > 0){
-        music.deleteSongs(deletes[5].substring(0, deletes[5].length - 1))
+        music.deleteSongs(this.deletes[5].substring(0, this.deletes[5].length - 1))
           .then(res => {
             this.deletes[5] = "";
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.deleteError = true;
-          })
-      }
-      if(this.deletes[6].length > 0){
-        music.deleteSongs(deletes[6].substring(0, deletes[6].length - 1))
-          .then(res => {
-            this.deletes[6] = "";
             console.log(res);
             this.successes += 1;
           })

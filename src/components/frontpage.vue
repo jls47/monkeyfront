@@ -8,7 +8,7 @@
     <button class="delete" v-on:click="error = false"></button>
     The server's not responding.
   </div>
-	<div v-if="recentSongs.length == 15"
+	<div v-if="recentSongs.length >= 12"
   v-for="song in recentSongs">
     <h1>
     <a class="removebutton"

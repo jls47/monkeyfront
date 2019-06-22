@@ -57,7 +57,7 @@ export default {
   methods: {
   	sendDeletions(){
       if(this.id1.length > 0){
-        music.deleteSongs(id1.substring(0, id1.length - 1))
+        music.deleteSongs(this.id1.substring(0, this.id1.length - 1))
           .then(res => {
             this.id1 = "";
             console.log(res);
@@ -68,7 +68,7 @@ export default {
           })
       }
       if(this.id2.length > 0){
-        music2.deleteSongs(id2.substring(0, id2.length - 1))
+        music2.deleteSongs(this.id2.substring(0, this.id2.length - 1))
           .then(res => {
             console.log(res);
             this.successes += 1;
@@ -78,7 +78,7 @@ export default {
           })
       }
       if(this.id3.length > 0){
-        music3.deleteSongs(id3.substring(0, id3.length - 1))
+        music3.deleteSongs(this.id3.substring(0, this.id3.length - 1))
           .then(res => {
             console.log(res);
             this.successes += 1;
@@ -88,7 +88,7 @@ export default {
           })
       }
       if(this.id4.length > 0){
-        music4.deleteSongs(id4.substring(0, id4.length - 1))
+        music4.deleteSongs(this.id4.substring(0, this.id4.length - 1))
           .then(res => {
             console.log(res);
             this.successes += 1;
@@ -98,7 +98,7 @@ export default {
           })
       }
       if(this.id5.length > 0){
-        music5.deleteSongs(id5.substring(0, id5.length - 1))
+        music5.deleteSongs(this.id5.substring(0, this.id5.length - 1))
           .then(res => {
             console.log(res);
             this.successes += 1;
@@ -108,7 +108,7 @@ export default {
           })
       }
       if(this.id6.length > 0){
-        music6.deleteSongs(id6.substring(0, id6.length - 1))
+        music6.deleteSongs(this.id6.substring(0, this.id6.length - 1))
           .then(res => {
             console.log(res);
             this.successes += 1;
