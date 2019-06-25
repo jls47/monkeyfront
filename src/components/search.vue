@@ -259,31 +259,26 @@ export default {
       if(this.param == 'artist'){
         this.setTerm(this.term);
         this.setParam(this.param);
-        console.log('Search once');
         music.searchArtist(this.term)
           .then(result => {
             this.results = result.data;
-            console.log('Now search again');
             music2.searchArtist(this.term)
               .then(result2 => {
-                console.log(result2.data);
                 this.results = this.results.concat(result2.data);
                 music3.searchArtist(this.term)
                   .then(result3 => {
-                    console.log(result3.data);
                     this.results = this.results.concat(result3.data);
                     music4.searchArtist(this.term)
                       .then(result4 => {
-                        console.log(result4.data);
                         this.results = this.results.concat(result4.data);
                         music5.searchArtist(this.term)
                           .then(result5 => {
-                            console.log(result5.data);
                             this.results = this.results.concat(result5.data);
                             music6.searchArtist(this.term)
                               .then(result6 => {
-                                console.log(result6.data);
-                                this.results = this.quickSort(this.results.concat(result6.data));
+                                this.results = this.results.concat(result6.data);
+                                this.results = this.quickSort(this.results).reverse();
+
                                 this.searching = false;
                                 this.didSearch = true;
                               })
@@ -364,17 +359,16 @@ export default {
     removeSong(item){
       this.removeItem(item);
     },
-    quickSort(arr) {
+    quickSort(arr){
       let ppoint = Math.floor(Math.random() * arr.length);
-      let pnum = arr[ppoint].numSongs;
-      console.log(pnum);
+      let pnum = arr[ppoint].numsongs;
       let left = [];
       let right = [];
       let middle = [];
       for(let i = 0; i < arr.length; i++){
-        if(arr[i].numSongs > pnum){
+        if(arr[i].numsongs > pnum){
           right.push(arr[i]);
-        }else if(arr[i].numSongs < pnum){
+        }else if(arr[i].numsongs < pnum){
           left.push(arr[i]);
         }else{
           middle.push(arr[i]);
@@ -382,11 +376,11 @@ export default {
       }
       
       if(left.length > 1 && right.length > 1){
-        return quickSort(left).concat(middle.concat(quickSort(right)))
+        return this.quickSort(left).concat(middle.concat(this.quickSort(right)))
       }else if(left.length <= 1 && right.length > 1){
-        return left.concat(middle.concat(quickSort(right)))
+        return left.concat(middle.concat(this.quickSort(right)))
       }else if(left.length > 1 && right.length <= 1){
-        return quickSort(left).concat(middle.concat(right))
+        return this.quickSort(left).concat(middle.concat(right))
       }else{
         return left.concat(middle.concat(right))
       }
