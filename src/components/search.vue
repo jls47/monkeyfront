@@ -283,7 +283,7 @@ export default {
                             music6.searchArtist(this.term)
                               .then(result6 => {
                                 console.log(result6.data);
-                                this.results = this.results.concat(result6.data);
+                                this.results = this.quickSort(this.results.concat(result6.data));
                                 this.searching = false;
                                 this.didSearch = true;
                               })
@@ -363,6 +363,33 @@ export default {
     },
     removeSong(item){
       this.removeItem(item);
+    },
+    quickSort(arr) {
+      let ppoint = Math.floor(Math.random() * arr.length);
+      let pnum = arr[ppoint].numSongs;
+      console.log(pnum);
+      let left = [];
+      let right = [];
+      let middle = [];
+      for(let i = 0; i < arr.length; i++){
+        if(arr[i].numSongs > pnum){
+          right.push(arr[i]);
+        }else if(arr[i].numSongs < pnum){
+          left.push(arr[i]);
+        }else{
+          middle.push(arr[i]);
+        }
+      }
+      
+      if(left.length > 1 && right.length > 1){
+        return quickSort(left).concat(middle.concat(quickSort(right)))
+      }else if(left.length <= 1 && right.length > 1){
+        return left.concat(middle.concat(quickSort(right)))
+      }else if(left.length > 1 && right.length <= 1){
+        return quickSort(left).concat(middle.concat(right))
+      }else{
+        return left.concat(middle.concat(right))
+      }
     },
     ...mapActions([
       'closeSModal',
