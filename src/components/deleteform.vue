@@ -12,8 +12,12 @@
     <nav class="level is-mobile is-fixed-bottom">
       <div class="level-item has-text-centered">
         <a class="button is-primary yesNoButton"
-           v-on:click = "sendDeletions()">
+           v-on:click = "sendDeletions()"
+           v-if="sending == false">
           Delete
+        </a>
+        <a class="button is-primary is-loading"
+          v-else>Loading
         </a>
       </div>
       <div class="level-item has-text-centered">
@@ -51,11 +55,13 @@ export default {
       id3: "",
       id4: "",
       id5: "",
-      id6: ""
+      id6: "",
+      sending: false
     }
   },
   methods: {
   	sendDeletions(){
+      this.sending = true;
       if(this.id1.length > 0){
         music.deleteSongs(this.id1.substring(0, this.id1.length - 1))
           .then(res => {
@@ -64,6 +70,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
           })
       }
@@ -74,6 +81,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
           })
       }
@@ -84,6 +92,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
           })
       }
@@ -94,6 +103,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
           })
       }
@@ -104,6 +114,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
           })
       }
@@ -114,6 +125,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
           })
       }

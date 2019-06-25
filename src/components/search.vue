@@ -179,6 +179,7 @@ export default {
     getArtistSongs(name, SID){
       //Target by SID
       if(this.selected != name){
+        this.clearSubResults();
         this.selected = name;
         if(SID == 1){
           music.getSongsByArtist(name)

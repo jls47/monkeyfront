@@ -36,7 +36,10 @@
     <br><br>
   </div>
   <a class="button is-primary" v-on:click="addData"><strong>Add another Song</strong></a><br><br>
-  <a class="button is-primary" v-on:click="submitData"><strong>Submit</strong></a>
+  <a class="button is-primary" v-on:click="submitData" v-if="sending == false"><strong>Submit</strong></a>
+  <a class="button is-primary is-loading"
+     v-else>Loading
+  </a>
    <a class="button is-light"
      v-on:click="History.go(-1)">
      Cancel
@@ -73,7 +76,8 @@ export default {
       error: false,
       successes: 0,
       mistakes: [],
-      arrays: 0
+      arrays: 0,
+      sending: false
     }
   },
   methods: {
@@ -126,6 +130,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data1);
           })
@@ -137,6 +142,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data2);
           })
@@ -147,6 +153,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data3);
           })
@@ -157,6 +164,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data4);
           })
@@ -167,6 +175,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data5);
           })
@@ -177,6 +186,7 @@ export default {
             this.successes += 1;
           })
           .catch(e => {
+            this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data6);
           })
@@ -184,6 +194,7 @@ export default {
 
     },
     submitData(){
+      this.sending = true;
       this.sortData();
       this.passData();
     },
