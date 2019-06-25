@@ -57,6 +57,7 @@ import music6 from '@/services/requests6';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 //more informative stuff across the board
+//add double quotes for apostrophes
 export default {
   name: 'addingform',
   data () {
@@ -87,6 +88,16 @@ export default {
     },
     sortData(){
       for(let item of this.data){
+        let artistPost = item.artist.indexOf("'");
+        let songPost = item.title.indexOf("'");
+        if(artistPost != -1){
+          item.artist = item.artist.slice(0, artistPost) + "'" + item.artist.slice(artistPost);
+        }
+
+        if(songPost != -1){
+          item.title = item.title.slice(0, songPost) + "'" + item.title.slice(songPost);
+        }
+
         if(item.artist < 'Cliff Richard'){
           this.data1.push(item);
         }else if(item.artist < 'Hank Williams'){

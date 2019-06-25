@@ -41,6 +41,7 @@ import music5 from '@/services/requests5';
 import music6 from '@/services/requests6';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
+//add double apostrophes for apostrophes
 export default {
   name: 'editform',
   data () {
@@ -276,6 +277,18 @@ export default {
     changeSID(){
       for(let i = 0; i < this.items.length; i++){
         let item = this.items[i];
+        console.log(item.artist);
+        console.log(item.title);
+        let artistPost = item.artist.indexOf("'");
+        let songPost = item.title.indexOf("'");
+        if(artistPost != -1){
+          item.artist = item.artist.slice(0, artistPost) + "'" + item.artist.slice(artistPost);
+        }
+
+        if(songPost != -1){
+          item.title = item.title.slice(0, songPost) + "'" + item.title.slice(songPost);
+        }
+
         let propercaps = item.artist.charAt(0).toUpperCase() + item.artist.slice(1);
         let oldItem = this.oldItems[i];
         if(propercaps < "Cliff Richard"){

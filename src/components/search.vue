@@ -104,12 +104,13 @@
   {{result.title}} - {{result.artist}}
   </h2><br>
 </div>
-<div class="placeholder1" v-if="results.length == 0 && this.searching == true">
-  <progress class="progress is-large is-primary" max="100">60%</progress>
-</div>
 <div class="placeholder2" v-if="results.length == 0 && (this.didSearch == true && this.searching == false)">
   <h1>Couldn't find any {{param}}s with the search term "{{term}}".</h1>
 </div>
+<div class="placeholder1" v-if="results.length == 0 && (this.didSearch == false && this.searching == true)">
+  <progress class="progress is-large is-primary" max="100">60%</progress>
+</div>
+
 </div>
 </div>
 </div>
@@ -140,7 +141,7 @@ export default {
       results: [],
       subResults: [],
       showingSub : false,
-      didSearch: "",
+      didSearch: false,
       loggedIn: false,
       adding: false,
       added: [],
@@ -251,6 +252,7 @@ export default {
       this.subResults = [];
     },
     startSearch(){
+      this.clearInfo();
       this.searching = true;
       this.closeModal();
       this.sParam = this.param;
@@ -259,53 +261,59 @@ export default {
       if(this.param == 'artist'){
         this.setTerm(this.term);
         this.setParam(this.param);
+
         music.searchArtist(this.term)
           .then(result => {
-            this.results = result.data;
-            music2.searchArtist(this.term)
-              .then(result2 => {
-                this.results = this.results.concat(result2.data);
-                music3.searchArtist(this.term)
-                  .then(result3 => {
-                    this.results = this.results.concat(result3.data);
-                    music4.searchArtist(this.term)
-                      .then(result4 => {
-                        this.results = this.results.concat(result4.data);
-                        music5.searchArtist(this.term)
-                          .then(result5 => {
-                            this.results = this.results.concat(result5.data);
-                            music6.searchArtist(this.term)
-                              .then(result6 => {
-                                this.results = this.results.concat(result6.data);
-                                this.results = this.quickSort(this.results).reverse();
-
-                                this.searching = false;
-                                this.didSearch = true;
-                              })
-                              .catch(e => {
-                                this.error = true;
-                              })
-                          })
-                          .catch(e => {
-                            this.error = true;
-                          })
-                      })
-                      .catch(e => {
-                        this.error = true;
-                      })
-                  })
-                  .catch(e => {
-                    this.error = true;
-                  })
-              })
-              .catch(e => {
-                this.error = true;
-              })
+            this.results = this.results.concat(result.data);
+            this.results = this.quickSort(this.results).reverse();
           })
           .catch(e => {
-            this.error = true;
+            //this.error = true;
           })
-
+        music2.searchArtist(this.term)
+              .then(result2 => {
+                this.results = this.results.concat(result2.data);
+                this.results = this.quickSort(this.results).reverse();
+              })
+              .catch(e => {
+               // this.error = true;
+              })
+        music3.searchArtist(this.term)
+         .then(result3 => {
+           this.results = this.results.concat(result3.data);
+           this.results = this.quickSort(this.results).reverse();
+         })
+         .catch(e => {
+          // this.error = true;
+         })
+        music4.searchArtist(this.term)
+           .then(result4 => {
+             this.results = this.results.concat(result4.data);
+             this.results = this.quickSort(this.results).reverse();
+           })
+          .catch(e => {
+           // this.error = true;
+          })
+        music5.searchArtist(this.term)
+         .then(result5 => {
+           console.log(result5);
+           this.results = this.results.concat(result5.data);
+           this.results = this.quickSort(this.results).reverse();
+         })
+         .catch(e => {
+          // this.error = true;
+         })
+        music6.searchArtist(this.term)
+          .then(result6 => {
+            console.log("aaaaa");
+            this.searching = false;
+            this.didSearch = true;
+            this.results = this.results.concat(result6.data);
+            this.results = this.quickSort(this.results).reverse();
+          })
+          .catch(e => {
+          //  this.error = true;
+          })
       }else{
         music.searchSongs(this.term)
           .then(result => {
@@ -395,6 +403,7 @@ export default {
       'getItems'
     ])
   },
+
   mounted: function(){
     this.editing = false;
     this.added = this.$store.getters.getItems;
