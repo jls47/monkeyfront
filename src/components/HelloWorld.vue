@@ -23,7 +23,8 @@
         Welcome to the Monkey Pub
       </h1>
       <h2 class="subtitle">
-        Check out the recently added songs or go hunting for your favorites!  Search by artist or song title.
+        Check out the recently added songs or go hunting for your favorites!  Search by artist or song title.  
+        <br><br>Hand in those slips and don't forget to tip your host!
       </h2>
     </div>
   </div>
@@ -33,6 +34,7 @@
 <div v-if="loggedIn == true">
   <adminbar></adminbar>
 </div>
+<p class="foot">Site built by <a href="http://jlukes.com">Luke Schaefer</a></p>
 </div>
 </template>
 
@@ -169,5 +171,9 @@ a {
 }
 .pubInfo{
   background-color: rgba(56, 57, 58, 0.4);
+}
+
+.foot{
+  margin-top: 100px;
 }
 </style>
