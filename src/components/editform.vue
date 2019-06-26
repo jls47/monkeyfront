@@ -277,8 +277,6 @@ export default {
     changeSID(){
       for(let i = 0; i < this.items.length; i++){
         let item = this.items[i];
-        console.log(item.artist);
-        console.log(item.title);
         let artistPost = item.artist.indexOf("'");
         let songPost = item.title.indexOf("'");
         if(artistPost != -1){
@@ -287,6 +285,10 @@ export default {
 
         if(songPost != -1){
           item.title = item.title.slice(0, songPost) + "'" + item.title.slice(songPost);
+        }
+
+        if(item.notes == null){
+          item.notes = "";
         }
 
         let propercaps = item.artist.charAt(0).toUpperCase() + item.artist.slice(1);
