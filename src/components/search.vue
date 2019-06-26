@@ -57,6 +57,7 @@
          v-if="selected == result.name && adding == true">
         <span class="mdi mdi-24px mdi-playlist-plus"></span>
       </a>
+      <progress v-if="loading == true && selected == result.name" class="progress is-small is-primary" max="100">60%</progress>
     </h1>
   
   
@@ -84,6 +85,7 @@
       </h2>
       
     </div>
+
   </transition-group><br>
 </div>
 <div v-if="results.length > 0 && sParam == 'song'" v-for="result in results" class="titleResults">
@@ -148,7 +150,8 @@ export default {
       editingInv: false,
       editing: false,
       searching: false,
-      error: false
+      error: false,
+      loading: false
     }
   },
   components: {
@@ -177,6 +180,7 @@ export default {
       }
     },
     getArtistSongs(name, SID){
+      this.loading = true;
       //Target by SID
       if(this.selected != name){
         this.clearSubResults();
@@ -185,49 +189,61 @@ export default {
           music.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
+              this.loading = false;
             })
             .catch(e => {
               this.error = true;
+              this.loading = false;
             })
         }else if(SID == 2){
           music2.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
+              this.loading = false;
             })
             .catch(e => {
               this.error = true;
+              this.loading = false;
             })
         }else if(SID == 3){
           music3.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
+              this.loading = false;
             })
             .catch(e => {
               this.error = true;
+              this.loading = false;
             })
         }else if(SID == 4){
           music4.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
+              this.loading = false;
             })
             .catch(e => {
               this.error = true;
+              this.loading = false;
             })
         }else if(SID == 5){
           music5.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
+              this.loading = false;
             })
             .catch(e => {
               this.error = true;
+              this.loading = false;
             })
         }else{
           music6.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
+              this.loading = false;
             })
             .catch(e => {
               this.error = true;
+              this.loading = false;
             })
         }
         
