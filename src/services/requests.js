@@ -73,6 +73,17 @@ class music{
 			})
 	}
 
+	static getArtistsByLetter(letter){
+		return axios.get(`https://monkey-back.herokuapp.com/api/artists/l/`+letter)
+			,then(response => {
+				this.artists = response;
+				return this.artists.data;
+			})
+			.catch(e => {
+				return e;
+			})
+	}
+
 	static deleteSongs(data){
 		//return axios.delete('http://localhost:3000/api/songs/' + data)
 		return axios.delete(`https://monkey-back.herokuapp.com/api/songs/` + data)

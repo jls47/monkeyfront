@@ -73,9 +73,9 @@ class music2{
 			})
 	}
 
-	static searchArtist2(term){
-		return axios.get(`https://monkeyback2.herokuapp.com/api/artists/s/`+term)
-			.then(response => {
+	static getArtistsByLetter(letter){
+		return axios.get(`https://monkey-back.herokuapp.com/api/artists/l/`+letter)
+			,then(response => {
 				this.artists = response;
 				return this.artists.data;
 			})

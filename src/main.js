@@ -110,6 +110,9 @@ const store = new Vuex.Store({
 		},
 		closeHint(context){
 			context.commit('SET_HINT_CLOSED')
+		},
+		beginBrowse(context){
+			context.commit('SET_USE_CONTEXT', 'browse')
 		}
 	},
 	getters: {

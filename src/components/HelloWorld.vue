@@ -5,6 +5,9 @@
 <div v-if="searching == 'search'">
   <search></search>
 </div>
+<div v-else-if="searching == 'browse'">
+  <browse></browse>
+</div>
 <div v-else>
   <div class="columns searchHint">
     <div class="column is-three-fifths">
@@ -44,6 +47,7 @@ import navbar from '@/components/navbar';
 import frontpage from '@/components/frontpage';
 import adminbar from '@/components/adminbar';
 import inventoryModal from '@/components/inventoryModal';
+import browse from '@/components/browse';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -63,7 +67,8 @@ export default {
     navbar: navbar,
     frontpage: frontpage,
     adminbar: adminbar,
-    inventoryModal: inventoryModal
+    inventoryModal: inventoryModal,
+    browse: browse
   },
   methods: {
     closeNotifier(){

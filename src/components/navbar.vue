@@ -21,6 +21,12 @@
           </a>
           
         </div>
+      
+      </div>
+      <div class="navbar-item">
+        <a class="button is-primary" v-on:click="startBrowse">
+          <strong>Browse <span class="mdi mdi-12px mdi-format-list-bulleted"></span></strong>
+        </a>
       </div>
       <div class="navbar-item"
            v-if="logged == false">
@@ -75,6 +81,10 @@ export default {
       this.openSModal();
       this.beginSearch();
     },
+    startBrowse: function(){
+      this.burgerToggle();
+      this.beginBrowse();
+    },
     logoutOnClick: function(){
       localStorage.setItem("loginDetails", "");
       localStorage.setItem("loginStatus", 'false');
@@ -106,7 +116,8 @@ export default {
       'login',
       'frontPage',
       'stopSelect',
-      'deleteAll'
+      'deleteAll',
+      'beginBrowse'
     ])
   },
   components: {
