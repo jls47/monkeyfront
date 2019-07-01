@@ -74,10 +74,21 @@ class music3{
 	}
 
 	static getArtistsByLetter(letter){
-		return axios.get(`https://monkey-back.herokuapp.com/api/artists/l/`+letter)
-			,then(response => {
+		return axios.get(`https://monkeyback3.herokuapp.com/api/artists/l/`+letter)
+			.then(response => {
 				this.artists = response;
 				return this.artists.data;
+			})
+			.catch(e => {
+				return e;
+			})
+	}
+
+	static getSongsByLetter(letter){
+		return axios.get(`https://monkeyback3.herokuapp.com/api/songs/l/`+letter)
+			.then(response => {
+				this.songs = response;
+				return this.songs.data;
 			})
 			.catch(e => {
 				return e;

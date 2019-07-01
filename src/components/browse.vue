@@ -1,5 +1,4 @@
 <template>
-<div><div>
 <div>
 <div class="notification is-danger" v-if="error == true">
   <button class="delete" v-on:click="error = false"></button>
@@ -78,8 +77,6 @@
   <progress class="progress is-large is-primary" max="100">60%</progress>
 </div>
 
-</div>
-</div>
 </div>
 </div>
 </template>
@@ -244,7 +241,7 @@ export default {
         this.setTerm(this.term);
         this.setParam(this.param);
 
-        music.searchArtist(this.term)
+        music.getArtistsByLetter(this.term)
           .then(result => {
             this.results = this.results.concat(result.data);
             if(this.results.length > 0){
@@ -256,7 +253,7 @@ export default {
             console.log(1);
             console.log(e);
           })
-        music2.searchArtist(this.term)
+        music2.getArtistsByLetter(this.term)
           .then(result2 => {
             this.results = this.results.concat(result2.data);
             if(this.results.length > 0){
@@ -268,7 +265,7 @@ export default {
             console.log(2);
             console.log(e);
            })
-        music3.searchArtist(this.term)
+        music3.getArtistsByLetter(this.term)
          .then(result3 => {
            this.results = this.results.concat(result3.data);
            if(this.results.length > 0){
@@ -280,7 +277,7 @@ export default {
             console.log(3);
             console.log(e);
          })
-        music4.searchArtist(this.term)
+        music4.getArtistsByLetter(this.term)
            .then(result4 => {
              this.results = this.results.concat(result4.data);
              if(this.results.length > 0){
@@ -292,7 +289,7 @@ export default {
             console.log(4);
             console.log(e);
           })
-        music5.searchArtist(this.term)
+        music5.getArtistsByLetter(this.term)
          .then(result5 => {
            this.results = this.results.concat(result5.data);
            if(this.results.length > 0){
@@ -304,7 +301,7 @@ export default {
             console.log(5);
             console.log(e);
          })
-        music6.searchArtist(this.term)
+        music6.getArtistsByLetter(this.term)
           .then(result6 => {
             this.searching = false;
             this.didSearch = true;
@@ -319,22 +316,22 @@ export default {
             console.log(e);
           })
       }else{
-        music.searchSongs(this.term)
+        music.getSongsByLetter(this.term)
           .then(result => {
             this.results = result.data;
-            music2.searchSongs(this.term)
+            music2.getSongsByLetter(this.term)
               .then(result2 => {
                 this.results = this.results.concat(result2.data);
-                music3.searchSongs(this.term)
+                music3.getSongsByLetter(this.term)
                   .then(result3 => {
                     this.results = this.results.concat(result3.data);
-                    music4.searchSongs(this.term)
+                    music4.getSongsByLetter(this.term)
                       .then(result4 => {
                         this.results = this.results.concat(result4.data);
-                        music5.searchSongs(this.term)
+                        music5.getSongsByLetter(this.term)
                           .then(result5 => {
                             this.results = this.results.concat(result5.data);
-                            music6.searchSongs(this.term)
+                            music6.getSongsByLetter(this.term)
                               .then(result6 => {
                                 this.results = this.results.concat(result6.data);
                                 this.searching = false;
