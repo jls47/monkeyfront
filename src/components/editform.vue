@@ -64,8 +64,9 @@ export default {
   },
   methods: {
   	sendEdits(){
+      //check if any forms are populated
       if(this.edits[0].length > 0){
-        music.editSongs(this.edits[0])
+        music.editSongs(this.edits)
           .then(res => {
             if(res.data.status == 'success'){
               this.successes += 1;
@@ -74,66 +75,6 @@ export default {
           .catch(e => {
             this.editError = true;
             this.mistakes = this.mistakes.concat(this.edits[0]);
-          })
-      }
-      if(this.edits[1].length > 0){
-        music2.editSongs(this.edits[1])
-          .then(res => {
-            if(res.data.status == 'success'){
-              this.successes += 1;
-            }
-          })
-          .catch(e => {
-            this.editError = true;
-            this.mistakes = this.mistakes.concat(this.edits[1]);
-          })
-      }
-      if(this.edits[2].length > 0){
-        music3.editSongs(this.edits[2])
-          .then(res => {
-            if(res.data.status == 'success'){
-              this.successes += 1;
-            }
-          })
-          .catch(e => {
-            this.editError = true;
-            this.mistakes = this.mistakes.concat(this.edits[2]);
-          })
-      }
-      if(this.edits[3].length > 0){
-        music4.editSongs(this.edits[3])
-          .then(res => {
-            if(res.data.status == 'success'){
-              this.successes += 1;
-            }
-          })
-          .catch(e => {
-            this.editError = true;
-            this.mistakes = this.mistakes.concat(this.edits[3]);
-          })
-      }
-      if(this.edits[4].length > 0){
-        music5.editSongs(this.edits[4])
-          .then(res => {
-            if(res.data.status == 'success'){
-              this.successes += 1;
-            }
-          })
-          .catch(e => {
-            this.editError = true;
-            this.mistakes = this.mistakes.concat(this.edits[4]);
-          })
-      }
-      if(this.edits[5].length > 0){
-        music6.editSongs(this.edits[5])
-          .then(res => {
-            if(res.data.status == 'success'){
-              this.successes += 1;
-            }
-          })
-          .catch(e => {
-            this.editError = true;
-            this.mistakes = this.mistakes.concat(this.edits[5]);
           })
       }
   	},
@@ -149,122 +90,13 @@ export default {
             this.addMistakes = this.addMistakes.concat(this.adds[0]);
           })
       }
-      if(this.adds[1].length > 0){
-        music2.createSongs(JSON.stringify(this.adds[1]))
-          .then(res => {
-            this.successes += 1;
-            this.adds[1] = [];
-          })
-          .catch(e => {
-            this.addError = true;
-            this.addMistakes = this.addMistakes.concat(this.adds[1]);
-          })
-      }
-      if(this.adds[2].length > 0){
-        music3.createSongs(JSON.stringify(this.adds[3]))
-          .then(res => {
-            this.successes += 1;
-            this.adds[2] = [];
-          })
-          .catch(e => {
-            this.addError = true;
-            this.addMistakes = this.addMistakes.concat(this.adds[2]);
-          })
-      }
-      if(this.adds[3].length > 0){
-        music4.createSongs(JSON.stringify(this.adds[4]))
-          .then(res => {
-            this.successes += 1;
-            this.adds[3] = [];
-          })
-          .catch(e => {
-            this.addError = true;
-            this.addMistakes = this.addMistakes.concat(this.adds[3]);
-          })
-      }
-      if(this.adds[4].length > 0){
-        music5.createSongs(JSON.stringify(this.adds[5]))
-          .then(res => {
-            this.successes += 1;
-            this.adds[4] = [];
-          })
-          .catch(e => {
-            this.addError = true;
-            this.addMistakes = this.addMistakes.concat(this.adds[4]);
-          })
-      }
-      if(this.adds[5].length > 0){
-        music6.createSongs(JSON.stringify(this.adds[5]))
-          .then(res => {
-            this.successes += 1;
-            this.adds[5] = [];
-          })
-          .catch(e => {
-            this.addError = true;
-            this.addMistakes = this.addMistakes.concat(this.adds[5]);
-          })
-      }
     },
+    //Need to make this match the deletion form
     sendDeletions(){
       if(this.deletes[0].length > 0){
         music.deleteSongs(this.deletes[0].substring(0, this.deletes[0].length - 1))
           .then(res => {
             this.deletes[0] = "";
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.deleteError = true;
-          })
-      }
-      if(this.deletes[1].length > 0){
-        music2.deleteSongs(this.deletes[1].substring(0, this.deletes[1].length - 1))
-          .then(res => {
-            this.deletes[1] = "";
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.deleteError = true;
-          })
-      }
-      if(this.deletes[2].length > 0){
-        music3.deleteSongs(this.deletes[2].substring(0, this.deletes[2].length - 1))
-          .then(res => {
-            this.deletes[2] = "";
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.deleteError = true;
-          })
-      }
-      if(this.deletes[3].length > 0){
-        music4.deleteSongs(this.deletes[3].substring(0, this.deletes[3].length - 1))
-          .then(res => {
-            this.deletes[3] = "";
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.deleteError = true;
-          })
-      }
-      if(this.deletes[4].length > 0){
-        music5.deleteSongs(this.deletes[4].substring(0, this.deletes[4].length - 1))
-          .then(res => {
-            this.deletes[4] = "";
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.deleteError = true;
-          })
-      }
-      if(this.deletes[5].length > 0){
-        music6.deleteSongs(this.deletes[5].substring(0, this.deletes[5].length - 1))
-          .then(res => {
-            this.deletes[5] = "";
             console.log(res);
             this.successes += 1;
           })
@@ -312,21 +144,13 @@ export default {
     },
     sortItem(n){//Set the bloody adds and deletions to arrays!
       if(this.items[n].sid != this.oldItems[n].sid){
-        if(this.adds[this.items[n].sid - 1].length == 0){
-          this.itemsToSend += 1;
-        }
         this.adds[this.items[n].sid - 1].push(this.items[n]);
-
-        if(!this.deletes[this.oldItems[n].sid - 1]){
-          this.itemsToSend += 1;
-        }
         this.deletes[this.oldItems[n].sid - 1] += this.oldItems[n].id + ",";
 
       }else{
-        if(this.edits[this.items[n].sid - 1].length == 0){
-          this.itemsToSend += 1;
-        }
+
         this.edits[this.items[n].sid - 1].push(this.items[n]);
+        console.log(this.edits);
       }
     },
     startProcess(){

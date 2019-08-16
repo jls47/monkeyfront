@@ -95,9 +95,9 @@ class music{
 			})
 	}
 
-	static deleteSongs(data){
+	static deleteSongs(data1){
 		//return axios.delete('http://localhost:3000/api/songs/' + data)
-		return axios.delete(`https://monkey-back.herokuapp.com/api/songs/` + data)
+		return axios.delete(`https://monkey-back.herokuapp.com/api/songs/`, {data: data1})
 			.then(response => {
 				return response;
 			})

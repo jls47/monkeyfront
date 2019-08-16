@@ -50,79 +50,28 @@ export default {
       diffServers: 0,
       successes: 0,
       error: false,
-      id1: "",
-      id2: "",
-      id3: "",
-      id4: "",
-      id5: "",
-      id6: "",
+      data: {
+        id1: "",
+        id2: "",
+        id3: "",
+        id4: "",
+        id5: "",
+        id6: ""
+      },
       sending: false
     }
   },
   methods: {
   	sendDeletions(){
       this.sending = true;
-      if(this.id1.length > 0){
-        music.deleteSongs(this.id1.substring(0, this.id1.length - 1))
+      if(this.data.id1.length > 0 || this.data.id2.length > 0 || this.data.id3.length > 0 || this.data.id4.length > 0 || this.data.id5.length > 0 || this.data.id6.length > 0){
+        music.deleteSongs(this.data)
           .then(res => {
-            this.id1 = "";
+            console.log('success!');
             console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-          })
-      }
-      if(this.id2.length > 0){
-        music2.deleteSongs(this.id2.substring(0, this.id2.length - 1))
-          .then(res => {
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-          })
-      }
-      if(this.id3.length > 0){
-        music3.deleteSongs(this.id3.substring(0, this.id3.length - 1))
-          .then(res => {
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-          })
-      }
-      if(this.id4.length > 0){
-        music4.deleteSongs(this.id4.substring(0, this.id4.length - 1))
-          .then(res => {
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-          })
-      }
-      if(this.id5.length > 0){
-        music5.deleteSongs(this.id5.substring(0, this.id5.length - 1))
-          .then(res => {
-            console.log(res);
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-          })
-      }
-      if(this.id6.length > 0){
-        music6.deleteSongs(this.id6.substring(0, this.id6.length - 1))
-          .then(res => {
-            console.log(res);
-            this.successes += 1;
+            this.deleteAll();
+            this.frontPage();
+            this.$router.push("./");
           })
           .catch(e => {
             this.sending = false;
@@ -141,27 +90,19 @@ export default {
 
     for(let song of this.items){
       if(song.sid == 1){
-        this.id1 += song.id + ",";
+        this.data.id1 += song.id + ",";
       }else if(song.sid == 2){
-        this.id2 += song.id + ",";
+        this.data.id2 += song.id + ",";
       }else if(song.sid == 3){
-        this.id3 += song.id + ",";
+        this.data.id3 += song.id + ",";
       }else if(song.sid == 4){
-        this.id4 += song.id + ",";
+        this.data.id4 += song.id + ",";
       }else if(song.sid == 5){
-        this.id5 += song.id + ",";
+        this.data.id5 += song.id + ",";
       }else{
-        this.id6 += song.id + ",";
+        this.data.id6 += song.id + ",";
       }
     }
-
-    for(let server of [this.id1, this.id2, this.id3, this.id4, this.id5, this.id6]){
-      console.log(server);
-      if(server.length > 0){
-        this.diffServers += 1;
-      }
-    }
-  	
   },
   //get this stuff working
   watch: {

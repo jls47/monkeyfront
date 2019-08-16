@@ -67,12 +67,7 @@ export default {
     return {
       data: [{artist: "",
       		 title: "", notes: null, new: true}],
-      data1: [],
-      data2: [],
-      data3: [],
-      data4: [],
-      data5: [],
-      data6: [],
+      data1: [[], [], [], [], [], []],
       error: false,
       successes: 0,
       mistakes: [],
@@ -102,24 +97,18 @@ export default {
           item.title = item.title.slice(0, songPost) + "'" + item.title.slice(songPost);
         }
 
-        if(item.artist < 'Cliff Richard'){
-          this.data1.push(item);
-        }else if(item.artist < 'Hank Williams'){
-          this.data2.push(item);
-        }else if(item.artist < 'Leonard Cohen'){
-          this.data3.push(item);
-        }else if(item.artist < 'Peter Gabriel'){
-          this.data4.push(item);
-        }else if(item.artist < 'Tara Lyn Hart'){
-          this.data5.push(item);
+        if(item.artist.toLowerCase() < 'cliff richard'){
+          this.data1[0].push(item);
+        }else if(item.artist.toLowerCase() < 'hank williams'){
+          this.data1[1].push(item);
+        }else if(item.artist.toLowerCase() < 'leonard cohen'){
+          this.data1[2].push(item);
+        }else if(item.artist.toLowerCase() < 'peter gabriel'){
+          this.data1[3].push(item);
+        }else if(item.artist.toLowerCase() < 'tara lyn hart'){
+          this.data1[4].push(item);
         }else{
-          this.data6.push(item);
-        }
-      }
-      let totaldata = [this.data1, this.data2, this.data3, this.data4, this.data5, this.data6];
-      for(let item of totaldata){
-        if(item.length > 0){
-          this.arrays += 1;
+          this.data1[5].push(item);
         }
       }
     },
@@ -133,62 +122,6 @@ export default {
             this.sending = false;
             this.error = true;
             this.mistakes = this.mistakes.concat(this.data1);
-          })
-      }
-
-      if(this.data2.length > 0){
-        music2.createSongs(JSON.stringify(this.data2))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-            this.mistakes = this.mistakes.concat(this.data2);
-          })
-      }
-      if(this.data3.length > 0){
-        music3.createSongs(JSON.stringify(this.data3))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-            this.mistakes = this.mistakes.concat(this.data3);
-          })
-      }
-      if(this.data4.length > 0){
-        music4.createSongs(JSON.stringify(this.data4))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-            this.mistakes = this.mistakes.concat(this.data4);
-          })
-      }
-      if(this.data5.length > 0){
-        music5.createSongs(JSON.stringify(this.data5))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-            this.mistakes = this.mistakes.concat(this.data5);
-          })
-      }
-      if(this.data6.length > 0){
-        music6.createSongs(JSON.stringify(this.data6))
-          .then(res => {
-            this.successes += 1;
-          })
-          .catch(e => {
-            this.sending = false;
-            this.error = true;
-            this.mistakes = this.mistakes.concat(this.data6);
           })
       }
 
