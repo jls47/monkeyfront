@@ -3,7 +3,7 @@ import axios from 'axios'
 class music{
 	static createSongs(form){
 		//return axios.post(`http://localhost:3000/api/songs/`, {data: form})
-		return axios.post(`https://monkey-back.herokuapp.com/api/songs/`,{data: form})
+		return axios.post(`https://monkeyback.herokuapp.com/api/songs/`,{data: form})
 		  .then(response => {
 		  	return response;
 		  })
@@ -14,7 +14,7 @@ class music{
 
 	static getRecentSongs(){
 		//return axios.get(`http://localhost:3000/api/songs/r/`)
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/r/`)
+		return axios.get(`https://monkeyback.herokuapp.com/api/songs/r/`)
 			.then(response => {
 				this.songs = response;
 				return this.songs.data;
@@ -26,7 +26,7 @@ class music{
 
 	static getSongsByArtist(artist){
 		//return axios.get(`http://localhost:3000/api/songs/a/`+artist)
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/a/`+artist)
+		return axios.get(`https://monkeyback.herokuapp.com/api/songs/a/`+artist)
 			.then(response => {
 				this.songs = response;
 				return this.songs.data;
@@ -39,7 +39,7 @@ class music{
 
 	static searchSongs(term){
 		//return axios.get('http://localhost:3000/api/songs/s/'+term)
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/s/`+term)
+		return axios.get(`https://monkeyback.herokuapp.com/api/songs/s/`+term)
 			.then(response => {
 				this.songs = response;
 				return this.songs.data;
@@ -51,7 +51,7 @@ class music{
 
 	static editSongs(form){
 		//return axios.put(`http://localhost:3000/api/songs/`, form)
-		return axios.put(`https://monkey-back.herokuapp.com/api/songs/`, form)
+		return axios.put(`https://monkeyback.herokuapp.com/api/songs/`, form)
 			.then(response => {
 				this.res = response;
 				return this.res;
@@ -63,7 +63,7 @@ class music{
 
 	static searchArtist(term){
 		//return axios.get('http://localhost:3000/api/artists/s/'+term)
-		return axios.get(`https://monkey-back.herokuapp.com/api/artists/s/`+term)
+		return axios.get(`https://monkeyback.herokuapp.com/api/artists/s/`+term)
 			.then(response => {
 				this.artists = response;
 				return this.artists.data;
@@ -74,7 +74,7 @@ class music{
 	}
 
 	static getArtistsByLetter(letter){
-		return axios.get(`https://monkey-back.herokuapp.com/api/artists/l/`+letter)
+		return axios.get(`https://monkeyback.herokuapp.com/api/artists/l/`+letter)
 			.then(response => {
 				this.artists = response;
 				return this.artists.data;
@@ -85,7 +85,7 @@ class music{
 	}
 
 	static getSongsByLetter(letter){
-		return axios.get(`https://monkey-back.herokuapp.com/api/songs/l/`+letter)
+		return axios.get(`https://monkeyback.herokuapp.com/api/songs/l/`+letter)
 			.then(response => {
 				this.songs = response;
 				return this.songs.data;
@@ -97,7 +97,7 @@ class music{
 
 	static deleteSongs(data1){
 		//return axios.delete('http://localhost:3000/api/songs/' + data)
-		return axios.delete(`https://monkey-back.herokuapp.com/api/songs/`, {data: data1})
+		return axios.delete(`https://monkeyback.herokuapp.com/api/songs/`, {data: data1})
 			.then(response => {
 				return response;
 			})
@@ -108,7 +108,7 @@ class music{
 
 	static adminLog(data){
 		//return axios.get('http://localhost:3000/api/user/', {
-		return axios.get(`https://monkey-back.herokuapp.com/api/user`, {
+		return axios.get(`https://monkeyback.herokuapp.com/api/user`, {
 			params: {
 				name: data.username,
 				password: data.password
