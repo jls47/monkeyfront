@@ -46,7 +46,7 @@
   
     <h1>
     <a class="artistLink" 
-      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name, result.sid) : clearSubResults()">
+      v-on:click="subResults.length == 0 || selected == subResults[0].artist ? getArtistSongs(result.name) : clearSubResults()">
       {{result.name}} 
       <span v-if="subResults.length > 0 && subResults[0].artist == result.name" 
             class="mdi mdi-24px mdi-arrow-down-drop-circle"></span>
@@ -122,11 +122,6 @@
 <script>
 import inventoryModal from '@/components/inventoryModal';
 import music from '@/services/requests';
-import music2 from '@/services/requests2';
-import music3 from '@/services/requests3';
-import music4 from '@/services/requests4';
-import music5 from '@/services/requests5';
-import music6 from '@/services/requests6';
 import store from '../main.js';
 import { mapActions, mapState } from 'vuex';
 export default {
@@ -179,13 +174,12 @@ export default {
         
       }
     },
-    getArtistSongs(name, SID){
+    getArtistSongs(name){
       this.loading = true;
       //Target by SID
       if(this.selected != name){
         this.clearSubResults();
         this.selected = name;
-        if(SID == 1){
           music.getSongsByArtist(name)
             .then(result => {
               this.subResults = result.data;
@@ -195,57 +189,6 @@ export default {
               this.error = true;
               this.loading = false;
             })
-        }else if(SID == 2){
-          music2.getSongsByArtist(name)
-            .then(result => {
-              this.subResults = result.data;
-              this.loading = false;
-            })
-            .catch(e => {
-              this.error = true;
-              this.loading = false;
-            })
-        }else if(SID == 3){
-          music3.getSongsByArtist(name)
-            .then(result => {
-              this.subResults = result.data;
-              this.loading = false;
-            })
-            .catch(e => {
-              this.error = true;
-              this.loading = false;
-            })
-        }else if(SID == 4){
-          music4.getSongsByArtist(name)
-            .then(result => {
-              this.subResults = result.data;
-              this.loading = false;
-            })
-            .catch(e => {
-              this.error = true;
-              this.loading = false;
-            })
-        }else if(SID == 5){
-          music5.getSongsByArtist(name)
-            .then(result => {
-              this.subResults = result.data;
-              this.loading = false;
-            })
-            .catch(e => {
-              this.error = true;
-              this.loading = false;
-            })
-        }else{
-          music6.getSongsByArtist(name)
-            .then(result => {
-              this.subResults = result.data;
-              this.loading = false;
-            })
-            .catch(e => {
-              this.error = true;
-              this.loading = false;
-            })
-        }
         
       }else{
         this.clearSubResults();
@@ -291,109 +234,11 @@ export default {
             console.log(1);
             console.log(e);
           })
-        music2.searchArtist(this.term)
-          .then(result2 => {
-            this.results = this.results.concat(result2.data);
-            if(this.results.length > 0){
-              this.results = this.quickSort(this.results).reverse();
-            }
-          })
-          .catch(e => {
-            this.error = true;
-            console.log(2);
-            console.log(e);
-           })
-        music3.searchArtist(this.term)
-         .then(result3 => {
-           this.results = this.results.concat(result3.data);
-           if(this.results.length > 0){
-            this.results = this.quickSort(this.results).reverse();
-           }
-         })
-         .catch(e => {
-           this.error = true;
-            console.log(3);
-            console.log(e);
-         })
-        music4.searchArtist(this.term)
-           .then(result4 => {
-             this.results = this.results.concat(result4.data);
-             if(this.results.length > 0){
-              this.results = this.quickSort(this.results).reverse();
-             }
-           })
-          .catch(e => {
-            this.error = true;
-            console.log(4);
-            console.log(e);
-          })
-        music5.searchArtist(this.term)
-         .then(result5 => {
-           this.results = this.results.concat(result5.data);
-           if(this.results.length > 0){
-            this.results = this.quickSort(this.results).reverse();
-           }
-         })
-         .catch(e => {
-            this.error = true;
-            console.log(5);
-            console.log(e);
-         })
-        music6.searchArtist(this.term)
-          .then(result6 => {
-            this.searching = false;
-            this.didSearch = true;
-            this.results = this.results.concat(result6.data);
-            if(this.results.length > 0){
-              this.results = this.quickSort(this.results).reverse();
-            }
-          })
-          .catch(e => {
-            this.error = true;
-            console.log(6);
-            console.log(e);
-          })
+        
       }else{
         music.searchSongs(this.term)
           .then(result => {
             this.results = result.data;
-            music2.searchSongs(this.term)
-              .then(result2 => {
-                this.results = this.results.concat(result2.data);
-                music3.searchSongs(this.term)
-                  .then(result3 => {
-                    this.results = this.results.concat(result3.data);
-                    music4.searchSongs(this.term)
-                      .then(result4 => {
-                        this.results = this.results.concat(result4.data);
-                        music5.searchSongs(this.term)
-                          .then(result5 => {
-                            this.results = this.results.concat(result5.data);
-                            music6.searchSongs(this.term)
-                              .then(result6 => {
-                                this.results = this.results.concat(result6.data);
-                                this.searching = false;
-                                this.didSearch = true;
-                              })
-                              .catch(e => {
-                                this.error = true;
-                              })
-                          })
-                          .catch(e => {
-                            this.error = true;
-                          })
-                      })
-                      .catch(e => {
-                        this.error = true;
-                      })
-                  })
-                  .catch(e => {
-                    this.error = true;
-                  })
-              })
-              .catch(e => {
-                this.error = true;
-              })
           })
           .catch(e => {
             this.error = true;
